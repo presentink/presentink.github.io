@@ -121,6 +121,122 @@
             padding: 5rem 2rem;
         }
 
+        /* ============ FEATURED GALLERY ============ */
+        .featured-section {
+            background: var(--bg);
+            padding: 6rem 0;
+        }
+
+        .featured-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .featured-title {
+            font-family: 'Eczar', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .featured-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gallery-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .gallery-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f5f5f5;
+            aspect-ratio: 16/9;
+        }
+
+        .gallery-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .gallery-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-prev {
+            left: 20px;
+        }
+
+        .gallery-next {
+            right: 20px;
+        }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        .gallery-dot:hover {
+            background: var(--accent);
+        }
+
         /* ============ SECTION (each chapter) ============ */
         .section {
             display: grid;
@@ -502,6 +618,51 @@
             .overlay-prev { left: 0.5rem; }
             .overlay-next { right: 0.5rem; }
 
+            /* Featured Gallery Mobile */
+            .featured-section {
+                padding: 3rem 0;
+            }
+
+            .featured-title {
+                font-size: 1.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .featured-description {
+                font-size: 0.9rem;
+                padding: 0 0.75rem;
+                line-height: 1.6;
+            }
+
+            .gallery-wrapper {
+                margin: 2rem 0.75rem 1rem;
+                aspect-ratio: 5/4;
+            }
+
+            .gallery-nav {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .gallery-prev {
+                left: 8px;
+            }
+
+            .gallery-next {
+                right: 8px;
+            }
+
+            .gallery-dots {
+                gap: 6px;
+                margin-top: 1rem;
+            }
+
+            .gallery-dot {
+                width: 8px;
+                height: 8px;
+            }
+
             .overlay-close {
                 top: 1rem;
                 right: 1rem;
@@ -598,10 +759,53 @@
         <h1 class="hero-name">Present Ink</h1>
         <p class="hero-author">Yufan Wang</p>
         <p class="hero-tagline">Calligraphy · Collage · Denmark</p>
-        <p class="hero-scroll" onclick="document.getElementById('chapter1').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</p>
+        <p class="hero-scroll" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</p>
     </div>
 </div>
 
+
+<!-- ===== FEATURED GALLERY ===== -->
+<section class="featured-section" id="featured-gallery">
+    <div class="content-wrapper">
+        <div class="featured-intro">
+            <h2 class="featured-title">Featured Artwork</h2>
+            <p class="featured-description">A selection of works that represent my journey from traditional calligraphy to contemporary collage, exploring the intersection of Eastern and Western artistic traditions.</p>
+        </div>
+        
+        <div class="gallery-container">
+            <div class="gallery-wrapper">
+                <div class="gallery-slides">
+                    <div class="gallery-slide active">
+                        <img src="c1/morning_sky.jpg" alt="Morning Sky Calligraphy" />
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="c1/cloud_formation.jpg" alt="Cloud Formation Study" />
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="c1/brush_texture.jpg" alt="Brush Texture Exploration" />
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="c2/1_book.jpg" alt="Book and Study Materials" />
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="c2/2_1_inoue_writing.jpg" alt="Inoue Writing Practice" />
+                    </div>
+                </div>
+                
+                <button class="gallery-nav gallery-prev" aria-label="Previous image">‹</button>
+                <button class="gallery-nav gallery-next" aria-label="Next image">›</button>
+            </div>
+            
+            <div class="gallery-dots">
+                <button class="gallery-dot active" aria-label="Image 1"></button>
+                <button class="gallery-dot" aria-label="Image 2"></button>
+                <button class="gallery-dot" aria-label="Image 3"></button>
+                <button class="gallery-dot" aria-label="Image 4"></button>
+                <button class="gallery-dot" aria-label="Image 5"></button>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- ===== MAIN CONTENT ===== -->
 <div class="content-wrapper">
@@ -1788,6 +1992,116 @@
         document.addEventListener('DOMContentLoaded', initializeHighlightLinking);
     } else {
         initializeHighlightLinking();
+    }
+
+    // ============ FEATURED GALLERY ============
+    let galleryCurrentIndex = 0;
+    let galleryAutoRotateTimer;
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const galleryDots = document.querySelectorAll('.gallery-dot');
+    const galleryPrevBtn = document.querySelector('.gallery-prev');
+    const galleryNextBtn = document.querySelector('.gallery-next');
+
+    function showGallerySlide(index) {
+        // Remove active class from all slides and dots
+        gallerySlides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        galleryDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        galleryCurrentIndex = index;
+    }
+
+    function nextGallerySlide() {
+        const nextIndex = (galleryCurrentIndex + 1) % gallerySlides.length;
+        showGallerySlide(nextIndex);
+    }
+
+    function prevGallerySlide() {
+        const prevIndex = (galleryCurrentIndex - 1 + gallerySlides.length) % gallerySlides.length;
+        showGallerySlide(prevIndex);
+    }
+
+    function startGalleryAutoRotate() {
+        clearInterval(galleryAutoRotateTimer);
+        galleryAutoRotateTimer = setInterval(nextGallerySlide, 4000); // 4 seconds
+    }
+
+    function stopGalleryAutoRotate() {
+        clearInterval(galleryAutoRotateTimer);
+    }
+
+    // Initialize gallery
+    if (gallerySlides.length > 0) {
+        // Show first slide
+        showGallerySlide(0);
+        
+        // Start auto-rotation
+        startGalleryAutoRotate();
+        
+        // Navigation button events
+        if (galleryPrevBtn) {
+            galleryPrevBtn.addEventListener('click', () => {
+                prevGallerySlide();
+                stopGalleryAutoRotate();
+                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+            });
+        }
+        
+        if (galleryNextBtn) {
+            galleryNextBtn.addEventListener('click', () => {
+                nextGallerySlide();
+                stopGalleryAutoRotate();
+                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+            });
+        }
+        
+        // Dot navigation events
+        galleryDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showGallerySlide(index);
+                stopGalleryAutoRotate();
+                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+            });
+        });
+        
+        // Pause auto-rotation on hover
+        const galleryWrapper = document.querySelector('.gallery-wrapper');
+        if (galleryWrapper) {
+            galleryWrapper.addEventListener('mouseenter', stopGalleryAutoRotate);
+            galleryWrapper.addEventListener('mouseleave', startGalleryAutoRotate);
+        }
+
+        // Add click-to-view functionality for gallery images
+        gallerySlides.forEach((slide, index) => {
+            const img = slide.querySelector('img');
+            if (img) {
+                slide.style.cursor = 'pointer';
+                slide.addEventListener('click', () => {
+                    // Create a temporary thumbnail element for overlay functionality
+                    const tempThumb = document.createElement('div');
+                    tempThumb.className = 'thumb';
+                    tempThumb.dataset.caption = img.alt;
+                    const tempImg = img.cloneNode(true);
+                    tempThumb.appendChild(tempImg);
+                    
+                    // Temporarily add to DOM for overlay function
+                    document.body.appendChild(tempThumb);
+                    openOverlay(tempThumb);
+                    
+                    // Clean up after overlay closes
+                    const originalCloseOverlay = closeOverlay;
+                    window.closeOverlay = function() {
+                        originalCloseOverlay();
+                        if (document.body.contains(tempThumb)) {
+                            document.body.removeChild(tempThumb);
+                        }
+                        window.closeOverlay = originalCloseOverlay;
+                    };
+                });
+            }
+        });
     }
 </script>
 
