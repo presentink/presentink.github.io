@@ -157,23 +157,30 @@
             position: relative;
             overflow: hidden;
             border-radius: 8px;
-            background: #f5f5f5;
+            background: rgba(10, 10, 10, 0.92);
             aspect-ratio: 16/9;
         }
 
         .gallery-slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+            position: relative;
+            width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         .gallery-slide {
-            flex: 0 0 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            position: relative;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
+        }
+
+        .gallery-slide.active {
+            display: flex;
         }
 
         .gallery-slide img {
@@ -186,21 +193,24 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #444;
             border-radius: 50%;
-            font-size: 1.2rem;
+            background: none;
+            color: #999;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
             z-index: 10;
         }
 
         .gallery-nav:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: translateY(-50%) scale(1.1);
+            border-color: #fff;
+            color: #fff;
         }
 
         .gallery-prev {
@@ -774,34 +784,16 @@
         
         <div class="gallery-container">
             <div class="gallery-wrapper">
-                <div class="gallery-slides">
-                    <div class="gallery-slide active">
-                        <img src="c1/morning_sky.jpg" alt="Morning Sky Calligraphy" />
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="c1/cloud_formation.jpg" alt="Cloud Formation Study" />
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="c1/brush_texture.jpg" alt="Brush Texture Exploration" />
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="c2/1_book.jpg" alt="Book and Study Materials" />
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="c2/2_1_inoue_writing.jpg" alt="Inoue Writing Practice" />
-                    </div>
+                <div class="gallery-slides" id="gallery-slides-container">
+                    <!-- Images will be dynamically loaded here -->
                 </div>
                 
-                <button class="gallery-nav gallery-prev" aria-label="Previous image">‹</button>
-                <button class="gallery-nav gallery-next" aria-label="Next image">›</button>
+                <button class="gallery-nav gallery-prev" aria-label="Previous image">←</button>
+                <button class="gallery-nav gallery-next" aria-label="Next image">→</button>
             </div>
             
-            <div class="gallery-dots">
-                <button class="gallery-dot active" aria-label="Image 1"></button>
-                <button class="gallery-dot" aria-label="Image 2"></button>
-                <button class="gallery-dot" aria-label="Image 3"></button>
-                <button class="gallery-dot" aria-label="Image 4"></button>
-                <button class="gallery-dot" aria-label="Image 5"></button>
+            <div class="gallery-dots" id="gallery-dots-container">
+                <!-- Dots will be dynamically generated here -->
             </div>
         </div>
     </div>
@@ -1997,20 +1989,161 @@
     // ============ FEATURED GALLERY ============
     let galleryCurrentIndex = 0;
     let galleryAutoRotateTimer;
-    const gallerySlides = document.querySelectorAll('.gallery-slide');
-    const galleryDots = document.querySelectorAll('.gallery-dot');
+    let gallerySlides = [];
+    let galleryDots = [];
     const galleryPrevBtn = document.querySelector('.gallery-prev');
     const galleryNextBtn = document.querySelector('.gallery-next');
+    const gallerySlidesContainer = document.getElementById('gallery-slides-container');
+    const galleryDotsContainer = document.getElementById('gallery-dots-container');
+
+    // Dynamic image loading function
+    async function loadFeaturedArtwork() {
+        const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        const loadedImages = [];
+        
+        console.log('=== Starting Featured Artwork Loading ===');
+        console.log('Extensions to try:', extensions);
+        
+        // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
+        for (let i = 1; i <= 10; i++) {
+            console.log(`--- Looking for image #${i} ---`);
+            let found = false;
+            
+            // Try each extension for this number
+            for (const ext of extensions) {
+                if (found) break; // Skip other extensions once found
+                
+                const imagePath = `featured_artwork/${i}.${ext}`;
+                console.log(`Testing: ${imagePath}`);
+                
+                try {
+                    const exists = await testImage(imagePath);
+                    if (exists) {
+                        console.log(`🎉 SUCCESS! Found: ${imagePath}`);
+                        loadedImages.push({
+                            src: imagePath,
+                            alt: `Featured Artwork ${i}`
+                        });
+                        found = true;
+                    }
+                } catch (error) {
+                    console.log(`❌ Error testing ${imagePath}:`, error);
+                }
+            }
+            
+            if (!found) {
+                console.log(`❌ No image found for #${i}`);
+                // Stop if we've found some images but hit 2 consecutive misses
+                if (loadedImages.length > 0 && i > loadedImages.length + 2) {
+                    console.log(`Stopping search - likely no more sequential images`);
+                    break;
+                }
+            }
+        }
+
+        console.log('=== Loading Complete ===');
+        console.log(`Total images found: ${loadedImages.length}`);
+        console.log('Image list:', loadedImages.map(img => img.src));
+        return loadedImages;
+    }
+
+    // Improved image testing with better error handling
+    function testImage(src) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            let resolved = false;
+            
+            const resolveOnce = (result) => {
+                if (!resolved) {
+                    resolved = true;
+                    resolve(result);
+                }
+            };
+            
+            img.onload = () => {
+                console.log('✓ Image loaded successfully:', src);
+                resolveOnce(true);
+            };
+            
+            img.onerror = (error) => {
+                console.log('✗ Image failed to load:', src, error);
+                resolveOnce(false);
+            };
+            
+            // Shorter timeout for faster detection
+            setTimeout(() => {
+                if (!resolved) {
+                    console.log('⏰ Image load timeout:', src);
+                    resolveOnce(false);
+                }
+            }, 3000);
+            
+            // Set src after all handlers are attached
+            try {
+                img.src = src;
+            } catch (error) {
+                console.log('✗ Error setting image src:', src, error);
+                resolveOnce(false);
+            }
+        });
+    }
+
+    // Generate gallery HTML
+    function generateGallery(images) {
+        console.log('Generating gallery with', images.length, 'images:', images);
+        
+        if (images.length === 0) {
+            gallerySlidesContainer.innerHTML = '<div class="gallery-slide active"><div style="display: flex; align-items: center; justify-content: center; height: 400px; background: #f5f5f5; color: #666; text-align: center; padding: 20px;">No images found in featured_artwork folder<br><small>Try adding images with names like: 1.jpg, 2.jpg, etc.</small></div></div>';
+            galleryDotsContainer.innerHTML = '';
+            return;
+        }
+
+        // Generate slides
+        const slidesHTML = images.map((img, index) => 
+            `<div class="gallery-slide${index === 0 ? ' active' : ''}">
+                <img src="${img.src}" alt="${img.alt}" loading="lazy" />
+            </div>`
+        ).join('');
+        
+        gallerySlidesContainer.innerHTML = slidesHTML;
+
+        // Generate dots
+        const dotsHTML = images.map((_, index) => 
+            `<button class="gallery-dot${index === 0 ? ' active' : ''}" aria-label="Image ${index + 1}"></button>`
+        ).join('');
+        
+        galleryDotsContainer.innerHTML = dotsHTML;
+
+        // Update references
+        gallerySlides = document.querySelectorAll('.gallery-slide');
+        galleryDots = document.querySelectorAll('.gallery-dot');
+        
+        console.log('Gallery generated successfully with', gallerySlides.length, 'slides');
+    }
 
     function showGallerySlide(index) {
+        console.log(`Switching to gallery slide ${index}, total slides: ${gallerySlides.length}`);
+        
         // Remove active class from all slides and dots
         gallerySlides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
+            if (i === index) {
+                slide.classList.add('active');
+                console.log(`✓ Activated slide ${i}`);
+            } else {
+                slide.classList.remove('active');
+            }
         });
+        
         galleryDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+            if (i === index) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
         });
+        
         galleryCurrentIndex = index;
+        console.log(`Gallery current index set to: ${galleryCurrentIndex}`);
     }
 
     function nextGallerySlide() {
@@ -2033,27 +2166,46 @@
     }
 
     // Initialize gallery
-    if (gallerySlides.length > 0) {
-        // Show first slide
-        showGallerySlide(0);
+    async function initializeGallery() {
+        console.log('Initializing gallery...');
         
-        // Start auto-rotation
-        startGalleryAutoRotate();
+        // Load images dynamically
+        const images = await loadFeaturedArtwork();
+        console.log('Loaded images:', images);
         
+        generateGallery(images);
+        
+        if (gallerySlides.length > 0) {
+            // Show first slide
+            showGallerySlide(0);
+            
+            // Start auto-rotation only if there are multiple images
+            if (gallerySlides.length > 1) {
+                startGalleryAutoRotate();
+            }
+            
+            // Setup navigation buttons
+            setupGalleryNavigation();
+        }
+    }
+
+    function setupGalleryNavigation() {
         // Navigation button events
         if (galleryPrevBtn) {
             galleryPrevBtn.addEventListener('click', () => {
+                if (gallerySlides.length <= 1) return;
                 prevGallerySlide();
                 stopGalleryAutoRotate();
-                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+                setTimeout(startGalleryAutoRotate, 8000);
             });
         }
         
         if (galleryNextBtn) {
             galleryNextBtn.addEventListener('click', () => {
+                if (gallerySlides.length <= 1) return;
                 nextGallerySlide();
                 stopGalleryAutoRotate();
-                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+                setTimeout(startGalleryAutoRotate, 8000);
             });
         }
         
@@ -2061,8 +2213,10 @@
         galleryDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
                 showGallerySlide(index);
-                stopGalleryAutoRotate();
-                setTimeout(startGalleryAutoRotate, 8000); // Restart after 8 seconds
+                if (gallerySlides.length > 1) {
+                    stopGalleryAutoRotate();
+                    setTimeout(startGalleryAutoRotate, 8000);
+                }
             });
         });
         
@@ -2070,7 +2224,9 @@
         const galleryWrapper = document.querySelector('.gallery-wrapper');
         if (galleryWrapper) {
             galleryWrapper.addEventListener('mouseenter', stopGalleryAutoRotate);
-            galleryWrapper.addEventListener('mouseleave', startGalleryAutoRotate);
+            galleryWrapper.addEventListener('mouseleave', () => {
+                if (gallerySlides.length > 1) startGalleryAutoRotate();
+            });
         }
 
         // Add click-to-view functionality for gallery images
@@ -2079,18 +2235,15 @@
             if (img) {
                 slide.style.cursor = 'pointer';
                 slide.addEventListener('click', () => {
-                    // Create a temporary thumbnail element for overlay functionality
                     const tempThumb = document.createElement('div');
                     tempThumb.className = 'thumb';
                     tempThumb.dataset.caption = img.alt;
                     const tempImg = img.cloneNode(true);
                     tempThumb.appendChild(tempImg);
                     
-                    // Temporarily add to DOM for overlay function
                     document.body.appendChild(tempThumb);
                     openOverlay(tempThumb);
                     
-                    // Clean up after overlay closes
                     const originalCloseOverlay = closeOverlay;
                     window.closeOverlay = function() {
                         originalCloseOverlay();
@@ -2102,6 +2255,13 @@
                 });
             }
         });
+    }
+
+    // Initialize gallery when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeGallery);
+    } else {
+        initializeGallery();
     }
 </script>
 
