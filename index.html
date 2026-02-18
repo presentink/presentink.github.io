@@ -301,14 +301,10 @@
         }
 
         .overlay-image {
-            max-width: 80vw;
-            max-height: 75vh;
             background: #e8e4de;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 400px;
-            min-height: 300px;
+            display: inline-block;
+            max-width: 90vw;
+            max-height: 85vh;
         }
 
         .overlay-image-placeholder {
@@ -493,9 +489,8 @@
 
             /* Overlay adjustments */
             .overlay-image {
-                min-width: 260px;
-                min-height: 180px;
-                max-width: 92vw;
+                max-width: 95vw;
+                max-height: 80vh;
             }
 
             .overlay-nav {
@@ -1767,7 +1762,7 @@
         // Check if thumbnail has an actual image
         const img = thumb.querySelector('img');
         if (img) {
-            overlayPlaceholder.innerHTML = `<img src="${img.src}" alt="${caption}" style="max-width: 100%; max-height: 100%; object-fit: contain;">`;
+            overlayPlaceholder.innerHTML = `<img src="${img.src}" alt="${caption}" style="display: block; max-width: 90vw; max-height: 85vh; width: auto; height: auto;">`;
         } else {
             overlayPlaceholder.textContent = caption || 'Image Placeholder';
         }
