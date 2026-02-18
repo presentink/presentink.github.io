@@ -1593,13 +1593,16 @@
     
     let lastWidth = window.innerWidth;
     let lastHeight = window.innerHeight;
+    let lastOrientation = window.orientation || 0;
     let resizeTimeout;
     
-    // Safari vs Chrome resize handling
+    // Safari vs Chrome resize handling with mobile optimization
     window.addEventListener('resize', () => {
         const currentWidth = window.innerWidth;
         const currentHeight = window.innerHeight;
+        const currentOrientation = window.orientation || 0;
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
         // Clear existing timeout
         if (resizeTimeout) {
@@ -1611,29 +1614,57 @@
             debugLog('Resize Event', {
                 type: 'resize ended',
                 browser: isSafari ? 'Safari' : 'Chrome',
+                isMobile: isMobile,
                 oldWidth: lastWidth,
                 newWidth: currentWidth,
                 oldHeight: lastHeight,
                 newHeight: currentHeight,
                 widthDiff: Math.abs(currentWidth - lastWidth),
                 heightDiff: Math.abs(currentHeight - lastHeight),
+                oldOrientation: lastOrientation,
+                newOrientation: currentOrientation,
+                orientationChanged: currentOrientation !== lastOrientation,
                 devicePixelRatio: window.devicePixelRatio
             });
             
-            // Check if dimensions actually changed significantly
-            if (Math.abs(currentWidth - lastWidth) > 10 || Math.abs(currentHeight - lastHeight) > 10) {
-                console.log('Resize completed, dimensions changed...');
+            // Mobile: only refresh/regenerate on significant width changes or orientation changes
+            if (isMobile) {
+                const orientationChanged = currentOrientation !== lastOrientation;
+                const significantWidthChange = Math.abs(currentWidth - lastWidth) > 50;
                 
-                if (isSafari) {
-                    // Safari: refresh page to ensure correct rendering (user's observation: refresh works correctly)
-                    console.log('Safari resize detected - refreshing page for accurate layout');
-                    window.location.reload();
-                } else {
-                    // Chrome: recalculate thumbnails normally
-                    console.log('Chrome resize detected - regenerating thumbnails');
+                if (orientationChanged || significantWidthChange) {
+                    console.log('Mobile orientation/significant width change detected');
                     lastWidth = currentWidth;
                     lastHeight = currentHeight;
-                    generateThumbnails();
+                    lastOrientation = currentOrientation;
+                    
+                    if (isSafari) {
+                        console.log('Safari mobile - refreshing page');
+                        window.location.reload();
+                    } else {
+                        console.log('Chrome mobile - regenerating thumbnails');
+                        generateThumbnails();
+                    }
+                } else {
+                    console.log('Mobile scroll-induced height change ignored');
+                }
+            }
+            // Desktop: handle width changes normally
+            else {
+                const significantChange = Math.abs(currentWidth - lastWidth) > 10 || Math.abs(currentHeight - lastHeight) > 50;
+                
+                if (significantChange) {
+                    console.log('Desktop resize detected');
+                    
+                    if (isSafari) {
+                        console.log('Safari desktop - refreshing page');
+                        window.location.reload();
+                    } else {
+                        console.log('Chrome desktop - regenerating thumbnails');
+                        lastWidth = currentWidth;
+                        lastHeight = currentHeight;
+                        generateThumbnails();
+                    }
                 }
             }
         }, 300); // Wait 300ms after resize stops
