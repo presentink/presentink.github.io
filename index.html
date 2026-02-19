@@ -332,7 +332,7 @@
             width: 100%;
             aspect-ratio: 1;
             background: #e8e4de;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
             cursor: pointer;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -343,13 +343,42 @@
         }
 
         .thumb:hover {
-            border-color: var(--accent);
+            border: 3px solid var(--accent);
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
+        /* Completely disable hover for unlinked placeholder thumbnails with high priority */
+        .thumb.placeholder-only.unlinked,
+        .thumb.placeholder-only.unlinked:hover,
+        .thumb.placeholder-only.unlinked:focus,
+        .thumb.placeholder-only.unlinked:active {
+            opacity: 0.3 !important;
+            pointer-events: none !important;
+            cursor: default !important;
+            border: 1px solid #ddd !important;
+            transform: none !important;
+            box-shadow: none !important;
+            background: none !important;
+        }
+
+        /* Keep linked placeholders without visible border */
+        .thumb.placeholder-only:not(.unlinked) {
+            border: 1px solid transparent !important;
+        }
+
+        .thumb.placeholder-only {
+            cursor: default;
+        }
+
+        .thumb.placeholder-only.linked {
+            border: 3px solid var(--thumb-border) !important;
+            box-shadow: 0 2px 12px rgba(196, 62, 42, 0.15) !important;
+            transform: scale(1.02) !important;
+        }
+
         .thumb.linked {
-            border-color: var(--thumb-border);
+            border: 3px solid var(--thumb-border);
             box-shadow: 0 2px 12px rgba(196, 62, 42, 0.15);
             transform: scale(1.02);
         }
@@ -831,7 +860,7 @@
             <p>Writing with an oversized brush breaks the traditional paradigm. Traditional calligraphy is usually done on a desk, relying on the coordination of fingers and wrist to achieve different strokes. But once the characters grow to the scale of the body, you have to write on the floor, using your whole arm and even your whole body. So I had to develop an entirely new way of handling the brush that made sense for large characters.</p>
             <p>Controlling the ink was just as crucial. With a large brush, everything changes—the amount of ink you load, the speed of your strokes, the ratio of ink to water, and how different kinds of Xuan paper absorb and spread the ink. I had to rebuild my understanding of all of this from scratch. Otherwise, the result could easily turn into one dark, muddled blot.</p>
             <p>Around this time, another artist came into my view—<span class="hl" data-link="img_2_9">Wang Dongling</span>. He is also known for writing large characters, creating monumental works, and developing his own form called "chaos script." Beyond that, he made many new explorations in contemporary calligraphy. His focus on cursive script was especially significant to me. I felt an inherent connection between cursive writing and large-scale brushwork, and my intuition told me that big characters should be written in cursive.</p>
-            <p>So I decisively shifted to writing in cursive and began studying it more systematically. Practice soon showed me that it not only made the writing feel more fluid, but also addressed a key issue of working with a large brush: the faster pace of cursive keeps the ink from spreading into a blot. Even if there was some pooling at the beginning of a stroke, the <span class="hl" data-link="img_2_11">dry-brush effect</span> that appeared as the ink thinned out created a striking contrast.</p>
+            <p>So I decisively shifted to writing in cursive and began studying it more systematically. Practice soon showed me that it not only made the writing feel more fluid, but also addressed a key issue of working with a large brush: the faster pace of cursive keeps the ink from spreading into a blot. Even if there was some pooling at the beginning of a stroke, the <span class="hl" data-link="img_2_10">dry-brush effect</span> that appeared as the ink thinned out created a striking contrast.</p>
             <p>Once I began writing large characters in cursive, I could feel myself improving noticeably. I often slipped into a state of full concentration, finishing a piece in one continuous motion and feeling a clear sense of exhilaration. I also tried new approaches to structure and composition, and the writing as a whole began to feel more confident.</p>
         </div>
         <div class="section-images" data-section="2">
@@ -1137,8 +1166,7 @@
             { id: 'img_2_7', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5_2_early_calligraphy.jpg' },
             { id: 'img_2_8', caption: 'Early calligraphy exploration', placeholder: 'Early<br>exploration', label: 'Progress', imageSrc: 'c2/5_3_early_calligraphy.jpeg' },
             { id: 'img_2_9', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.jpg' },
-            { id: 'img_2_10', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration' },
-            { id: 'img_2_11', caption: 'Dry-brush effect in cursive', placeholder: 'Dry<br>brush', label: 'Effect' }
+            { id: 'img_2_10', caption: 'Dry-brush effect in cursive', placeholder: 'Dry<br>brush', label: 'Effect', imageSrc: 'c2/5_3_early_calligraphy.jpeg' }
         ],
         3: [
             { id: 'img_3_1', caption: 'Meditative pace — line works', placeholder: 'Meditative<br>lines', label: 'Meditation' },
@@ -1766,18 +1794,43 @@
                 <img src="${imageData.imageSrc}" alt="${imageData.caption}" style="width: 100%; height: 100%; object-fit: cover;">
                 <span class="thumb-label">${imageData.label}</span>
             `;
+            thumb.setAttribute('onclick', 'openOverlay(this)');
         } else {
             thumb.innerHTML = `
                 <span class="thumb-placeholder">${imageData.placeholder}</span>
                 <span class="thumb-label">${imageData.label}</span>
             `;
+            thumb.classList.add('placeholder-only');
+            thumb.removeAttribute('onclick');
+            
+            // Debug: log all placeholder thumbnails and their link status
+            setTimeout(() => {
+                let isLinked = false;
+                const highlights = document.querySelectorAll('[data-link]');
+                
+                for (const hl of highlights) {
+                    const linkIds = hl.dataset.link.split(' ');
+                    if (linkIds.includes(imageData.id)) {
+                        isLinked = true;
+                        break;
+                    }
+                }
+                
+                console.log(`Placeholder ${imageData.id}: ${imageData.caption}, linked: ${isLinked}`);
+                
+                if (!isLinked) {
+                    thumb.classList.add('unlinked');
+                    console.log(`Thumbnail ${imageData.id} marked as unlinked`);
+                }
+            }, 10);
         }
     }
 
     function setupEmptyThumb(thumb) {
         thumb.innerHTML = '<span class="thumb-placeholder">•</span>';
-        thumb.style.opacity = '0.2';
+        thumb.classList.add('placeholder-only', 'unlinked');
         thumb.style.cursor = 'default';
+        thumb.removeAttribute('onclick');
     }
 
     // Generate thumbnails on load and handle resize differently per browser
@@ -1864,7 +1917,6 @@
     // ===== HIGHLIGHT ↔ THUMBNAIL LINKING =====
     function initializeHighlightLinking() {
         const highlights = document.querySelectorAll('.hl');
-        const thumbs = document.querySelectorAll('.thumb');
 
         highlights.forEach(hl => {
         const targetIds = hl.dataset.link.split(' ');
@@ -1893,12 +1945,12 @@
             });
         });
 
-        // Click highlight to open first linked image
+        // Click highlight to open first linked image (only if it has actual image)
         hl.addEventListener('click', (e) => {
             e.preventDefault();
-            if (targets.length > 0) {
-                // Directly open the first linked image for both desktop and mobile
-                openOverlay(targets[0]);
+            const firstImageTarget = targets.find(target => !target.classList.contains('placeholder-only'));
+            if (firstImageTarget) {
+                openOverlay(firstImageTarget);
             }
         });
     });
