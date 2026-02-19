@@ -2047,7 +2047,7 @@
 
     // Dynamic image loading function
     async function loadFeaturedArtwork() {
-        const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'GIF'];
         const loadedImages = [];
         
         console.log('=== Starting Featured Artwork Loading ===');
@@ -2125,23 +2125,26 @@
     // Improved image testing with better error handling
     function testImage(src) {
         return new Promise((resolve) => {
+            console.log(`🔍 TESTING IMAGE: ${src}`);
             const img = new Image();
             let resolved = false;
             
             const resolveOnce = (result) => {
                 if (!resolved) {
                     resolved = true;
+                    console.log(`📊 RESULT for ${src}: ${result ? 'SUCCESS ✓' : 'FAILED ✗'}`);
                     resolve(result);
                 }
             };
             
             img.onload = () => {
-                console.log('✓ Image loaded successfully:', src);
+                console.log('✓ Image loaded successfully:', src, `Size: ${img.naturalWidth}x${img.naturalHeight}`);
                 resolveOnce(true);
             };
             
             img.onerror = (error) => {
                 console.log('✗ Image failed to load:', src, error);
+                console.log('📁 Full URL attempted:', new URL(src, window.location.href).href);
                 resolveOnce(false);
             };
             
@@ -2149,14 +2152,17 @@
             const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
             setTimeout(() => {
                 if (!resolved) {
-                    console.log('⏰ Image load timeout:', src);
+                    console.log('⏰ Image load timeout:', src, `after ${timeoutDuration}ms`);
+                    console.log('📁 Full URL attempted:', new URL(src, window.location.href).href);
                     resolveOnce(false);
                 }
             }, timeoutDuration);
             
             // Set src after all handlers are attached
             try {
+                console.log(`📝 Setting src: ${src}`);
                 img.src = src;
+                console.log(`📡 Image src set, waiting for load...`);
             } catch (error) {
                 console.log('✗ Error setting image src:', src, error);
                 resolveOnce(false);
