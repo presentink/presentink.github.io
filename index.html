@@ -351,6 +351,7 @@
         .thumb.linked {
             border-color: var(--thumb-border);
             box-shadow: 0 2px 12px rgba(196, 62, 42, 0.15);
+            transform: scale(1.02);
         }
 
         .thumb-placeholder {
@@ -1892,25 +1893,13 @@
             });
         });
 
-        // Mobile: tap highlight to flash the linked thumbnails
+        // Click highlight to open first linked image
         hl.addEventListener('click', (e) => {
-            if (window.innerWidth > 600) return;
             e.preventDefault();
-            // Clear all active states first
-            highlights.forEach(h => h.classList.remove('active'));
-            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('linked'));
-            // Activate this group
-            hl.classList.add('active');
-            targets.forEach(target => target.classList.add('linked'));
-            // Scroll first thumbnail into view if needed
             if (targets.length > 0) {
-                targets[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // Directly open the first linked image for both desktop and mobile
+                openOverlay(targets[0]);
             }
-            // Auto-clear after 2 seconds
-            setTimeout(() => {
-                hl.classList.remove('active');
-                targets.forEach(target => target.classList.remove('linked'));
-            }, 2000);
         });
     });
     }
