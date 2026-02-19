@@ -2071,9 +2071,15 @@
                         console.log(`🎉 SUCCESS! Found: ${imagePath}`);
                         loadedImages.push({
                             src: imagePath,
-                            alt: `Featured Artwork ${i}`
+                            alt: `Featured Artwork ${i}`,
+                            index: i
                         });
                         found = true;
+                        
+                        // Add small delay between successful loads to prevent overwhelming mobile browsers
+                        if (window.innerWidth <= 600) {
+                            await new Promise(resolve => setTimeout(resolve, 100));
+                        }
                     }
                 } catch (error) {
                     console.log(`❌ Error testing ${imagePath}:`, error);
@@ -2082,10 +2088,26 @@
             
             if (!found) {
                 console.log(`❌ No image found for #${i}`);
-                // Stop if we've found some images but hit 2 consecutive misses
-                if (loadedImages.length > 0 && i > loadedImages.length + 2) {
-                    console.log(`Stopping search - likely no more sequential images`);
+                // Stop if we've tried many consecutive numbers without success
+                if (i > 3 && loadedImages.length === 0) {
+                    console.log(`Stopping search - no images found in first 3 attempts`);
                     break;
+                }
+                // Stop if we've hit 3 consecutive misses after finding some images
+                if (loadedImages.length > 0) {
+                    let consecutiveMisses = 0;
+                    for (let j = i; j >= Math.max(1, i - 2); j--) {
+                        const hasImage = loadedImages.some(img => img.src.includes(`${j}.`));
+                        if (!hasImage) {
+                            consecutiveMisses++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if (consecutiveMisses >= 3) {
+                        console.log(`Stopping search - 3 consecutive misses after finding images`);
+                        break;
+                    }
                 }
             }
         }
@@ -2093,6 +2115,10 @@
         console.log('=== Loading Complete ===');
         console.log(`Total images found: ${loadedImages.length}`);
         console.log('Image list:', loadedImages.map(img => img.src));
+        
+        // Sort by index to ensure proper order
+        loadedImages.sort((a, b) => a.index - b.index);
+        
         return loadedImages;
     }
 
@@ -2119,13 +2145,14 @@
                 resolveOnce(false);
             };
             
-            // Shorter timeout for faster detection
+            // Mobile-specific timeout - longer for slower connections
+            const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
             setTimeout(() => {
                 if (!resolved) {
                     console.log('⏰ Image load timeout:', src);
                     resolveOnce(false);
                 }
-            }, 3000);
+            }, timeoutDuration);
             
             // Set src after all handlers are attached
             try {
@@ -2218,6 +2245,15 @@
     async function initializeGallery() {
         console.log('Initializing gallery...');
         
+        // Ensure we're not at the bottom of the page when gallery loads
+        const isMobile = window.innerWidth <= 600;
+        if (isMobile && window.pageYOffset > window.innerHeight) {
+            console.log('Mobile device detected, scrolling to top for gallery initialization');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Wait for scroll to complete
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
         // Load images dynamically
         const images = await loadFeaturedArtwork();
         console.log('Loaded images:', images);
@@ -2308,9 +2344,19 @@
 
     // Initialize gallery when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeGallery);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add delay for mobile devices
+            const isMobile = window.innerWidth <= 600;
+            setTimeout(() => {
+                initializeGallery();
+            }, isMobile ? 500 : 100);
+        });
     } else {
-        initializeGallery();
+        // Add delay for mobile devices
+        const isMobile = window.innerWidth <= 600;
+        setTimeout(() => {
+            initializeGallery();
+        }, isMobile ? 500 : 100);
     }
 </script>
 
