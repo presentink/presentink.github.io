@@ -2247,9 +2247,18 @@
         clearInterval(galleryAutoRotateTimer);
     }
 
+    // Gallery initialization flag to prevent multiple initializations
+    let galleryInitialized = false;
+    
     // Initialize gallery
     async function initializeGallery() {
+        if (galleryInitialized) {
+            console.log('Gallery already initialized, skipping...');
+            return;
+        }
+        
         console.log('Initializing gallery...');
+        galleryInitialized = true;
         
         // Ensure we're not at the bottom of the page when gallery loads
         const isMobile = window.innerWidth <= 600;
@@ -2281,6 +2290,15 @@
     }
 
     function setupGalleryNavigation() {
+        // Prevent multiple setups
+        if (setupGalleryNavigation.initialized) {
+            console.log('Gallery navigation already set up, skipping...');
+            return;
+        }
+        setupGalleryNavigation.initialized = true;
+        
+        console.log('Setting up gallery navigation...');
+        
         // Navigation button events
         if (galleryPrevBtn) {
             galleryPrevBtn.addEventListener('click', () => {
@@ -2313,7 +2331,8 @@
         
         // Pause auto-rotation on hover
         const galleryWrapper = document.querySelector('.gallery-wrapper');
-        if (galleryWrapper) {
+        if (galleryWrapper && !galleryWrapper.hasGalleryListeners) {
+            galleryWrapper.hasGalleryListeners = true;
             galleryWrapper.addEventListener('mouseenter', stopGalleryAutoRotate);
             galleryWrapper.addEventListener('mouseleave', () => {
                 if (gallerySlides.length > 1) startGalleryAutoRotate();
@@ -2323,7 +2342,8 @@
         // Add click-to-view functionality for gallery images
         gallerySlides.forEach((slide, index) => {
             const img = slide.querySelector('img');
-            if (img) {
+            if (img && !slide.hasClickListener) {
+                slide.hasClickListener = true;
                 slide.style.cursor = 'pointer';
                 slide.addEventListener('click', () => {
                     const tempThumb = document.createElement('div');
@@ -2348,7 +2368,7 @@
         });
     }
 
-    // Initialize gallery when DOM is ready
+    // Initialize gallery when DOM is ready - SINGLE INITIALIZATION POINT
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             // Add delay for mobile devices
@@ -2358,7 +2378,7 @@
             }, isMobile ? 500 : 100);
         });
     } else {
-        // Add delay for mobile devices
+        // Add delay for mobile devices  
         const isMobile = window.innerWidth <= 600;
         setTimeout(() => {
             initializeGallery();
