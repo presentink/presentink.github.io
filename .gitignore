@@ -1,0 +1,60 @@
+# =====================
+# macOS
+# =====================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =====================
+# Editor / IDE
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =====================
+# Logs
+# =====================
+*.log
+
+# =====================
+# Cache
+# =====================
+.cache/
+
+# =====================
+# Environment variables
+# =====================
+.env
+.env.local
+.env.*.local
+
+# =====================
+# OS / Backup files
+# =====================
+*~
+*.bak
+*.old
+
+# =====================
+# Python (if used)
+# =====================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# =====================
+# Node.js (if used)
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =====================
+# Build outputs
+# =====================
+dist/
+build/
