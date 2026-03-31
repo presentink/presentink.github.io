@@ -1,4 +1,4 @@
-**I. Beginnings and a Return**
+ **I. Beginnings and a Return**
 
 I have loved calligraphy since I was very young. when I was in primary school age, I would sit down and practice for about an hour every day,  entirely on my own initiative. I never had a teacher—I simply practiced with calligraphy model books and taught myself. That went on for a few years.
 
