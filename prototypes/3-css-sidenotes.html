@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype 3 — CSS sidenotes (zero JS layout)</title>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;700&family=Lora:ital@0;1&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .chapter{position:relative;}
+  .body{margin-right:320px;}
+  .body p{position:relative;}
+  /* absolute with only right/width set → keeps in-flow vertical position, moves to the gutter */
+  .sidenote{position:absolute;right:0;width:280px;}
+  .sidenote .fig{margin-bottom:8px;width:100%;}
+  @media(max-width:820px){
+    .body{margin-right:0;}
+    .sidenote{position:static;width:auto;max-width:340px;margin:1.2rem auto;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="proto-banner">
+    <span class="tag">Prototype 3</span><b>CSS-only margin sidenotes (Tufte)</b> —
+    each figure sits <i>immediately after its highlight in the DOM</i> and uses
+    <code>position:absolute</code> with only <code>right/width</code> set, so it keeps its natural
+    in-flow vertical position but floats into the right margin. <b>Zero JS for layout · zero
+    measurement · all browsers.</b> Trade-off: pure CSS can't auto-avoid collisions, so densely
+    spaced notes may overlap. Hover text ⇄ image; click to enlarge.
+  </div>
+  <div id="root"></div>
+</div>
+
+<script src="sample.js"></script>
+<script src="linking.js"></script>
+<script>
+  // NOTE: this JS only AUTHORS the markup (in a real build the <figure>s would be hand-written in
+  // HTML). There is NO layout/measurement/resize JS — positioning is 100% CSS.
+  const root = document.getElementById('root');
+
+  function figEl(img){
+    const el = document.createElement('div');
+    el.className = 'fig';
+    el.id = img.id;
+    el.dataset.caption = img.caption;
+    el.innerHTML = img.src
+      ? `<img loading="lazy" src="${img.src}" alt="${img.caption}"><span class="label">${img.label}</span>`
+      : `<span class="label">${img.label}</span>`;
+    return el;
+  }
+
+  CHAPTERS.forEach(ch => {
+    const byId = Object.fromEntries(ch.images.map(i => [i.id, i]));
+    const sec = document.createElement('section');
+    sec.className = 'chapter';
+    sec.innerHTML = `<h2 class="chapter-title"><span class="num">${ch.num}.</span>${ch.title}</h2>
+      <div class="body">${ch.html}</div>`;
+    // Insert a sidenote figure right after each highlight
+    sec.querySelectorAll('.hl').forEach(hl => {
+      const note = document.createElement('figure');
+      note.className = 'sidenote';
+      note.style.margin = '0';
+      (hl.dataset.link || '').split(/\s+/).filter(Boolean).forEach(id => {
+        if (byId[id]) note.appendChild(figEl(byId[id]));
+      });
+      hl.after(note);
+    });
+    root.appendChild(sec);
+  });
+
+  PInk.initLinking();
+</script>
+</body>
+</html>

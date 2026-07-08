@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype 1 — Anchored figures (whitespace)</title>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;700&family=Lora:ital@0;1&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .cols{display:grid;grid-template-columns:1fr 240px;gap:2.5rem;align-items:start;}
+  .text{position:relative;}
+  .fig-layer{position:relative;}
+  .fig{position:absolute;left:0;top:0;width:210px;will-change:transform;}
+  @media(max-width:760px){
+    .cols{grid-template-columns:1fr;}
+    .fig-layer{display:flex;flex-wrap:wrap;gap:10px;}
+    .fig{position:static!important;width:calc(50% - 5px);transform:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="proto-banner">
+    <span class="tag">Prototype 1</span><b>Anchored figures · whitespace</b> —
+    each image is absolutely positioned at its highlight's <code>offsetTop</code>; a
+    <code>ResizeObserver</code> recomputes on any layout change (batched read→write), plus a small
+    collision pass so close figures stack instead of overlapping.
+    <b>Tech:</b> ~40 lines JS · 0 forced reflows · no browser special-casing · exact alignment.
+    Hover text ⇄ image; click to enlarge. Resize the window to see alignment hold.
+  </div>
+  <div id="root"></div>
+</div>
+
+<script src="sample.js"></script>
+<script src="linking.js"></script>
+<script>
+  const GAP = 14;
+  const root = document.getElementById('root');
+
+  function makeFig(img){
+    const el = document.createElement('div');
+    el.className = 'fig';
+    el.id = img.id;
+    el.dataset.id = img.id;
+    el.dataset.caption = img.caption;
+    el.innerHTML = img.src
+      ? `<img loading="lazy" src="${img.src}" alt="${img.caption}"><span class="label">${img.label}</span>`
+      : `<span class="label">${img.label}</span>`;
+    return el;
+  }
+
+  // Build DOM from shared CHAPTERS
+  CHAPTERS.forEach(ch => {
+    const sec = document.createElement('section');
+    sec.className = 'chapter';
+    sec.innerHTML = `<h2 class="chapter-title"><span class="num">${ch.num}.</span>${ch.title}</h2>
+      <div class="cols"><div class="text">${ch.html}</div><div class="fig-layer"></div></div>`;
+    const layer = sec.querySelector('.fig-layer');
+    ch.images.forEach(img => layer.appendChild(makeFig(img)));
+    root.appendChild(sec);
+  });
+
+  PInk.initLinking();
+
+  // ---- The whole alignment engine ----
+  function layout(){
+    if (window.innerWidth <= 760) {           // mobile: static flow, nothing to position
+      document.querySelectorAll('.fig').forEach(f => f.style.transform = '');
+      return;
+    }
+    document.querySelectorAll('.chapter').forEach(sec => {
+      const text = sec.querySelector('.text');
+      const textTop = text.getBoundingClientRect().top;
+      // READ phase — one pass, no writes interleaved
+      const items = Array.from(sec.querySelectorAll('.fig')).map(fig => {
+        const hl = sec.querySelector(`.hl[data-link~="${fig.dataset.id}"]`);
+        const y = hl ? (hl.getBoundingClientRect().top - textTop) : sec.scrollHeight;
+        return { fig, y };
+      }).sort((a, b) => a.y - b.y);
+      // WRITE phase — collision-aware placement
+      let prevBottom = -Infinity;
+      for (const { fig, y } of items) {
+        const top = Math.max(y, prevBottom + GAP);
+        fig.style.transform = `translateY(${top}px)`;
+        prevBottom = top + fig.offsetHeight;
+      }
+    });
+  }
+
+  const ro = new ResizeObserver(() => layout());
+  document.querySelectorAll('.text').forEach(t => ro.observe(t));
+  window.addEventListener('load', layout);
+  layout();
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype 2 — Filled grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;700&family=Lora:ital@0;1&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  .cols{display:grid;grid-template-columns:1fr 320px;gap:2.5rem;align-items:start;}
+  .text{position:relative;}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;position:relative;}
+  @media(max-width:760px){ .cols{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="proto-banner">
+    <span class="tag">Prototype 2</span><b>Filled square mosaic</b> —
+    keeps the "full grid" look of the current site, but rebuilt cleanly: measure text height <i>once</i>
+    per layout, derive rows, map each highlight to a row by its <code>offsetTop</code>, then fill
+    leftover cells with muted fillers. One <code>ResizeObserver</code>, no reflow storm, no Safari
+    reload. <b>Tech:</b> ~70 lines JS. Hover text ⇄ image; click to enlarge.
+  </div>
+  <div id="root"></div>
+</div>
+
+<script src="sample.js"></script>
+<script src="linking.js"></script>
+<script>
+  const root = document.getElementById('root');
+  const figIndex = {};   // id -> persistent fig element (listeners survive re-layout)
+
+  function makeFig(img){
+    const el = document.createElement('div');
+    el.className = 'fig';
+    el.id = img.id;
+    el.dataset.id = img.id;
+    el.dataset.caption = img.caption;
+    el.innerHTML = img.src
+      ? `<img loading="lazy" src="${img.src}" alt="${img.caption}"><span class="label">${img.label}</span>`
+      : `<span class="label">${img.label}</span>`;
+    figIndex[img.id] = el;
+    return el;
+  }
+
+  CHAPTERS.forEach(ch => {
+    const sec = document.createElement('section');
+    sec.className = 'chapter';
+    sec.innerHTML = `<h2 class="chapter-title"><span class="num">${ch.num}.</span>${ch.title}</h2>
+      <div class="cols"><div class="text">${ch.html}</div><div class="grid"></div></div>`;
+    const grid = sec.querySelector('.grid');
+    ch.images.forEach(img => grid.appendChild(makeFig(img)));   // present in DOM for initLinking
+    sec._images = ch.images;
+    root.appendChild(sec);
+  });
+
+  PInk.initLinking();
+
+  function layout(){
+    const cols = window.innerWidth <= 760 ? 1 : 2;
+    document.querySelectorAll('.chapter').forEach(sec => {
+      const text = sec.querySelector('.text');
+      const grid = sec.querySelector('.grid');
+      const images = sec._images;
+
+      // ---- measure (once) ----
+      const gridW = grid.clientWidth || text.clientWidth;
+      const gap = 8;
+      const cell = (gridW - gap * (cols - 1)) / cols;   // square side
+      const rowH = cell + gap;
+      const textTop = text.getBoundingClientRect().top;
+      const H = text.offsetHeight;
+      const rows = Math.max(Math.ceil(images.length / cols), Math.ceil(H / rowH));
+
+      // ---- map each highlight to a row by offsetTop ----
+      const rowMap = {};                 // row -> [img,...]
+      const used = new Set();
+      const place = (img, startRow) => {
+        for (let off = 0; off < rows; off++) {
+          for (const r of (off === 0 ? [startRow] : [startRow + off, startRow - off])) {
+            if (r < 0 || r >= rows) continue;
+            rowMap[r] = rowMap[r] || [];
+            if (rowMap[r].length < cols) { rowMap[r].push(img); used.add(img.id); return; }
+          }
+        }
+      };
+      sec.querySelectorAll('.hl').forEach(hl => {
+        const relY = hl.getBoundingClientRect().top - textTop;
+        const row = Math.min(rows - 1, Math.max(0, Math.floor(relY / rowH)));
+        (hl.dataset.link || '').split(/\s+/).filter(Boolean).forEach(id => {
+          const img = images.find(i => i.id === id);
+          if (img && !used.has(id)) place(img, row);
+        });
+      });
+      const leftover = images.filter(i => !used.has(i.id));
+
+      // ---- render: detach persistent figs, rebuild cell order ----
+      Object.values(figIndex).forEach(f => { if (f.parentNode === grid) grid.removeChild(f); });
+      grid.innerHTML = '';
+      const queueFor = r => (rowMap[r] || []);
+      for (let i = 0; i < rows * cols; i++) {
+        const r = Math.floor(i / cols);
+        const img = (queueFor(r).length ? rowMap[r].shift() : leftover.shift());
+        if (img) grid.appendChild(figIndex[img.id]);
+        else { const f = document.createElement('div'); f.className = 'fig filler'; grid.appendChild(f); }
+      }
+    });
+  }
+
+  const ro = new ResizeObserver(() => layout());
+  document.querySelectorAll('.text').forEach(t => ro.observe(t));
+  window.addEventListener('load', layout);
+  layout();
+</script>
+</body>
+</html>
