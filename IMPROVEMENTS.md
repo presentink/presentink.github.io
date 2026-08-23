@@ -19,6 +19,24 @@ and `tests/cross-browser.mjs` for the three-engine test. `index.html` went from 
 video is ~10 MB. Nothing about that changed. / **最大的遗留项仍是 P0 图片体积** ——
 `c2/`、`c3/` 各约 22MB,首页视频约 10MB,这部分完全未动。
 
+**Sequencing decision / 工作顺序（2026-08-23）:** media optimization, Cloudflare email cleanup,
+SEO/social metadata, and the featured-artwork manifest are deliberately deferred. The active
+priority is to add the missing artist-owned images for chapters IV--VII, because those chapters
+are the narrative climax and currently render as placeholders. /
+**工作顺序（2026-08-23）:** 图片/视频优化、Cloudflare 邮箱清理、SEO/社交 meta、精选作品清单均明确后置；
+当前优先补齐第 IV--VII 章缺失的艺术家作品图，因为它们承载叙事高潮，目前仍显示为占位框。
+
+**Shipped on 2026-08-24 / 2026-08-24 已完成:** added the artist's public links (Instagram, CV,
+email, and design portfolio), stored `Yufan_Wang_CV.pdf`, added an Artist Statement and its source
+file at `text/Artist Statement.md`, and added the seven-chapter `The Full Journey` index with
+per-chapter reading times and jump links. Updated the visual type hierarchy with Space Grotesk for
+secondary metadata, refined the hero and section title scale, and replaced the Cloudflare-obfuscated
+email with a direct `mailto:` link. /
+**2026-08-24 已完成:** 增加艺术家的公开链接(Instagram、CV、邮箱、设计作品集),存入
+`Yufan_Wang_CV.pdf`,新增 Artist Statement 及其原稿`text/Artist Statement.md`,并增加含阅读时间
+和章节跳转的七章 `The Full Journey` 索引。次级信息改用 Space Grotesk,调整 Hero 与章节标题层级,
+并以直接 `mailto:` 链接替换 Cloudflare 混淆邮箱。
+
 ---
 
 ## 🔴 P0 — Biggest impact on real visitors / 对访客影响最大
@@ -57,9 +75,10 @@ video is ~10 MB. Nothing about that changed. / **最大的遗留项仍是 P0 图
   - [x] All 50 `console.*` statements removed / 50 处 `console.*` 全部移除。
   - [x] The "Debug Info" toggle, panel and its CSS removed / 调试按钮、面板及其 CSS 已移除。
   - [x] `DEBUG_MODE`, `updateDebugPanel`, `debugLog` removed / 相关调试设施已移除。
-- [ ] **Review the injected Cloudflare script / 检查注入的 Cloudflare 脚本.**
-  `/cdn-cgi/scripts/.../email-decode.min.js` 404s off Cloudflare; confirm if needed.
-  该脚本在非 Cloudflare 环境(如本地/GitHub Pages)会 404,确认是否需要。
+- [x] **Remove the injected Cloudflare email script / 移除 Cloudflare 邮箱脚本.** Replaced the
+  GitHub-Pages-incompatible decoder and obfuscated markup with the direct public email link
+  `mailto:presentink.studio@gmail.com`.
+  已移除不兼容 GitHub Pages 的解码脚本与混淆邮箱,改为公开的直接邮箱链接。
 - [ ] **Split the single 1600-line `index.html` / 拆分单文件** into `index.html` + `style.css` + `main.js`.
   (Was 2246 lines before the layout rewrite. / 布局重构前为 2246 行。)
 - [ ] **De-duplicate chapter copy / 正文去重.** Body text is in HTML *and* `text/Artistic narrative.md`.
@@ -79,9 +98,15 @@ video is ~10 MB. Nothing about that changed. / **最大的遗留项仍是 P0 图
   - [ ] Ch.5 / 第五章: `img_5_1`–`img_5_4`（转折点 the turning point）
   - [ ] Ch.6 / 第六章: `img_6_1`–`img_6_6`
   - [ ] Ch.7 / 第七章: `img_7_1`–`img_7_5`
-- [ ] **Add an About / Contact section / 增加关于与联系方式** (email, location, Instagram). The overlay's
-  "View on Instagram →" link is `href="#"`. / 邮箱、所在地、Instagram;浮层中的 Instagram 链接现为空。
-- [ ] **Add navigation / 增加导航** so visitors can jump between the 7 chapters. / 让访客可在 7 章间跳转。
+- [ ] **Add an About section / 增加关于页面段落.** The Artist Statement now covers the practice;
+  add a distinct about section only if a fuller biography is needed. /
+  Artist Statement 已说明创作实践;若需要更完整履历,再增加独立的关于段落。
+- [x] **Add public contact links / 增加公开联系链接.** The Hero now links to Instagram, CV, direct
+  email, and the design portfolio; the footer email is also direct. /
+  Hero 已提供 Instagram、CV、直接邮箱、设计作品集链接;页脚邮箱也已改为直接链接。
+- [x] **Add navigation / 增加导航.** `The Full Journey` provides an ordered index with reading times
+  and direct jump links to all 7 chapters. /
+  `The Full Journey` 已提供含阅读时间的顺序索引,可直接跳至全部 7 章。
 - [ ] **Add artwork metadata / 补充作品信息** (title / year / dimensions / medium). / 标题/年份/尺寸/材料。
 
 ## 🟡 P3 — Accessibility & polish · 无障碍与细节
