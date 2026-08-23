@@ -60,6 +60,18 @@
         t.addEventListener('mouseleave', off);
       });
     });
+
+    // Clicking a figure opens the overlay too — the same effect as clicking its phrase.
+    // Wired over EVERY figure, not just linked ones, because an image with no highlight
+    // of its own must still be openable (this is what the live site's per-thumb
+    // onclick="openOverlay(this)" does). Figures with no image file stay inert.
+    document.querySelectorAll('.fig[data-caption]').forEach(f => {
+      if (f._clickWired) return;
+      f._clickWired = true;
+      if (!f.querySelector('img')) return;
+      f.style.cursor = 'pointer';
+      f.addEventListener('click', () => open(f));
+    });
   }
 
   // Public API used by each prototype

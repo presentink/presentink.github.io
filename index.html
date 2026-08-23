@@ -252,6 +252,11 @@
             display: grid;
             grid-template-columns: 60% 40%;
             gap: 0;
+            /* Each column sizes to its own content. Without this, grid's default
+               `stretch` makes .section-text as tall as the whole row — i.e. as tall
+               as the image grid — so measuring the text would measure the grid back
+               and every relayout would add rows. */
+            align-items: start;
             margin-bottom: 5rem;
             padding-bottom: 5rem;
             border-bottom: 1px solid #ddd;
@@ -315,7 +320,13 @@
             padding-top: 2.5rem;
             padding-left: 2rem;
             align-content: flex-start;
-            min-height: 100%;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* Flatten thumb-row wrappers so thumbs flow into grid */
@@ -721,55 +732,6 @@
             }
         }
 
-        /* ============ DEBUG PANEL ============ */
-        .debug-panel {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 300px;
-            max-height: 80vh;
-            background: rgba(0, 0, 0, 0.9);
-            color: #fff;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 9999;
-            overflow-y: auto;
-            display: none;
-        }
-
-        .debug-panel.visible {
-            display: block;
-        }
-
-        .debug-panel h3 {
-            margin: 0 0 10px 0;
-            font-size: 12px;
-            color: #4CAF50;
-        }
-
-        .debug-panel pre {
-            margin: 5px 0;
-            font-size: 9px;
-            line-height: 1.3;
-            white-space: pre-wrap;
-        }
-
-        .debug-toggle {
-            position: fixed;
-            top: 10px;
-            right: 320px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 3px;
-            font-size: 10px;
-            cursor: pointer;
-            z-index: 10000;
-        }
-
         /* ============ VERY SMALL SCREENS ============ */
         @media (max-width: 380px) {
             body {
@@ -802,7 +764,6 @@
         <p class="hero-scroll" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</p>
     </div>
 </div>
-
 
 <!-- ===== FEATURED GALLERY ===== -->
 <section class="featured-section" id="featured-gallery">
@@ -986,12 +947,6 @@
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
-<button class="debug-toggle" onclick="toggleDebugPanel()">Debug Info</button>
-<div class="debug-panel" id="debug-panel">
-    <h3>Debug Information</h3>
-    <div id="debug-content">Debug info will appear here...</div>
-</div>
-
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ===== DYNAMIC THUMBNAIL GENERATION =====
     const sectionImageData = {
@@ -1047,757 +1002,214 @@
         ]
     };
 
-    // Debug mode - detailed logging to find Safari vs Chrome differences
-    const DEBUG_MODE = false; // Set to true for detailed measurement logging
-    const thumbnailCache = new Map();
-    let lastGenerateTime = 0;
-    let pendingGenerate = null;
+    // ===== CHAPTER IMAGE GRID =====
+    // Each chapter's right-hand column is a square grid whose height tracks the text.
+    // An image sits in the row its highlighted phrase falls in; the leftover cells are
+    // empty placeholders (intentional — not every passage needs an image).
+    //
+    // Layout is ONE batched read pass over all chapters followed by ONE write pass,
+    // driven by a single ResizeObserver: no forced-reflow storm, no browser sniffing,
+    // no page reload on resize. Column count, gap and padding are read from the CSS,
+    // so the breakpoints live in exactly one place.
 
-    // Debug panel management
-    let debugData = {};
-    
-    function toggleDebugPanel() {
-        const panel = document.getElementById('debug-panel');
-        panel.classList.toggle('visible');
-    }
-    
-    function updateDebugPanel(label, data) {
-        if (!DEBUG_MODE) return;
-        
-        debugData[label] = data;
-        
-        const debugContent = document.getElementById('debug-content');
-        if (debugContent) {
-            let content = '';
-            for (const [key, value] of Object.entries(debugData)) {
-                content += `<h4 style="color: #FFC107; margin: 10px 0 5px 0;">${key}</h4>`;
-                content += `<pre>${JSON.stringify(value, null, 2)}</pre>`;
-            }
-            debugContent.innerHTML = content;
-        }
-    }
+    const thumbIndex = {};   // id -> persistent .thumb element (listeners survive relayout)
 
-    function debugLog(label, data) {
-        if (DEBUG_MODE) {
-            console.group(`[DEBUG] ${label}`);
-            console.log(data);
-            console.groupEnd();
-            
-            // Also update the debug panel
-            updateDebugPanel(label, data);
-        }
-    }
-
-    function generateThumbnails() {
-        const now = Date.now();
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        const isChrome = /chrome/i.test(navigator.userAgent) && !/edge/i.test(navigator.userAgent);
-        const browserInfo = {
-            userAgent: navigator.userAgent,
-            isSafari: isSafari,
-            isChrome: isChrome,
-            devicePixelRatio: window.devicePixelRatio,
-            innerWidth: window.innerWidth,
-            innerHeight: window.innerHeight,
-            clientWidth: document.documentElement.clientWidth,
-            clientHeight: document.documentElement.clientHeight,
-            screenWidth: window.screen.width,
-            screenHeight: window.screen.height,
-            availWidth: window.screen.availWidth,
-            availHeight: window.screen.availHeight
-        };
-        
-        debugLog(`Browser Info - ${isSafari ? 'Safari' : isChrome ? 'Chrome' : 'Other'}`, browserInfo);
-        
-        const minInterval = 100; // Same interval for all browsers
-        
-        // Cancel pending generation if there is one
-        if (pendingGenerate) {
-            clearTimeout(pendingGenerate);
-        }
-        
-        // If we're generating too frequently, defer
-        if (now - lastGenerateTime < minInterval) {
-            pendingGenerate = setTimeout(() => {
-                generateThumbnails();
-            }, minInterval - (now - lastGenerateTime));
-            return;
-        }
-        
-        lastGenerateTime = now;
-        
-        // Remove caching for debugging - we want to see fresh calculations every time
-        const sections = document.querySelectorAll('.section-images[data-section]');
-        
-        sections.forEach(section => {
-            const sectionNum = section.getAttribute('data-section');
-            const sectionData = sectionImageData[sectionNum];
-            if (!sectionData) return;
-            
-            // Get corresponding text section
-            const textSection = section.previousElementSibling;
-            
-            // Force reflow to ensure accurate measurements
-            textSection.offsetHeight;
-            
-            // Wait a bit for layout to settle after mouse release
-            requestAnimationFrame(async () => {
-                requestAnimationFrame(async () => {
-                    const textHeight = textSection.offsetHeight;
-                    
-                    // Detailed measurements for debugging
-                    const textMeasurements = {
-                        section: sectionNum,
-                        offsetHeight: textSection.offsetHeight,
-                        clientHeight: textSection.clientHeight,
-                        scrollHeight: textSection.scrollHeight,
-                        getBoundingRect: textSection.getBoundingClientRect(),
-                        computedStyle: {
-                            height: window.getComputedStyle(textSection).height,
-                            paddingTop: window.getComputedStyle(textSection).paddingTop,
-                            paddingBottom: window.getComputedStyle(textSection).paddingBottom,
-                            marginTop: window.getComputedStyle(textSection).marginTop,
-                            marginBottom: window.getComputedStyle(textSection).marginBottom
-                        }
-                    };
-                    
-                    debugLog(`Text Measurements - Chapter ${sectionNum}`, textMeasurements);
-                    
-                    // First determine grid columns based on window size and CSS rules
-                    let gridCols;
-                    if (window.innerWidth <= 600) {
-                        gridCols = 1;
-                    } else {
-                        gridCols = 2;
-                    }
-                    
-                    // Double check by creating a temporary section to test CSS
-                    const tempSection = document.createElement('div');
-                    tempSection.className = 'section-images';
-                    tempSection.style.visibility = 'hidden';
-                    tempSection.style.position = 'absolute';
-                    document.body.appendChild(tempSection);
-                    
-                    const computedTempStyle = window.getComputedStyle(tempSection);
-                    const actualGridColumns = computedTempStyle.gridTemplateColumns;
-                    
-                    // Parse the actual columns from CSS
-                    if (actualGridColumns === '1fr' || actualGridColumns.split(' ').length === 1) {
-                        gridCols = 1;
-                    } else if (actualGridColumns.includes('1fr 1fr') || actualGridColumns.split(' ').length === 2) {
-                        gridCols = 2;
-                    }
-                    
-                    document.body.removeChild(tempSection);
-                    
-                    console.log(`Chapter ${sectionNum} measurements:`, {
-                        textSection: textSection,
-                        textHeight: textHeight,
-                        clientHeight: textSection.clientHeight,
-                        scrollHeight: textSection.scrollHeight,
-                        windowWidth: window.innerWidth,
-                        cssGridColumns: actualGridColumns,
-                        finalGridCols: gridCols
-                    });
-                    
-                    if (textHeight === 0) {
-                        console.warn(`Chapter ${sectionNum}: Text height is 0, retrying...`);
-                        setTimeout(() => generateThumbnails(), 200);
-                        return;
-                    }
-                    
-                    generateThumbnailsForSection(section, textSection, textHeight, gridCols, sectionData, sectionNum);
-                });
-            });
-        });
-    }
-
-    async function generateThumbnailsForSection(section, textSection, textHeight, gridCols, sectionData, sectionNum) {
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        const isChrome = /chrome/i.test(navigator.userAgent) && !/edge/i.test(navigator.userAgent);
-        
-        // Clear existing content FIRST and reset to baseline
-        section.innerHTML = '';
-        
-        // Force layout recalculation after clearing
-        section.offsetHeight;
-        
-        // Detailed measurement debugging - measure at different stages
-        const beforeClearMeasurement = {
-            offsetHeight: textSection.offsetHeight,
-            clientHeight: textSection.clientHeight,
-            scrollHeight: textSection.scrollHeight,
-            boundingRect: textSection.getBoundingClientRect(),
-            computedHeight: window.getComputedStyle(textSection).height
-        };
-        
-        // Force multiple reflows and measure again
-        textSection.style.height = 'auto';
-        textSection.offsetHeight; // trigger reflow
-        textSection.style.height = '';
-        textSection.offsetHeight; // trigger reflow again
-        
-        // Measure after forced reflows
-        const afterReflowMeasurement = {
-            offsetHeight: textSection.offsetHeight,
-            clientHeight: textSection.clientHeight,
-            scrollHeight: textSection.scrollHeight,
-            boundingRect: textSection.getBoundingClientRect(),
-            computedHeight: window.getComputedStyle(textSection).height
-        };
-        
-        // Wait for next frame and measure again
-        await new Promise(resolve => requestAnimationFrame(resolve));
-        
-        const afterAnimationFrameMeasurement = {
-            offsetHeight: textSection.offsetHeight,
-            clientHeight: textSection.clientHeight,
-            scrollHeight: textSection.scrollHeight,
-            boundingRect: textSection.getBoundingClientRect(),
-            computedHeight: window.getComputedStyle(textSection).height
-        };
-        
-        // Log all measurements for comparison
-        debugLog(`Detailed Height Measurements - Chapter ${sectionNum}`, {
-            browser: isSafari ? 'Safari' : isChrome ? 'Chrome' : 'Other',
-            beforeClear: beforeClearMeasurement,
-            afterReflow: afterReflowMeasurement,
-            afterAnimationFrame: afterAnimationFrameMeasurement,
-            differences: {
-                offsetHeightChange: afterAnimationFrameMeasurement.offsetHeight - beforeClearMeasurement.offsetHeight,
-                boundingHeightChange: afterAnimationFrameMeasurement.boundingRect.height - beforeClearMeasurement.boundingRect.height
-            }
-        });
-        
-        // Re-measure text height after clearing thumbnails
-        const actualTextHeight = textSection.offsetHeight;
-        
-        // Additional measurement methods for comparison
-        const alternativeMeasurements = {
-            method1_offsetHeight: textSection.offsetHeight,
-            method2_clientHeight: textSection.clientHeight,
-            method3_scrollHeight: textSection.scrollHeight,
-            method4_boundingRectHeight: textSection.getBoundingClientRect().height,
-            method5_computedStyleHeight: parseFloat(window.getComputedStyle(textSection).height),
-            method6_innerHeight: textSection.offsetHeight - parseFloat(window.getComputedStyle(textSection).borderTopWidth) - parseFloat(window.getComputedStyle(textSection).borderBottomWidth),
-            viewport: {
-                windowInnerHeight: window.innerHeight,
-                documentHeight: document.documentElement.offsetHeight,
-                bodyHeight: document.body.offsetHeight
-            },
-            zoom: {
-                devicePixelRatio: window.devicePixelRatio,
-                visualViewportScale: window.visualViewport ? window.visualViewport.scale : 'not available',
-                documentElementClientHeight: document.documentElement.clientHeight,
-                windowOuterHeight: window.outerHeight
-            }
-        };
-        
-        debugLog(`Alternative Measurements - Chapter ${sectionNum}`, alternativeMeasurements);
-        
-        // Check if measurements are wildly different (indicating measurement issue)
-        const measurements = [
-            alternativeMeasurements.method1_offsetHeight,
-            alternativeMeasurements.method2_clientHeight,
-            alternativeMeasurements.method4_boundingRectHeight,
-            alternativeMeasurements.method5_computedStyleHeight
-        ].filter(m => m > 0);
-        
-        const minMeasurement = Math.min(...measurements);
-        const maxMeasurement = Math.max(...measurements);
-        const measurementVariance = maxMeasurement - minMeasurement;
-        const varianceRatio = maxMeasurement / minMeasurement;
-        
-        if (varianceRatio > 1.1) {  // More than 10% difference
-            debugLog(`Measurement Inconsistency Detected - Chapter ${sectionNum}`, {
-                measurements: measurements,
-                minMeasurement: minMeasurement,
-                maxMeasurement: maxMeasurement,
-                variance: measurementVariance,
-                varianceRatio: varianceRatio,
-                warning: 'Inconsistent height measurements detected!'
-            });
-        }
-        
-        // Safari text height correction - Safari often reports inflated text heights
-        let finalTextHeight = actualTextHeight; // Default: use measured height as-is
-        
-        // Safari-specific height correction based on root cause analysis:
-        // 
-        // PROBLEM: Safari generates excessive thumbnails during zoom operations
-        // ROOT CAUSE: Safari's WebKit rendering engine calculates text heights 
-        // 1.6-2.7x higher than Chrome's Blink engine for identical content
-        // 
-        // ANALYSIS: Through detailed debugging, we discovered:
-        // - All measurement methods agree within each browser (rules out measurement issues)
-        // - Zoom levels are identical between browsers (rules out scaling issues)  
-        // - Content complexity affects the ratio (simple content: 2.62x, complex content: 1.62x)
-        // - This is a fundamental difference in font rendering between WebKit and Blink
-        //
-        // SOLUTION: Apply browser-specific correction factors based on measured ratios
-        
-        // 深度诊断：找出Safari和Chrome文本高度差异的真正原因
-        if (DEBUG_MODE) {
-            const diagnostics = {
-                // 基础元素信息
-                elementInfo: {
-                    tagName: textSection.tagName,
-                    className: textSection.className,
-                    childElementCount: textSection.childElementCount
-                },
-                // 详细CSS计算属性
-                computedStyles: {
-                    fontSize: window.getComputedStyle(textSection).fontSize,
-                    lineHeight: window.getComputedStyle(textSection).lineHeight,
-                    fontFamily: window.getComputedStyle(textSection).fontFamily,
-                    fontWeight: window.getComputedStyle(textSection).fontWeight,
-                    letterSpacing: window.getComputedStyle(textSection).letterSpacing,
-                    wordSpacing: window.getComputedStyle(textSection).wordSpacing,
-                    textAlign: window.getComputedStyle(textSection).textAlign,
-                    whiteSpace: window.getComputedStyle(textSection).whiteSpace,
-                    wordWrap: window.getComputedStyle(textSection).wordWrap,
-                    padding: window.getComputedStyle(textSection).padding,
-                    margin: window.getComputedStyle(textSection).margin,
-                    border: window.getComputedStyle(textSection).border,
-                    boxSizing: window.getComputedStyle(textSection).boxSizing,
-                    display: window.getComputedStyle(textSection).display,
-                    position: window.getComputedStyle(textSection).position
-                },
-                // 子元素分析
-                childElements: Array.from(textSection.children).map(child => ({
-                    tagName: child.tagName,
-                    className: child.className,
-                    offsetHeight: child.offsetHeight,
-                    scrollHeight: child.scrollHeight,
-                    computedHeight: window.getComputedStyle(child).height,
-                    computedLineHeight: window.getComputedStyle(child).lineHeight,
-                    computedMargin: window.getComputedStyle(child).margin
-                })),
-                // 文本内容分析
-                contentAnalysis: {
-                    textLength: textSection.textContent.length,
-                    innerHTML: textSection.innerHTML.substring(0, 200) + '...',
-                    scrollWidth: textSection.scrollWidth,
-                    clientWidth: textSection.clientWidth,
-                    offsetWidth: textSection.offsetWidth
-                }
-            };
-            
-            debugLog(`Deep Diagnostic - Chapter ${sectionNum}`, diagnostics);
-        }
-        
-        // 暂时禁用Safari校正，检查初始渲染问题
-        // Apply Safari correction for resize events
-        // Root cause: Safari's WebKit engine reports higher text heights than Chrome's Blink after resize
-        if (false && isSafari) { // 暂时禁用，检查初始渲染
-            const originalHeight = actualTextHeight;
-            
-            // 使用基于实际Chrome/Safari比率的校正因子
-            const correctionFactor = actualTextHeight > 4000 ? 0.65 : 0.42;
-            finalTextHeight = Math.round(actualTextHeight * correctionFactor);
-            
-            debugLog(`Safari WebKit Height Correction - Chapter ${sectionNum}`, {
-                originalHeight: originalHeight,
-                correctionFactor: correctionFactor,
-                correctedHeight: finalTextHeight,
-                reasoning: `Adjusting Safari to match Chrome thumbnail generation`,
-                rootCause: 'Font rendering difference between WebKit and Blink engines'
-            });
-        }
-        // Chrome和其他浏览器保持原始测量值不变
-        
-        // Log pre-calculation state
-        debugLog(`Pre-calculation - Chapter ${sectionNum}`, {
-            browser: isSafari ? 'Safari' : isChrome ? 'Chrome' : 'Other',
-            textHeight: textHeight,
-            actualTextHeight: actualTextHeight,
-            finalTextHeight: finalTextHeight,
-            gridCols: gridCols,
-            windowWidth: window.innerWidth,
-            devicePixelRatio: window.devicePixelRatio
-        });
-        
-        // Use simple, uniform logic for all browsers - NO SPECIAL HANDLING
-        const windowWidth = window.innerWidth;
-        let actualCols = gridCols || 2; // Use passed gridCols or default to 2
-        
-        // Simple breakpoint check - same for all browsers
-        if (windowWidth <= 600) {
-            actualCols = 1;
+    function buildThumb(data) {
+        const el = document.createElement('div');
+        el.className = 'thumb';
+        el.id = data.id;
+        el.dataset.caption = data.caption;
+        if (data.imageSrc) {
+            el.innerHTML =
+                '<img src="' + data.imageSrc + '" alt="' + data.caption + '" loading="lazy">' +
+                '<span class="thumb-label">' + data.label + '</span>';
         } else {
-            actualCols = 2;
+            el.classList.add('placeholder-only');
+            el.innerHTML =
+                '<span class="thumb-placeholder">' + data.placeholder + '</span>' +
+                '<span class="thumb-label">' + data.label + '</span>';
         }
-        // Method 2: Create test thumbnails to verify the layout - same for all browsers
-        const testThumb1 = document.createElement('div');
-        const testThumb2 = document.createElement('div');
-        testThumb1.className = 'thumb';
-        testThumb2.className = 'thumb';
-        testThumb1.style.visibility = 'hidden';
-        testThumb2.style.visibility = 'hidden';
-        testThumb1.innerHTML = '<span class="thumb-placeholder">Test1</span>';
-        testThumb2.innerHTML = '<span class="thumb-placeholder">Test2</span>';
-        
-        section.appendChild(testThumb1);
-        section.appendChild(testThumb2);
-        
-        // Force layout and wait for CSS to apply
-        section.offsetHeight;
-        requestAnimationFrame(() => section.offsetHeight);
-        
-        // Check actual positions
-        const rect1 = testThumb1.getBoundingClientRect();
-        const rect2 = testThumb2.getBoundingClientRect();
-        
-        // If the two thumbs are on the same horizontal line, it's 2 columns
-        // If they're vertically stacked, it's 1 column
-        const verticalDiff = Math.abs(rect1.top - rect2.top);
-        const positionBasedCols = verticalDiff < 5 ? 2 : 1;
-        
-        // Use position-based detection for accuracy
-        actualCols = positionBasedCols;
-        
-        const thumbHeight = rect1.height;
-        
-        // Get the gap value - same calculation for all browsers
-        const computedStyle = window.getComputedStyle(section);
-        const gap = parseFloat(computedStyle.gap) || parseFloat(computedStyle.rowGap) || 8;
-        const actualThumbSize = thumbHeight + gap;
-        
-        // Remove test thumbnails
-        section.removeChild(testThumb1);
-        section.removeChild(testThumb2);
-        
-        // Log thumb measurements
-        debugLog(`Thumb Measurements - Chapter ${sectionNum}`, {
-            thumbHeight: thumbHeight,
-            gap: gap,
-            actualThumbSize: actualThumbSize,
-            positionBasedCols: positionBasedCols,
-            verticalDiff: verticalDiff,
-            rect1: rect1,
-            rect2: rect2
-        });
-        
-        // Check layout type based on detected columns
-        const isMobile = actualCols === 1;
-        
-        // Simple row calculation - same for all browsers
-        let calculatedRows = Math.ceil(finalTextHeight / actualThumbSize);
-        
-        // Calculate minimum rows needed to display ALL images
-        const minRowsForImages = Math.ceil(sectionData.length / actualCols);
-        
-        // Always ensure we have enough rows for all images
-        const minRequiredRows = Math.max(2, minRowsForImages);
-        
-        // Use the larger of text-based or image-based calculation
-        // 缩略图应该纯粹根据文本长度来生成，不设置人为限制
-        const finalRows = Math.max(minRequiredRows, calculatedRows);
-        
-        // Remove all artificial limits - thumbnails should match text length exactly
-        
-        const totalThumbs = finalRows * actualCols;
-        
-        // Log calculation details
-        debugLog(`Row Calculation - Chapter ${sectionNum}`, {
-            finalTextHeight: finalTextHeight,
-            actualThumbSize: actualThumbSize,
-            calculatedRows: calculatedRows,
-            minRowsForImages: minRowsForImages,
-            minRequiredRows: minRequiredRows,
-            finalRows: finalRows,
-            totalThumbs: totalThumbs,
-            sectionDataLength: sectionData.length,
-            actualCols: actualCols
-        });
-        // Get highlights and calculate their vertical positions using fresh text height
-        const highlights = textSection.querySelectorAll('.hl');
-        const highlightPositions = Array.from(highlights).map(hl => {
-            // Get the vertical position of highlight relative to text section
-            const rect = hl.getBoundingClientRect();
-            const textRect = textSection.getBoundingClientRect();
-            const relativeY = rect.top - textRect.top + textSection.scrollTop;
-            
-            // Calculate which row this highlight should correspond to using actual thumb size
-            const rowIndex = Math.floor(relativeY / actualThumbSize);
-            const clampedRow = Math.max(0, Math.min(rowIndex, finalRows - 1));
-            
-            const linkIds = hl.dataset.link ? hl.dataset.link.split(' ') : [];
-            
-            // Find corresponding image data for this highlight
-            const correspondingImages = linkIds.map(linkId => {
-                return sectionData.find(img => img.id === linkId);
-            }).filter(img => img); // Remove undefined entries
-            
-            return {
-                element: hl,
-                rowIndex: clampedRow,
-                relativeY: relativeY,
-                linkIds: linkIds,
-                images: correspondingImages
-            };
-        });
-        
-        // Create a copy of image data for tracking usage
-        const remainingImages = [...sectionData];
-        const usedImageIds = new Set(); // Track which images have been used
-        
-        // Create position-based image mapping with overflow handling
-        const rowImageMapping = {};
-        
-        // First pass: assign images based on highlight positions
-        highlightPositions.forEach(hp => {
-            if (hp.images && hp.images.length > 0) {
-                hp.images.forEach(img => {
-                    // Skip if this image has already been assigned
-                    if (usedImageIds.has(img.id)) {
-                        return;
-                    }
-                    
-                    // Find the best row for this image, starting from the calculated row
-                    let targetRow = hp.rowIndex;
-                    let placed = false;
-                    
-                    // Try to place in the calculated row first, then nearby rows
-                    for (let offset = 0; offset < finalRows && !placed; offset++) {
-                        // Try current row + offset, then current row - offset
-                        const tryRows = offset === 0 ? [targetRow] : [targetRow + offset, targetRow - offset];
-                        
-                        for (const tryRow of tryRows) {
-                            if (tryRow >= 0 && tryRow < finalRows) {
-                                if (!rowImageMapping[tryRow]) {
-                                    rowImageMapping[tryRow] = [];
-                                }
-                                
-                                // Check if this row has space (max images per row = actualCols)
-                                if (rowImageMapping[tryRow].length < actualCols) {
-                                    rowImageMapping[tryRow].push(img);
-                                    usedImageIds.add(img.id); // Mark as used
-                                    // Remove from remaining images
-                                    const index = remainingImages.findIndex(ri => ri.id === img.id);
-                                    if (index !== -1) {
-                                        remainingImages.splice(index, 1);
-                                    }
-                                    placed = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    
-                    // If still not placed, add warning
-                    if (!placed) {
-                        console.warn(`Could not place image ${img.id} in any row`);
-                    }
-                });
-            }
-        });
-        
-        // Create all thumbnails
-        for (let i = 0; i < totalThumbs; i++) {
-            const thumb = document.createElement('div');
-            thumb.className = 'thumb';
-            
-            const row = Math.floor(i / actualCols);
-            const col = i % actualCols;
-            
-            let imageToUse = null;
-            
-            // First try to use position-mapped image for this row
-            if (rowImageMapping[row] && rowImageMapping[row].length > 0) {
-                imageToUse = rowImageMapping[row].shift();
-            } 
-            // If no position-mapped image, use remaining images
-            else if (remainingImages.length > 0) {
-                imageToUse = remainingImages.shift();
-            }
-            
-            if (imageToUse) {
-                setupThumb(thumb, imageToUse);
-            } else {
-                setupEmptyThumb(thumb);
-            }
-            
-            section.appendChild(thumb);
-        }
-        
-        // Re-initialize highlight linking after thumbnails are generated
-        setTimeout(() => {
-            initializeHighlightLinking();
-        }, 100);
+        thumbIndex[data.id] = el;
+        return el;
     }
 
-    function setupThumb(thumb, imageData) {
-        thumb.id = imageData.id;
-        thumb.setAttribute('data-caption', imageData.caption);
-        thumb.setAttribute('onclick', 'openOverlay(this)');
-        
-        // Check if there's an actual image file for this thumbnail
-        if (imageData.imageSrc) {
-            thumb.innerHTML = `
-                <img src="${imageData.imageSrc}" alt="${imageData.caption}" style="width: 100%; height: 100%; object-fit: cover;">
-                <span class="thumb-label">${imageData.label}</span>
-            `;
-            thumb.setAttribute('onclick', 'openOverlay(this)');
-        } else {
-            thumb.innerHTML = `
-                <span class="thumb-placeholder">${imageData.placeholder}</span>
-                <span class="thumb-label">${imageData.label}</span>
-            `;
-            thumb.classList.add('placeholder-only');
-            thumb.removeAttribute('onclick');
-            
-            // Debug: log all placeholder thumbnails and their link status
-            setTimeout(() => {
-                let isLinked = false;
-                const highlights = document.querySelectorAll('[data-link]');
-                
-                for (const hl of highlights) {
-                    const linkIds = hl.dataset.link.split(' ');
-                    if (linkIds.includes(imageData.id)) {
-                        isLinked = true;
-                        break;
-                    }
-                }
-                
-                console.log(`Placeholder ${imageData.id}: ${imageData.caption}, linked: ${isLinked}`);
-                
-                if (!isLinked) {
-                    thumb.classList.add('unlinked');
-                    console.log(`Thumbnail ${imageData.id} marked as unlinked`);
-                }
-            }, 10);
-        }
-    }
-
-    function setupEmptyThumb(thumb) {
-        thumb.innerHTML = '<span class="thumb-placeholder">•</span>';
-        thumb.classList.add('placeholder-only', 'unlinked');
-        thumb.style.cursor = 'default';
-        thumb.removeAttribute('onclick');
-    }
-
-    // Generate thumbnails on load and handle resize differently per browser
-    window.addEventListener('load', generateThumbnails);
-    
-    let lastWidth = window.innerWidth;
-    let lastHeight = window.innerHeight;
-    let lastOrientation = window.orientation || 0;
-    let resizeTimeout;
-    
-    // Mobile-specific orientation change handling
-    window.addEventListener('orientationchange', () => {
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        
-        console.log('Mobile orientation change detected');
-        
-        // Wait for orientation change to complete
-        setTimeout(() => {
-            lastWidth = window.innerWidth;
-            lastHeight = window.innerHeight;
-            lastOrientation = window.orientation || 0;
-            
-            if (isSafari) {
-                console.log('Safari mobile orientation change - refreshing page');
-                window.location.reload();
-            } else {
-                console.log('Chrome mobile orientation change - regenerating thumbnails');
-                generateThumbnails();
+    // A placeholder no phrase points at is dimmed and inert.
+    function markUnlinkedPlaceholders() {
+        const linked = new Set();
+        document.querySelectorAll('.hl[data-link]').forEach(hl => {
+            hl.dataset.link.split(/\s+/).filter(Boolean).forEach(id => linked.add(id));
+        });
+        Object.keys(thumbIndex).forEach(id => {
+            const el = thumbIndex[id];
+            if (el.classList.contains('placeholder-only') && !linked.has(id)) {
+                el.classList.add('unlinked');
             }
-        }, 500); // Wait for orientation animation to complete
-    });
-    
-    // Desktop-only resize handling
-    window.addEventListener('resize', () => {
-        const currentWidth = window.innerWidth;
-        const currentHeight = window.innerHeight;
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
-        // Skip resize handling on mobile - only use orientationchange
-        if (isMobile) {
-            console.log('Mobile resize ignored - use orientationchange instead');
-            return;
-        }
-        
-        // Clear existing timeout
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        
-        // Desktop-only resize handling
-        resizeTimeout = setTimeout(() => {
-            debugLog('Resize Event', {
-                type: 'desktop resize ended',
-                browser: isSafari ? 'Safari' : 'Chrome',
-                oldWidth: lastWidth,
-                newWidth: currentWidth,
-                oldHeight: lastHeight,
-                newHeight: currentHeight,
-                widthDiff: Math.abs(currentWidth - lastWidth),
-                heightDiff: Math.abs(currentHeight - lastHeight),
-                devicePixelRatio: window.devicePixelRatio
+        });
+    }
+
+    // ---- READ phase: collect one chapter's geometry, writing nothing ----
+    function measureSection(grid) {
+        const textSection = grid.previousElementSibling;
+        const data = sectionImageData[grid.getAttribute('data-section')] || [];
+        const cs = window.getComputedStyle(grid);
+
+        const cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+        const gap = parseFloat(cs.rowGap) || 0;
+        const padTop = parseFloat(cs.paddingTop) || 0;
+        // clientWidth includes horizontal padding — subtract it, or the computed square
+        // is wider than the one the browser draws and every row boundary drifts.
+        const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+        const cell = (grid.clientWidth - padX - gap * (cols - 1)) / cols;
+        const rowH = cell + gap;
+        if (!(rowH > 0)) return null;                 // hidden / not laid out yet
+
+        // Row 0 starts at the grid's content box, padTop below the text's top.
+        // The phrase is snapped to the NEAREST row rather than the one it starts in:
+        // rounding down biases every image upward by up to a full row (measured avg
+        // drift 91px vs 58px, worst 225px vs 115px). Nearest caps the error at half
+        // a row and leaves it unbiased.
+        const gridTop = grid.getBoundingClientRect().top + padTop;
+        const rows = Math.max(
+            Math.ceil(data.length / cols),
+            Math.ceil((textSection.offsetHeight - padTop) / rowH)
+        );
+
+        const hits = [];
+        textSection.querySelectorAll('.hl[data-link]').forEach(hl => {
+            hits.push({
+                ids: hl.dataset.link.split(/\s+/).filter(Boolean),
+                // No upper clamp: paint() grows the grid when a phrase near the end
+                // needs room. Clamping to the last row would shove that image upward.
+                row: Math.max(0,
+                    Math.round((hl.getBoundingClientRect().top - gridTop) / rowH))
             });
-            
-            // Desktop: handle significant dimension changes
-            const significantChange = Math.abs(currentWidth - lastWidth) > 10 || Math.abs(currentHeight - lastHeight) > 50;
-            
-            if (significantChange) {
-                console.log('Desktop resize detected');
-                
-                if (isSafari) {
-                    console.log('Safari desktop - refreshing page');
-                    window.location.reload();
-                } else {
-                    console.log('Chrome desktop - regenerating thumbnails');
-                    lastWidth = currentWidth;
-                    lastHeight = currentHeight;
-                    generateThumbnails();
-                }
-            }
-        }, 300); // Wait 300ms after resize stops
-    });
+        });
 
-    // ===== HIGHLIGHT ↔ THUMBNAIL LINKING =====
+        return { grid: grid, data: data, cols: cols, rows: rows, hits: hits };
+    }
+
+    // ---- WRITE phase: build the cells from the numbers read above ----
+    function paintSection(plan) {
+        if (!plan) return;
+        const grid = plan.grid, data = plan.data, cols = plan.cols, hits = plan.hits;
+        const rowMap = {};
+        const used = new Set();
+        const free = function (r) {
+            rowMap[r] = rowMap[r] || [];
+            return rowMap[r].length < cols;
+        };
+
+        // Place every linked image at, or below, its phrase's row — never above it, which
+        // would show the artwork before the sentence introducing it. If a chapter runs out
+        // of room (a phrase near the end carrying several images), the grid grows: the
+        // row count derived from the text is a minimum, not a cap.
+        let lastRow = plan.rows - 1;
+        hits.forEach(h => h.ids.forEach(id => {
+            const img = data.find(i => i.id === id);
+            if (!img || used.has(id)) return;
+            let r = h.row;
+            while (!free(r)) r++;
+            rowMap[r].push(img);
+            used.add(id);
+            if (r > lastRow) lastRow = r;
+        }));
+
+        // Images no phrase points at fall into the earliest free cell.
+        const leftover = data.filter(i => !used.has(i.id));
+        let total = lastRow + 1;
+        let vacancies = 0;
+        for (let r = 0; r < total; r++) vacancies += cols - (rowMap[r] || []).length;
+        while (vacancies < leftover.length) { total++; vacancies += cols; }
+
+        // Detach the persistent thumbs, then rebuild the cell order around them.
+        data.forEach(d => {
+            const el = thumbIndex[d.id];
+            if (el && el.parentNode === grid) grid.removeChild(el);
+        });
+        grid.innerHTML = '';
+        for (let i = 0; i < total * cols; i++) {
+            const r = Math.floor(i / cols);
+            const img = ((rowMap[r] || []).length ? rowMap[r].shift() : leftover.shift());
+            if (img) {
+                grid.appendChild(thumbIndex[img.id]);
+            } else {
+                const filler = document.createElement('div');
+                filler.className = 'thumb placeholder-only unlinked';
+                filler.innerHTML = '<span class="thumb-placeholder">&bull;</span>';
+                grid.appendChild(filler);
+            }
+        }
+    }
+
+    function layoutChapters() {
+        const grids = Array.from(document.querySelectorAll('.section-images[data-section]'));
+        const plans = grids.map(measureSection);   // all reads first
+        plans.forEach(paintSection);               // then all writes
+    }
+
+    function initChapterImages() {
+        document.querySelectorAll('.section-images[data-section]').forEach(grid => {
+            const data = sectionImageData[grid.getAttribute('data-section')] || [];
+            grid.innerHTML = '';
+            data.forEach(d => grid.appendChild(buildThumb(d)));
+        });
+        markUnlinkedPlaceholders();
+        initializeHighlightLinking();
+        layoutChapters();
+
+        // Resizing the window always changes .section-text's width, so observing the text
+        // covers every case — including a web font swapping in and reflowing the copy.
+        const ro = new ResizeObserver(() => layoutChapters());
+        document.querySelectorAll('.section-text').forEach(t => ro.observe(t));
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(layoutChapters);
+        }
+    }
+
+    // ===== HIGHLIGHT <-> THUMBNAIL LINKING =====
+    // Thumbs are persistent elements reused across relayouts, so listeners are attached
+    // exactly once. (The previous version re-ran this after every regeneration without
+    // ever removing listeners, stacking a fresh set on each resize.)
     function initializeHighlightLinking() {
-        const highlights = document.querySelectorAll('.hl');
+        document.querySelectorAll('.hl[data-link]').forEach(hl => {
+            if (hl.dataset.linkWired) return;
+            hl.dataset.linkWired = '1';
 
-        highlights.forEach(hl => {
-        const targetIds = hl.dataset.link.split(' ');
-        const targets = targetIds.map(id => document.getElementById(id)).filter(el => el);
+            const targets = hl.dataset.link.split(/\s+/).filter(Boolean)
+                .map(id => thumbIndex[id]).filter(el => el);
 
-        // Desktop: hover
-        hl.addEventListener('mouseenter', () => {
-            hl.classList.add('active');
-            targets.forEach(target => target.classList.add('linked'));
-        });
-
-        hl.addEventListener('mouseleave', () => {
-            hl.classList.remove('active');
-            targets.forEach(target => target.classList.remove('linked'));
-        });
-
-        targets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
+            const on = () => {
                 hl.classList.add('active');
                 targets.forEach(t => t.classList.add('linked'));
-            });
-
-            target.addEventListener('mouseleave', () => {
+            };
+            const off = () => {
                 hl.classList.remove('active');
                 targets.forEach(t => t.classList.remove('linked'));
+            };
+
+            hl.addEventListener('mouseenter', on);
+            hl.addEventListener('mouseleave', off);
+            targets.forEach(t => {
+                t.addEventListener('mouseenter', on);
+                t.addEventListener('mouseleave', off);
+            });
+
+            // Clicking the phrase opens the first of its images that has a file.
+            hl.addEventListener('click', e => {
+                e.preventDefault();
+                const real = targets.find(t => t.querySelector('img'));
+                if (real) openOverlay(real);
             });
         });
 
-        // Click highlight to open first linked image (only if it has actual image)
-        hl.addEventListener('click', (e) => {
-            e.preventDefault();
-            const firstImageTarget = targets.find(target => !target.classList.contains('placeholder-only'));
-            if (firstImageTarget) {
-                openOverlay(firstImageTarget);
-            }
+        // Clicking a thumbnail does the same as clicking its phrase. Wired over EVERY
+        // thumb with an image, including ones no phrase points at.
+        Object.keys(thumbIndex).forEach(id => {
+            const el = thumbIndex[id];
+            if (el.dataset.clickWired || !el.querySelector('img')) return;
+            el.dataset.clickWired = '1';
+            el.addEventListener('click', () => openOverlay(el));
         });
-    });
     }
 
     // ===== OVERLAY / LIGHTBOX =====
@@ -1864,19 +1276,11 @@
         if (e.key === 'ArrowRight') navOverlay(1);
     });
 
-    // Initialize everything after DOM is loaded
+    // Initialize the chapter grids after the DOM is ready.
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeHighlightLinking();
-            // Force immediate regeneration for img_4_1 and img_4_2
-            console.log('Immediately regenerating thumbnails for img_4_1 and img_4_2...');
-            generateThumbnails();
-        });
+        document.addEventListener('DOMContentLoaded', initChapterImages);
     } else {
-        initializeHighlightLinking();
-        // Force immediate regeneration for img_4_1 and img_4_2
-        console.log('Immediately regenerating thumbnails for img_4_1 and img_4_2...');
-        generateThumbnails();
+        initChapterImages();
     }
 
     // ============ FEATURED GALLERY ============
@@ -1894,12 +1298,9 @@
         const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'GIF'];
         const loadedImages = [];
         
-        console.log('=== Starting Featured Artwork Loading ===');
-        console.log('Extensions to try:', extensions);
         
         // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
         for (let i = 1; i <= 10; i++) {
-            console.log(`--- Looking for image #${i} ---`);
             let found = false;
             
             // Try each extension for this number
@@ -1907,12 +1308,10 @@
                 if (found) break; // Skip other extensions once found
                 
                 const imagePath = `featured_artwork/${i}.${ext}`;
-                console.log(`Testing: ${imagePath}`);
                 
                 try {
                     const exists = await testImage(imagePath);
                     if (exists) {
-                        console.log(`🎉 SUCCESS! Found: ${imagePath}`);
                         loadedImages.push({
                             src: imagePath,
                             alt: `Featured Artwork ${i}`,
@@ -1926,15 +1325,12 @@
                         }
                     }
                 } catch (error) {
-                    console.log(`❌ Error testing ${imagePath}:`, error);
                 }
             }
             
             if (!found) {
-                console.log(`❌ No image found for #${i}`);
                 // Stop if we've tried many consecutive numbers without success
                 if (i > 3 && loadedImages.length === 0) {
-                    console.log(`Stopping search - no images found in first 3 attempts`);
                     break;
                 }
                 // Stop if we've hit 3 consecutive misses after finding some images
@@ -1949,16 +1345,12 @@
                         }
                     }
                     if (consecutiveMisses >= 3) {
-                        console.log(`Stopping search - 3 consecutive misses after finding images`);
                         break;
                     }
                 }
             }
         }
 
-        console.log('=== Loading Complete ===');
-        console.log(`Total images found: ${loadedImages.length}`);
-        console.log('Image list:', loadedImages.map(img => img.src));
         
         // Sort by index to ensure proper order
         loadedImages.sort((a, b) => a.index - b.index);
@@ -1969,26 +1361,21 @@
     // Improved image testing with better error handling
     function testImage(src) {
         return new Promise((resolve) => {
-            console.log(`🔍 TESTING IMAGE: ${src}`);
             const img = new Image();
             let resolved = false;
             
             const resolveOnce = (result) => {
                 if (!resolved) {
                     resolved = true;
-                    console.log(`📊 RESULT for ${src}: ${result ? 'SUCCESS ✓' : 'FAILED ✗'}`);
                     resolve(result);
                 }
             };
             
             img.onload = () => {
-                console.log('✓ Image loaded successfully:', src, `Size: ${img.naturalWidth}x${img.naturalHeight}`);
                 resolveOnce(true);
             };
             
             img.onerror = (error) => {
-                console.log('✗ Image failed to load:', src, error);
-                console.log('📁 Full URL attempted:', new URL(src, window.location.href).href);
                 resolveOnce(false);
             };
             
@@ -1996,19 +1383,14 @@
             const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
             setTimeout(() => {
                 if (!resolved) {
-                    console.log('⏰ Image load timeout:', src, `after ${timeoutDuration}ms`);
-                    console.log('📁 Full URL attempted:', new URL(src, window.location.href).href);
                     resolveOnce(false);
                 }
             }, timeoutDuration);
             
             // Set src after all handlers are attached
             try {
-                console.log(`📝 Setting src: ${src}`);
                 img.src = src;
-                console.log(`📡 Image src set, waiting for load...`);
             } catch (error) {
-                console.log('✗ Error setting image src:', src, error);
                 resolveOnce(false);
             }
         });
@@ -2016,7 +1398,6 @@
 
     // Generate gallery HTML
     function generateGallery(images) {
-        console.log('Generating gallery with', images.length, 'images:', images);
         
         if (images.length === 0) {
             gallerySlidesContainer.innerHTML = '<div class="gallery-slide active"><div style="display: flex; align-items: center; justify-content: center; height: 400px; background: #f5f5f5; color: #666; text-align: center; padding: 20px;">No images found in featured_artwork folder<br><small>Try adding images with names like: 1.jpg, 2.jpg, etc.</small></div></div>';
@@ -2044,17 +1425,14 @@
         gallerySlides = document.querySelectorAll('.gallery-slide');
         galleryDots = document.querySelectorAll('.gallery-dot');
         
-        console.log('Gallery generated successfully with', gallerySlides.length, 'slides');
     }
 
     function showGallerySlide(index) {
-        console.log(`Switching to gallery slide ${index}, total slides: ${gallerySlides.length}`);
         
         // Remove active class from all slides and dots
         gallerySlides.forEach((slide, i) => {
             if (i === index) {
                 slide.classList.add('active');
-                console.log(`✓ Activated slide ${i}`);
             } else {
                 slide.classList.remove('active');
             }
@@ -2069,7 +1447,6 @@
         });
         
         galleryCurrentIndex = index;
-        console.log(`Gallery current index set to: ${galleryCurrentIndex}`);
     }
 
     function nextGallerySlide() {
@@ -2097,17 +1474,14 @@
     // Initialize gallery
     async function initializeGallery() {
         if (galleryInitialized) {
-            console.log('Gallery already initialized, skipping...');
             return;
         }
         
-        console.log('Initializing gallery...');
         galleryInitialized = true;
         
         // Ensure we're not at the bottom of the page when gallery loads
         const isMobile = window.innerWidth <= 600;
         if (isMobile && window.pageYOffset > window.innerHeight) {
-            console.log('Mobile device detected, scrolling to top for gallery initialization');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             // Wait for scroll to complete
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -2115,7 +1489,6 @@
         
         // Load images dynamically
         const images = await loadFeaturedArtwork();
-        console.log('Loaded images:', images);
         
         generateGallery(images);
         
@@ -2136,12 +1509,10 @@
     function setupGalleryNavigation() {
         // Prevent multiple setups
         if (setupGalleryNavigation.initialized) {
-            console.log('Gallery navigation already set up, skipping...');
             return;
         }
         setupGalleryNavigation.initialized = true;
         
-        console.log('Setting up gallery navigation...');
         
         // Navigation button events
         if (galleryPrevBtn) {
