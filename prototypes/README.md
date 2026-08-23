@@ -1,56 +1,49 @@
-# Prototypes — Text ↔ Image Linking, three visual directions
-# 原型 —— 图文联动的三种视觉方向
+# Prototypes & the frozen "before" page
+# 原型与改造前页面存档
 
-Three self-contained prototypes of the core feature (see [`../CORE_FEATURE.md`](../CORE_FEATURE.md)
-and [`../REFACTOR_PLANS.md`](../REFACTOR_PLANS.md)). All three share the **same content** and the
-**same interaction layer** (`linking.js`), so they differ **only** in the alignment algorithm — pick
-by which visual you prefer.
-核心功能的三个自包含原型(见上两份文档)。三者共用**相同内容**与**相同交互层**(`linking.js`),
-**只**在对齐算法上不同——按你想要的视觉挑选。
+The rewrite of the text ↔ image linked narrative is **finished and shipped into `index.html`**
+(2026-08-23). What lives here now is the decision trail: the page as it was before, and the three
+visual directions that were tried.
+图文联动叙事的重构**已完成并合入 `index.html`**(2026-08-23)。本目录保存的是决策过程:改造前的页面,
+以及当时试过的三个视觉方向。
 
-## How to view / 如何查看
+See [`../REFACTOR_PLANS.md`](../REFACTOR_PLANS.md) for the full write-up, including the two claims
+in it that testing disproved. / 完整记录(含其中被实测证伪的两处论断)见 `../REFACTOR_PLANS.md`。
 
-Serve the repo root (relative image paths need a server):
-以本地服务器打开(相对图片路径需要服务器):
+## Files / 文件
+
+| File | What it is |
+|---|---|
+| `0-original-index.html` | **The frozen "before" page.** A copy of `index.html` as it was prior to the rewrite, for side-by-side comparison. Behaviour untouched; only relative asset paths were rewritten (`./` → `../`) so it renders from this folder. **Do not develop here.** / **改造前页面存档。** 行为未改,仅把相对资源路径改为 `../`。**请勿在此开发。** |
+| `2-filled-grid.html` | The prototype that became the shipped design. Kept because it runs standalone with a live readout of window width / column count / cell size / row count — handy for inspecting the algorithm without the hero and gallery in the way. / 最终采用方案的原型。保留是因为它可独立运行,且带实时读数(窗口宽度 / 列数 / 格子边长 / 行数),便于在没有首屏和轮播干扰的情况下观察算法。 |
+| `1-anchored-whitespace.html` | ❌ Rejected. Anchors each image to its phrase and drops the grid. / 已否决:锚定到关键词但放弃网格。 |
+| `3-css-sidenotes.html` | ❌ Rejected. Zero-JS margin notes; figures overlap the text at narrow widths. / 已否决:零 JS 页边注,窄屏下压住正文。 |
+| `sample.js` | Chapter text, highlights and image config, auto-extracted from `index.html`. Shared by prototypes 1–3. / 从 `index.html` 自动提取的章节正文、关键词与图片配置,供三个原型共用。 |
+| `base.css` | Design tokens and typography copied from `index.html`, so a prototype differs only in its layout algorithm. / 从 `index.html` 复制的设计变量与排版,使原型之间只在布局算法上有差别。 |
+| `linking.js` | The two invariants: bidirectional hover linking + click-to-overlay. / 两条不变量:双向 hover 联动 + 点击浮层。 |
+
+## Why 2 won / 为什么选 2
+
+The image column is not decoration that happens to sit beside the text. **The grid filling to the
+text height, the cell size changing with the window, and the empty cells are the design** — the
+blank squares are narrative rhythm, because not every passage needs an image. Prototypes 1 and 3
+both drop the grid, so both were rejected as soon as they were seen next to the real site.
+图栏不是"恰好摆在文字旁边的装饰"。**网格填满至文字高度、格子随窗口变化、空格子的存在,三者就是设计本身** ——
+空方格是叙事节奏,因为并非每段话都需要配图。原型 1 和 3 都放弃了网格,一与线上站并排就被否决。
+
+## Viewing / 查看
 
 ```bash
-python3 -m http.server 8000
-# then open / 然后打开:
-#   http://localhost:8000/prototypes/1-anchored-whitespace.html
-#   http://localhost:8000/prototypes/2-filled-grid.html
-#   http://localhost:8000/prototypes/3-css-sidenotes.html
+python3 ../serve.py          # from the repo root / 在仓库根目录运行
 ```
 
+- After  / 改造后: <http://localhost:8000/>
+- Before / 改造前: <http://localhost:8000/prototypes/0-original-index.html>
+- Prototype 2 / 原型 2: <http://localhost:8000/prototypes/2-filled-grid.html>
+
+`serve.py` disables caching — plain `http.server` lets Safari keep serving a stale `base.css`.
+`serve.py` 禁用了缓存;用普通 `http.server` 时 Safari 会一直加载旧的 `base.css`。
+
 In each: **hover** a highlighted phrase (or an image) to see the link light up both ways; **click**
-to open the overlay (arrows / Esc / ← →). **Resize the window** to confirm alignment holds.
-每个页面里:**悬停**关键词或图片看双向点亮;**点击**打开浮层(方向键/Esc);**缩放窗口**验证对齐。
-
-## Comparison / 对比
-
-| | 1 · Anchored (whitespace) | 2 · Filled grid | 3 · CSS sidenotes |
-|---|---|---|---|
-| Visual / 视觉 | Image precisely beside its phrase, gaps between / 精确贴词,间留白 | Full square mosaic aligned to text / 填满方块网格 | Margin figures (Tufte) / 页边配图 |
-| Tech / 技术 | `offsetTop` + `ResizeObserver` | simplified grid + 1 observer / 简化网格 | **pure CSS**, zero layout JS |
-| JS lines / JS 行数 | ~40 | ~70 | 0 for layout / 布局 0 |
-| Forced reflows / 强制重排 | 0 | 0 | 0 |
-| Cross-browser / 跨浏览器 | ✅ universal | ✅ universal | ✅ universal |
-| Alignment precision / 精度 | exact to phrase / 精确到词 | row bucket / 行级 | in-flow position / 流内位置 |
-| Collision handling / 避让 | auto (push down) / 自动下推 | auto (row overflow) / 自动溢出 | ⚠️ none — may overlap / 无,可能重叠 |
-| vs current site / 对比现状 | replaces ~500 lines / 替代约 500 行 | same look, far simpler / 同款更简 | simplest, new aesthetic / 最简,新风格 |
-
-All three replace the current implementation's ~57 forced reflows and Safari page-reload hack.
-三者都取消了当前实现的约 57 次强制重排与 Safari 整页刷新 hack。
-
-## Shared files / 共享文件
-
-- `sample.js` — sample chapters (real text + real images), the single source of truth. / 样例内容,单一数据源。
-- `base.css` — text / highlight / figure / overlay styling. / 基础样式。
-- `linking.js` — the two invariants: bidirectional hover linking + overlay lightbox. / 两条不变量:双向联动 + 灯箱。
-
-## Not included (intentionally) / 有意未包含
-
-These prototypes demonstrate the alignment + linking only. A production rewrite would still add:
-`loading="lazy"` everywhere, compressed WebP images, SEO/OG meta, and removal of debug code — see
-[`../IMPROVEMENTS.md`](../IMPROVEMENTS.md).
-原型只演示对齐与联动。正式重写还需:全站懒加载、压缩 WebP、SEO/OG、清理调试代码——见 `../IMPROVEMENTS.md`。
-</content>
+either one to open the overlay. **Resize the window** to confirm the grid tracks the text.
+每个页面里:**悬停**关键词或图片看双向点亮;**点击**任一侧打开浮层;**缩放窗口**验证网格跟随文字。

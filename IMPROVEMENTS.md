@@ -8,6 +8,19 @@ Legend / 图例: 🔴 high impact 高优先 · 🟠 code quality 代码质量 ·
 
 ---
 
+## Status / 进度 (2026-08-23)
+
+The **text ↔ image layout rewrite is done and shipped** — see `REFACTOR_PLANS.md` for the write-up
+and `tests/cross-browser.mjs` for the three-engine test. `index.html` went from 2246 to 1604 lines.
+**图文布局重构已完成并合入**,记录见 `REFACTOR_PLANS.md`,三引擎测试见 `tests/cross-browser.mjs`;
+`index.html` 由 2246 行降到 1604 行。
+
+**Biggest remaining item is still P0 image weight** — `c2/` and `c3/` are ~22 MB each and the hero
+video is ~10 MB. Nothing about that changed. / **最大的遗留项仍是 P0 图片体积** ——
+`c2/`、`c3/` 各约 22MB,首页视频约 10MB,这部分完全未动。
+
+---
+
 ## 🔴 P0 — Biggest impact on real visitors / 对访客影响最大
 
 - [ ] **Compress images / 压缩图片.** Several images are 3–5 MB each (e.g. `c2/5a_early_attemps.jpg`
@@ -17,8 +30,9 @@ Legend / 图例: 🔴 high impact 高优先 · 🟠 code quality 代码质量 ·
 - [ ] **Optimize the hero video / 优化首页视频.** `hero-video.mp4` is ~10 MB and autoplays. Compress
   it, add a `poster`, and consider a static image (no autoplay video) on mobile.
   `hero-video.mp4` 约 10 MB 且自动播放。压缩、加 `poster` 海报图;手机端考虑用静态图代替自动播放视频。
-- [ ] **Lazy-load offscreen images / 懒加载非首屏图片.** Add `loading="lazy"` (currently used in only
-  one place). / 给非首屏图片加 `loading="lazy"`(目前全站仅 1 处使用)。
+- [x] **Lazy-load offscreen images / 懒加载非首屏图片.** Every chapter thumbnail is now built with
+  `loading="lazy"`. Verified: 7 images load on the first screen, all 20 after scrolling.
+  章节缩略图现已全部带 `loading="lazy"`。实测:首屏加载 7 张,滚动后 20 张全部加载。
 - [ ] **Add SEO + social meta to `<head>` / 补充 SEO 与社交分享 meta.** Only charset/viewport/title
   exist now. / 目前只有 charset/viewport/title。补:
   - [ ] `<meta name="description">`
@@ -30,23 +44,31 @@ Legend / 图例: 🔴 high impact 高优先 · 🟠 code quality 代码质量 ·
 
 ## 🟠 P1 — Code quality / technical debt · 代码质量与技术债
 
-- [ ] **Replace JS equal-height logic with CSS / 用 CSS 替代等高 JS.**
-  `generateThumbnails` / `generateThumbnailsForSection` (~500 lines) measures text height with
-  ~57 forced reflows + Safari/Chrome workarounds. CSS Grid/Flexbox/`aspect-ratio` can do this
-  natively. / 这约 500 行只为两栏等高,用了约 57 次强制重排,CSS 即可原生实现,可删数百行。
+- [x] **Replace the JS equal-height logic / 重写等高逻辑.** Done 2026-08-23, though *not* with pure
+  CSS — the row-to-phrase mapping genuinely needs measurement. 539 lines became 159, 77 forced
+  layout reads became 6, and the browser sniffing plus the resize→reload are gone. Verified in
+  Blink, Gecko and WebKit by `tests/cross-browser.mjs`. See `REFACTOR_PLANS.md` §5.
+  已于 2026-08-23 完成,但**不是**用纯 CSS —— 行与关键词的映射确实需要测量。539 行 → 159 行,
+  强制布局读取 77 处 → 6 处,浏览器嗅探与 resize 整页刷新已移除,并由三引擎测试验证。
 - [ ] **Stop probing the network for featured images / 不要用网络探测发现精选图.**
   `loadFeaturedArtwork()` requests many `featured_artwork/{n}.{ext}` combos. Use an explicit list.
   改为像章节那样写明确的图片清单数组。
-- [ ] **Remove debug code before shipping / 上线前清理调试代码.**
-  - [ ] ~50 `console.log` statements / 约 50 处 `console.log`(多带 emoji)。
-  - [ ] The visible "Debug Info" toggle + panel and `Debug Information` block / 可见的调试面板与区块。
-  - [ ] `DEBUG_MODE`, `updateDebugPanel`, related scaffolding / 相关调试设施。
+- [x] **Remove debug code before shipping / 上线前清理调试代码.**
+  - [x] All 50 `console.*` statements removed / 50 处 `console.*` 全部移除。
+  - [x] The "Debug Info" toggle, panel and its CSS removed / 调试按钮、面板及其 CSS 已移除。
+  - [x] `DEBUG_MODE`, `updateDebugPanel`, `debugLog` removed / 相关调试设施已移除。
 - [ ] **Review the injected Cloudflare script / 检查注入的 Cloudflare 脚本.**
   `/cdn-cgi/scripts/.../email-decode.min.js` 404s off Cloudflare; confirm if needed.
   该脚本在非 Cloudflare 环境(如本地/GitHub Pages)会 404,确认是否需要。
-- [ ] **Split the single 2200-line `index.html` / 拆分单文件** into `index.html` + `style.css` + `main.js`.
+- [ ] **Split the single 1600-line `index.html` / 拆分单文件** into `index.html` + `style.css` + `main.js`.
+  (Was 2246 lines before the layout rewrite. / 布局重构前为 2246 行。)
 - [ ] **De-duplicate chapter copy / 正文去重.** Body text is in HTML *and* `text/Artistic narrative.md`.
   Pick one source of truth. / 正文同时存在于 HTML 与 md,确定唯一来源。
+  - [x] Removed a paragraph that appeared **twice** at the start of ch.VII — two drafts of the same
+    passage, identical in the middle two sentences. Kept the later, tighter version.
+    已删除第七章开头**重复出现**的一段(同一段的两版草稿,中间两句逐字相同),保留后写的、更紧凑的一版。
+  - [ ] ⚠️ Both drafts still sit back-to-back in `text/Artistic narrative.md` — re-syncing from the
+    source would bring the duplicate back. / ⚠️ 两版草稿在原稿中仍前后相邻,若从原稿重新同步会把重复段带回来。
 
 ## 🟡 P2 — Content / UX · 内容与体验
 
@@ -64,8 +86,8 @@ Legend / 图例: 🔴 high impact 高优先 · 🟠 code quality 代码质量 ·
 
 ## 🟡 P3 — Accessibility & polish · 无障碍与细节
 
-- [ ] **Provide `alt` text / 提供 `alt` 文本** for dynamic images (reuse `caption`; also helps SEO).
-  动态图片补 `alt`(复用 `caption`,也利于 SEO)。
+- [x] **Provide `alt` text / 提供 `alt` 文本.** Every chapter thumbnail now carries `alt=caption`.
+  章节缩略图现已全部带 `alt`(复用 `caption`)。
 - [ ] **Add a `poster` to the hero video / 给首页视频加 `poster`**; keep autoplay media muted/controllable.
 - [ ] **Mark up language / 标注语言** for mixed Chinese/English content (`lang` attributes).
 
