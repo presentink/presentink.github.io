@@ -37,6 +37,17 @@ email with a direct `mailto:` link. /
 和章节跳转的七章 `The Full Journey` 索引。次级信息改用 Space Grotesk,调整 Hero 与章节标题层级,
 并以直接 `mailto:` 链接替换 Cloudflare 混淆邮箱。
 
+**Shipped on 2026-08-25 / 2026-08-25 已完成:** fixed the Selected Works lightbox by giving it its
+own explicit image list and navigation sequence, rather than creating a temporary chapter thumbnail.
+Removed the mobile-only gallery initialization scroll-to-top so `#chapter…` links and restored reading
+positions remain intact. Inline JavaScript parsing and `git diff --check` passed. A local server is
+available on port 8001; real browser click testing remains to be run because Playwright is not available
+in the current environment. /
+**2026-08-25 已完成:** Selected Works 灯箱现使用独立、明确的图片列表与翻页顺序，不再临时创建章节缩略图。
+移除了手机端图库初始化时的强制回顶，因此 `#chapter…` 跳转与恢复的阅读位置可以保留。内联 JavaScript
+解析及 `git diff --check` 已通过。本地服务可在 8001 端口访问；由于当前环境没有可用的 Playwright，真实浏览器
+点击验证仍待补跑。
+
 ### Index audit / 主体审阅（2026-08-24）
 
 The current narrative structure is sound: Hero → Featured Artwork → Artist Statement →
@@ -46,17 +57,14 @@ remain deliberately deferred, as agreed. /
 目前的叙事结构已经成立：Hero → Featured Artwork → Artist Statement → The Full Journey → 章节正文。
 继续微调视觉或补充新素材前，优先处理下列会影响访客使用的交互问题。图片/视频优化及缺失的艺术家素材仍按约定后置。
 
-- [ ] **P1 — Fix Featured Artwork lightbox opening / 修复精选作品灯箱打开失败。** The gallery click
-  handler creates a temporary thumbnail without an `id`, while `openOverlay()` only indexes
-  thumbnails with ids. This can make the selected index `-1` and cause `updateOverlay()` to fail.
-  Replace the temporary-node path with a gallery-aware overlay entry, or let the overlay accept
-  image source and caption directly. See `index.html` `openOverlay()` and the gallery click handler.
-  精选轮播点击时创建的临时缩略图没有 `id`，但 `openOverlay()` 只索引带 id 的章节缩略图；索引可能成为
-  `-1`，导致 `updateOverlay()` 失败。应为精选图库建立正确的灯箱数据入口，或让灯箱直接接收图片路径与说明。
-- [ ] **P1 — Preserve mobile deep links and reading position / 保留手机端深链接与阅读位置。** Remove
-  the gallery initialization code that scrolls mobile visitors to the top. It currently disrupts
-  `#chapter…` links and restored scroll positions.
-  移除图库初始化中手机端强制回到顶部的代码；它会破坏 `#chapter…` 跳转和页面恢复阅读位置。
+- [x] **P1 — Fix Featured Artwork lightbox opening / 修复精选作品灯箱打开失败。** Completed
+  2026-08-25. The overlay now receives an explicit list of Selected Works and navigates only within
+  that list; chapter images retain their own sequence. No temporary thumbnail is created.
+  已于 2026-08-25 完成。灯箱现在使用明确的 Selected Works 列表，并只在其中翻页；章节图片保持自身顺序，
+  不再创建临时缩略图。
+- [x] **P1 — Preserve mobile deep links and reading position / 保留手机端深链接与阅读位置。** Completed
+  2026-08-25. Removed the gallery initialization code that scrolled mobile visitors to the top.
+  已于 2026-08-25 完成。已移除图库初始化时将手机访客强制带回顶部的代码。
 - [ ] **P1 — Make image interaction keyboard-accessible / 让图片交互支持键盘。** Use semantic buttons
   (or equivalent roles, focusability, and Enter/Space handlers) for clickable thumbnails, text
   highlights, and the hero scroll cue. Give the overlay dialog semantics and restore focus when it
