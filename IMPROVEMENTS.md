@@ -96,10 +96,9 @@ remain deliberately deferred, as agreed. /
   已于 2026-08-25 完成并人工验证 Hero、Selected Works、已有真实章节图片和灯箱的键盘操作。可点击控件
   现具备语义、焦点状态和 Enter/Space 操作；灯箱会约束 Tab 焦点并在关闭后恢复焦点。缺图章节的关键词↔图片
   联动仍待素材补齐后完善，因为对应目标目前仍是占位框。
-- [ ] **P2 — Keep reading-time copy in one source / 集中维护阅读时间文案。** The chapter times and
-  “about 25 minutes” introduction are hand-maintained in separate markup. Move them to one small
-  chapter data structure, or review them whenever the narrative copy changes.
-  每章时间与“约 25 分钟”的说明目前分散手工维护；可集中进一个小型章节数据结构，或每次改正文时一并复核。
+- [x] **P2 — Keep reading-time copy in one source / 集中维护阅读时间文案。** Completed 2026-08-25.
+  `chapterReadingTimes` is now the single source for every chapter time and the total in the
+  introduction. / 已于 2026-08-25 完成。`chapterReadingTimes` 现为各章时长与引言总时长的唯一来源。
 - [ ] **P3 — Test the live page, not only the prototype / 测试真实首页而非仅 prototype。** Set the
   browser suite default target to `/`, then add assertions for Featured Artwork opening, mobile
   deep links, and keyboard/focus behavior.
@@ -119,14 +118,11 @@ remain deliberately deferred, as agreed. /
 - [x] **Lazy-load offscreen images / 懒加载非首屏图片.** Every chapter thumbnail is now built with
   `loading="lazy"`. Verified: 7 images load on the first screen, all 20 after scrolling.
   章节缩略图现已全部带 `loading="lazy"`。实测:首屏加载 7 张,滚动后 20 张全部加载。
-- [ ] **Add SEO + social meta to `<head>` / 补充 SEO 与社交分享 meta.** Only charset/viewport/title
-  exist now. / 目前只有 charset/viewport/title。补:
-  - [ ] `<meta name="description">`
-  - [ ] Open Graph (`og:title`, `og:description`, `og:image`, `og:url`)
-  - [ ] Twitter Card
-  - [ ] `favicon`
-  - [ ] More descriptive `<title>` / 更具体的标题
-    (e.g. `Present Ink — Yufan Wang | Calligraphy & Collage`)
+- [ ] **Add SEO + social meta to `<head>` / 补充 SEO 与社交分享 meta.** Completed 2026-08-25 for
+  description, canonical URL, Open Graph, Twitter Card, and a more descriptive title. A favicon
+  remains open until a suitable artist-owned mark is available. /
+  2026-08-25 已补充 description、canonical URL、Open Graph、Twitter Card 与更准确的标题；favicon
+  待有合适的艺术家自有标识后再处理。
 
 ## 🟠 P1 — Code quality / technical debt · 代码质量与技术债
 
