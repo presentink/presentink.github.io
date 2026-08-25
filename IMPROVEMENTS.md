@@ -48,6 +48,29 @@ in the current environment. /
 解析及 `git diff --check` 已通过。本地服务可在 8001 端口访问；2026-08-25 已由用户在真实手机视图中验证
 章节深链接不会回顶，Selected Works 灯箱可正常打开与翻页。Playwright 自动化验证仍可在后续补跑。
 
+### Media delivery plan / 媒体加载优化计划（2026-08-25）
+
+Goal: reduce transfer size without changing the artist's originals or making a visible quality trade-off.
+The current JPG/JPEG files and `hero-video.mp4` remain untouched as masters; the website will use
+separate, high-quality web derivatives that can be replaced or rolled back independently. /
+目标：降低传输体积，不修改艺术家的原始文件，也不接受可见的画质牺牲。现有 JPG/JPEG 与 `hero-video.mp4`
+保留为母版；网站改用独立的高质量网页副本，因此可以单独替换或回退。
+
+- [x] Create high-quality WebP derivatives beside the existing image files. / 已为现有图片生成高质量 WebP 副本。
+- [x] Selected Works: cap the long edge at 2560 px for Retina gallery and lightbox viewing.
+  / Selected Works 长边限制在 2560 px，保证 Retina 画廊与灯箱观看。
+- [x] Chapter images: cap the long edge at 2000 px, retaining enough resolution for the lightbox.
+  / 章节图片长边限制在 2000 px，保留灯箱所需的细节。
+- [x] Encode a 1080p web copy of the hero video; retain the current 1080p master and compare before
+  accepting a smaller file. The CRF 20 test increased the file from 10 MB to 16 MB, so it is rejected
+  and the original remains active. / 已测试输出 1080p 首页视频网页副本；CRF 20 测试反而从 10 MB 增至
+  16 MB，因此不采用，网站继续使用原视频。
+- [x] Point the website to verified WebP derivatives. The image derivatives total 12.17 MB, compared
+  with 55.02 MB for their original JPG/JPEG sources. / 网站已改为引用通过路径与尺寸校验的 WebP 副本；
+  图片副本共 12.17 MB，原 JPG/JPEG 共 55.02 MB。
+- [ ] Later: add responsive `srcset` variants only if the first high-quality web pass looks correct.
+  / 后续：首轮高质量网页版本确认无误后，再考虑补充响应式 `srcset`。
+
 ### Index audit / 主体审阅（2026-08-24）
 
 The current narrative structure is sound: Hero → Featured Artwork → Artist Statement →
@@ -65,11 +88,14 @@ remain deliberately deferred, as agreed. /
 - [x] **P1 — Preserve mobile deep links and reading position / 保留手机端深链接与阅读位置。** Completed
   2026-08-25. Removed the gallery initialization code that scrolled mobile visitors to the top.
   已于 2026-08-25 完成。已移除图库初始化时将手机访客强制带回顶部的代码。
-- [ ] **P1 — Make image interaction keyboard-accessible / 让图片交互支持键盘。** Use semantic buttons
-  (or equivalent roles, focusability, and Enter/Space handlers) for clickable thumbnails, text
-  highlights, and the hero scroll cue. Give the overlay dialog semantics and restore focus when it
-  closes. / 可点击缩略图、文字高亮与 Hero 滚动提示需要语义化按钮，或等效的 role、焦点与 Enter/Space
-  操作；灯箱应具有 dialog 语义，并在关闭时恢复原焦点。
+- [x] **P1 — Make image interaction keyboard-accessible / 让图片交互支持键盘。** Completed and
+  manually verified on 2026-08-25 for the Hero control, Selected Works, real chapter images, and
+  the overlay. Clickable controls now expose roles, focus states, and Enter/Space handling; the
+  overlay traps Tab and restores focus when it closes. Keyword ↔ image linking in the incomplete
+  chapters remains a content-dependent follow-up, because those targets are still placeholders.
+  已于 2026-08-25 完成并人工验证 Hero、Selected Works、已有真实章节图片和灯箱的键盘操作。可点击控件
+  现具备语义、焦点状态和 Enter/Space 操作；灯箱会约束 Tab 焦点并在关闭后恢复焦点。缺图章节的关键词↔图片
+  联动仍待素材补齐后完善，因为对应目标目前仍是占位框。
 - [ ] **P2 — Keep reading-time copy in one source / 集中维护阅读时间文案。** The chapter times and
   “about 25 minutes” introduction are hand-maintained in separate markup. Move them to one small
   chapter data structure, or review them whenever the narrative copy changes.
@@ -140,6 +166,8 @@ remain deliberately deferred, as agreed. /
   - [ ] Ch.5 / 第五章: `img_5_1`–`img_5_4`（转折点 the turning point）
   - [ ] Ch.6 / 第六章: `img_6_1`–`img_6_6`
   - [ ] Ch.7 / 第七章: `img_7_1`–`img_7_5`
+  - [ ] Re-test and refine keyword ↔ image highlighting once each real image is added.
+    补入每张真实图片后，重新测试并完善关键词↔图片高亮联动。
 - [ ] **Add an About section / 增加关于页面段落.** The Artist Statement now covers the practice;
   add a distinct about section only if a fuller biography is needed. /
   Artist Statement 已说明创作实践;若需要更完整履历,再增加独立的关于段落。
