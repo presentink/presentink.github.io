@@ -15,9 +15,11 @@ and `tests/cross-browser.mjs` for the three-engine test. `index.html` went from 
 **图文布局重构已完成并合入**,记录见 `REFACTOR_PLANS.md`,三引擎测试见 `tests/cross-browser.mjs`;
 `index.html` 由 2246 行降到 1604 行。
 
-**Biggest remaining item is still P0 image weight** — `c2/` and `c3/` are ~22 MB each and the hero
-video is ~10 MB. Nothing about that changed. / **最大的遗留项仍是 P0 图片体积** ——
-`c2/`、`c3/` 各约 22MB,首页视频约 10MB,这部分完全未动。
+**Media status** — the first WebP delivery pass is shipped, reducing the images served by the site
+from about 55 MB to 12 MB while retaining the originals. The hero video remains the 10 MB master;
+responsive image variants and a video poster remain later work. / **媒体状态** ——首轮 WebP 网页副本
+已上线，网站实际传输图片约从 55 MB 降至 12 MB，原图仍保留。首页视频仍为 10 MB 母版；响应式图片与视频
+poster 留待后续处理。
 
 **Sequencing decision / 工作顺序（2026-08-23）:** media optimization, Cloudflare email cleanup,
 SEO/social metadata, and the featured-artwork manifest are deliberately deferred. The active
@@ -36,6 +38,17 @@ email with a direct `mailto:` link. /
 `Yufan_Wang_CV.pdf`,新增 Artist Statement 及其原稿`text/Artist Statement.md`,并增加含阅读时间
 和章节跳转的七章 `The Full Journey` 索引。次级信息改用 Space Grotesk,调整 Hero 与章节标题层级,
 并以直接 `mailto:` 链接替换 Cloudflare 混淆邮箱。
+
+**Bilingual site / 双语页面（2026-08-25）:** English remains the default at `/`; Chinese is a
+complete static page at `/zh/`, using `text/艺术叙述.md` as its narrative source. Both pages share
+the same assets and interaction logic. `EN / 中文` appears at the end of both link menus, and preserves
+the current `#chapter…` anchor when switching. When changing shared UI or JavaScript, update both
+`index.html` and `zh/index.html`; narrative copy should continue to be maintained in the two files
+under `text/`. /
+**双语页面（2026-08-25）:** 英文默认页为 `/`，中文完整静态页为 `/zh/`，正文以
+`text/艺术叙述.md` 为来源。两页共用素材与交互逻辑。两处链接菜单末尾均为 `EN / 中文`，切换时会保留
+当前 `#chapter…` 锚点。修改共用 UI 或 JavaScript 时需同步更新 `index.html` 与 `zh/index.html`；正文继续
+以 `text/` 下的中英文原稿维护。
 
 **Shipped on 2026-08-25 / 2026-08-25 已完成:** fixed the Selected Works lightbox by giving it its
 own explicit image list and navigation sequence, rather than creating a temporary chapter thumbnail.

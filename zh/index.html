@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" data-asset-prefix="../">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Present Ink | Yufan Wang</title>
-    <meta name="description" content="Present Ink is the art portfolio of Yufan Wang, a Denmark-based artist exploring calligraphy, collage, line works, and contemporary abstraction.">
+    <title>Present Ink | 王聿凡</title>
+    <meta name="description" content="Present Ink 是艺术家王聿凡的线上作品集，呈现书法、拼贴、线条作品与当代抽象实践。">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://presentink.github.io/">
+    <link rel="canonical" href="https://presentink.github.io/zh/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Present Ink">
-    <meta property="og:title" content="Present Ink | Yufan Wang">
-    <meta property="og:description" content="The art portfolio of Yufan Wang: calligraphy, collage, line works, and contemporary abstraction.">
-    <meta property="og:url" content="https://presentink.github.io/">
+    <meta property="og:title" content="Present Ink | 王聿凡">
+    <meta property="og:description" content="艺术家王聿凡的线上作品集：书法、拼贴、线条作品与当代抽象实践。">
+    <meta property="og:url" content="https://presentink.github.io/zh/">
     <meta property="og:image" content="https://presentink.github.io/featured_artwork/1.jpg">
-    <meta property="og:image:alt" content="Artwork by Yufan Wang">
+    <meta property="og:image:alt" content="王聿凡的作品">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Present Ink | Yufan Wang">
-    <meta name="twitter:description" content="The art portfolio of Yufan Wang: calligraphy, collage, line works, and contemporary abstraction.">
+    <meta name="twitter:title" content="Present Ink | 王聿凡">
+    <meta name="twitter:description" content="艺术家王聿凡的线上作品集：书法、拼贴、线条作品与当代抽象实践。">
     <meta name="twitter:image" content="https://presentink.github.io/featured_artwork/1.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -992,6 +992,19 @@
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html[lang="zh-CN"] body { font-family: "Noto Serif SC", "Songti SC", STSong, serif; }
+        html[lang="zh-CN"] .hero-tagline,
+        html[lang="zh-CN"] .hero-scroll,
+        html[lang="zh-CN"] .site-links,
+        html[lang="zh-CN"] .section-number,
+        html[lang="zh-CN"] .story-index-number,
+        html[lang="zh-CN"] .story-index-time { font-family: "Noto Sans SC", sans-serif; }
+        html[lang="zh-CN"] .featured-title,
+        html[lang="zh-CN"] .section-title,
+        html[lang="zh-CN"] .story-index-title { font-family: "Noto Serif SC", "Songti SC", STSong, serif; }
+    </style>
 </head>
 <body>
 
@@ -999,30 +1012,30 @@
 <div class="hero" id="hero">
     <video class="hero-video" autoplay muted loop playsinline>
         <!-- Replace src with your video file path -->
-        <source src="hero-video.mp4" type="video/mp4">
+        <source src="../hero-video.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
             <h1 class="hero-name">Present Ink</h1>
         <p class="hero-author">Yufan Wang</p>
-        <p class="hero-tagline">Calligraphy · Collage · Denmark</p>
-        <button class="hero-scroll" type="button" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</button>
+        <p class="hero-tagline">书法 · 拼贴 · 丹麦</p>
+        <button class="hero-scroll" type="button" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">向下阅读 ↓</button>
     </div>
 </div>
 
-<nav class="site-links" aria-label="Artist links">
+<nav class="site-links" aria-label="艺术家链接">
     <a href="https://www.instagram.com/presentink/" target="_blank" rel="noopener noreferrer">INS @presentink</a>
     <span class="site-link-separator" aria-hidden="true">·</span>
-    <a href="Yufan_Wang_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+    <a href="../Yufan_Wang_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
     <span class="site-link-separator" aria-hidden="true">·</span>
     <a href="mailto:presentink.studio@gmail.com">presentink.studio@gmail.com</a>
     <span class="site-link-separator" aria-hidden="true">·</span>
-    <a href="https://yufangised.github.io/index.html" target="_blank" rel="noopener noreferrer">Design Portfolio</a>
+    <a href="https://yufangised.github.io/index.html" target="_blank" rel="noopener noreferrer">设计作品集</a>
     <span class="site-link-separator" aria-hidden="true">·</span>
-    <span class="language-switch" aria-label="Language">
-        <span class="language-current" aria-current="page">EN</span>
+    <span class="language-switch" aria-label="语言">
+        <a href="/" data-language-link data-language-base="/" lang="en">EN</a>
         <span class="language-divider" aria-hidden="true">/</span>
-        <a href="/zh/" data-language-link data-language-base="/zh/" lang="zh-Hans">中文</a>
+        <span class="language-current" aria-current="page">中文</span>
     </span>
 </nav>
 
@@ -1030,20 +1043,20 @@
 <section class="featured-section" id="featured-gallery">
     <div class="content-wrapper">
         <div class="featured-intro">
-            <h2 class="featured-title">Selected Works</h2>
-            <p class="featured-description">A selection of works and experiments from different stages of my artistic practice, covering calligraphy works, line works, line collage, calligraphy collage, and color collage.</p>
+            <h2 class="featured-title">精选作品</h2>
+            <p class="featured-description">来自我不同阶段艺术实践的一组作品与实验，涵盖书法作品、线条作品、线条拼贴、书法拼贴与色彩拼贴。</p>
         </div>
-        
+
         <div class="gallery-container">
             <div class="gallery-wrapper">
                 <div class="gallery-slides" id="gallery-slides-container">
                     <!-- Images will be dynamically loaded here -->
                 </div>
-                
-                <button class="gallery-nav gallery-prev" aria-label="Previous image">←</button>
-                <button class="gallery-nav gallery-next" aria-label="Next image">→</button>
+
+                <button class="gallery-nav gallery-prev" aria-label="上一件作品">←</button>
+                <button class="gallery-nav gallery-next" aria-label="下一件作品">→</button>
             </div>
-            
+
             <div class="gallery-dots" id="gallery-dots-container">
                 <!-- Dots will be dynamically generated here -->
             </div>
@@ -1054,29 +1067,29 @@
 <!-- ===== ARTIST STATEMENT ===== -->
 <section class="artist-statement" aria-labelledby="artist-statement-title">
     <div class="artist-statement-inner">
-        <h2 class="featured-title artist-statement-title" id="artist-statement-title">Brief Introduction</h2>
-        <p>I am an artist based in Denmark.</p>
-        <p>I cut apart my own calligraphy and reassemble it.</p>
-        <p>My art is deeply rooted in Chinese calligraphy. In my early practice I wrote large cursive characters with an oversized brush. The writing is instantaneous and irreversible, and most attempts fail. As those failures accumulated over the years, I began to develop a working process of collage.</p>
-        <p>My daily practice is my material. I cut the characters into individual strokes and fragments, then assemble them following a logic inspired by cursive writing. The brush leaves the paper between strokes, yet the movement continues across the gap. I search for continuity across fragments from unrelated pieces, different sessions, sometimes years apart. The accidental fit excites me: two pieces aligning so perfectly they seem to have always belonged together, or a third laid over the join, so the eye completes what was never there.</p>
-        <p>My work is conceptual and process-driven. I write, cut, and assemble, following a fixed procedure, yet the outcome keeps surprising me, taking me beyond my own visual boundaries. Calligraphy collage is my ongoing attempt to explore what contemporary calligraphy could become. Calligraphy is flat, but once cut and overlaid, it gains depth. The cut deconstructs the tradition, and the reassembly brings it into the realm of contemporary art. The strokes remain cultural signs, while the work as a whole steps toward Western abstraction.</p>
+        <h2 class="featured-title artist-statement-title" id="artist-statement-title">简短自述</h2>
+        <p>我是一位常驻丹麦的艺术家。</p>
+        <p>我将自己写下的书法拆解，再重新组合。</p>
+        <p>我的艺术深深根植于中国书法。早期实践中，我以超大的毛笔书写大字草书。书写是即时且不可逆的，大多数尝试都会失败。随着失败在多年间不断累积，我逐渐发展出以拼贴为核心的工作方法。</p>
+        <p>我的日常练习就是我的材料。我把字切成独立的笔画和碎片，再依照草书启发的逻辑重新组装。毛笔会在笔画之间离开纸面，但运动会穿过间隙继续延续。我在来自不同作品、不同时间，甚至相隔数年的碎片之间寻找连贯性。那些偶然的契合让我兴奋：两片碎片严丝合缝，仿佛本就属于彼此；或是第三片覆盖在连接处，让眼睛补全原本不存在的形象。</p>
+        <p>我的作品以观念和过程为驱动。我书写、切割、组装，遵循固定的程序，但结果仍不断带给我意外，使我越过自身的视觉边界。书法拼贴是我持续探索当代书法可能性的尝试。书法原本是平面的，但经过切割和叠置，它获得了深度。切割解构传统，重组则将它带入当代艺术的领域。笔画仍是文化符号，而整体作品则迈向西方抽象。</p>
     </div>
 </section>
 
 <!-- ===== STORY INDEX ===== -->
 <section class="story-index" aria-labelledby="story-index-title">
     <div class="story-index-inner">
-        <h2 class="featured-title story-index-heading" id="story-index-title">Longer Story</h2>
-        <p class="story-index-intro">This is a retrospective account of my artistic practice from 2015 to the present: a record of memories, reflections, explorations, and the path it has taken. If you are curious to know more and enjoy a longer read, it will take about <span data-total-reading-time></span> minutes of your time. You can also jump directly to the chapter that interests you most.</p>
-        <nav aria-label="Chapters">
+        <h2 class="featured-title story-index-heading" id="story-index-title">完整历程</h2>
+        <p class="story-index-intro">这是对我从 2015 年至今艺术实践的回顾：记录其中的记忆、反思、探索，以及它所走过的路径。若你想进一步了解，并愿意阅读这篇长文，大约需要 <span data-total-reading-time></span> 分钟。你也可以直接跳至最感兴趣的章节。</p>
+        <nav aria-label="章节目录">
             <ol class="story-index-list">
-                <li><a class="story-index-link" href="#chapter1"><span class="story-index-copy"><span class="story-index-number">Chapter I</span><span class="story-index-title">Beginnings and a Return</span><span class="story-index-time" data-reading-time-for="chapter1"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter2"><span class="story-index-copy"><span class="story-index-number">Chapter II</span><span class="story-index-title">Large Character Calligraphy</span><span class="story-index-time" data-reading-time-for="chapter2"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter3"><span class="story-index-copy"><span class="story-index-number">Chapter III</span><span class="story-index-title">Line Works</span><span class="story-index-time" data-reading-time-for="chapter3"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter4"><span class="story-index-copy"><span class="story-index-number">Chapter IV</span><span class="story-index-title">Bottlenecks and Reflection</span><span class="story-index-time" data-reading-time-for="chapter4"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter5"><span class="story-index-copy"><span class="story-index-number">Chapter V</span><span class="story-index-title">The Turning Point: Collage</span><span class="story-index-time" data-reading-time-for="chapter5"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter6"><span class="story-index-copy"><span class="story-index-number">Chapter VI</span><span class="story-index-title">Calligraphy Collage: Exploration and Methodology</span><span class="story-index-time" data-reading-time-for="chapter6"></span></span></a></li>
-                <li><a class="story-index-link" href="#chapter7"><span class="story-index-copy"><span class="story-index-number">Chapter VII</span><span class="story-index-title">Meaning of Calligraphy Collage and Future Directions</span><span class="story-index-time" data-reading-time-for="chapter7"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter1"><span class="story-index-copy"><span class="story-index-number">第一章</span><span class="story-index-title">启蒙与重启</span><span class="story-index-time" data-reading-time-for="chapter1"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter2"><span class="story-index-copy"><span class="story-index-number">第二章</span><span class="story-index-title">大字书法</span><span class="story-index-time" data-reading-time-for="chapter2"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter3"><span class="story-index-copy"><span class="story-index-number">第三章</span><span class="story-index-title">线条作品</span><span class="story-index-time" data-reading-time-for="chapter3"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter4"><span class="story-index-copy"><span class="story-index-number">第四章</span><span class="story-index-title">瓶颈与反思</span><span class="story-index-time" data-reading-time-for="chapter4"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter5"><span class="story-index-copy"><span class="story-index-number">第五章</span><span class="story-index-title">拼贴的转折</span><span class="story-index-time" data-reading-time-for="chapter5"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter6"><span class="story-index-copy"><span class="story-index-number">第六章</span><span class="story-index-title">书法拼贴：探索与方法</span><span class="story-index-time" data-reading-time-for="chapter6"></span></span></a></li>
+                <li><a class="story-index-link" href="#chapter7"><span class="story-index-copy"><span class="story-index-number">第七章</span><span class="story-index-title">书法拼贴的意义与未来方向</span><span class="story-index-time" data-reading-time-for="chapter7"></span></span></a></li>
             </ol>
         </nav>
     </div>
@@ -1088,12 +1101,13 @@
     <!-- CHAPTER I -->
     <div class="section" id="chapter1">
         <div class="section-text">
-            <div class="section-number">Chapter I</div>
-            <h2 class="section-title">Beginnings and a Return</h2>
-            <p>I have loved calligraphy since I was very young. when I was in primary school age, I would sit down and practice for about an hour every day,  entirely on my own initiative. I never had a teacher—I simply practiced with <span class="hl" data-link="img_1_1">calligraphy model books</span> and taught myself. That went on for a few years.</p>
-            <p>Later, my love for calligraphy naturally led me to <span class="hl" data-link="img_1_2">Chinese painting</span>. During every winter and summer break, I painted almost every day, and the walls of my home were covered with my work. This spontaneous fascination stayed with me until high school.</p>
-            <p>In high school and later at university, my studies became more demanding, and both calligraphy and painting were set aside. Later, when I went abroad to study design in Sweden and then in Denmark, and eventually began working as a designer at LEGO, life turned out to be less busy than I had expected. With more free time after work, I returned to calligraphy. I began practicing again at home following the calligraphy model books.</p>
-            <p>I was around twenty-seven or twenty-eight at the time, and this round of practice felt completely different from my childhood experience. Back then the practice was mostly mechanical, but as an adult I began to pay attention to brushwork, rhythm, and energy. I progressed quickly, and I kept up this practice for about a year or two.</p>
+            <div class="section-number">第一章</div>
+            <h2 class="section-title">启蒙与重启</h2>
+            <p>我自小就喜欢书法。记得上小学的时候，就自发地每天练习大概一个小时。对书法的喜爱完全是没有缘由的，但我也没有找老师，完全是自学，按照字帖临摹。这大概持续了几年。</p>
+            <p>后来由于喜欢书法，又开始对中国画产生兴趣，每次放寒暑假几乎每天都在画画，家里墙上贴得到处都是。这种自发的兴趣一直延续到我上高中。</p>
+            <p>高中和大学时期学业都比较紧张，书法和绘画就都暂时搁置了，基本处于荒废状态。之后出国留学转学设计，先后在瑞典和丹麦生活学习，毕业后便在乐高找到了一份设计师的工作。</p>
+            <p>工作后的生活似乎没有以前上学那么忙了，下班后有很多自己的时间，于是我又想起了书法，重新在家里临帖练字，把书法捡了起来。这时候我大概是二十七、二十八岁的样子。</p>
+            <p>这次练字的感觉和小时候完全不一样：小时候是机械的练习，长大后则更注重体会书法的笔法和气韵。所以这次进步也很大。这样的练习大概有一两年的时间。</p>
         </div>
         <div class="section-images" data-section="1">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1103,18 +1117,20 @@
     <!-- CHAPTER II -->
     <div class="section" id="chapter2">
         <div class="section-text">
-            <div class="section-number">Chapter II</div>
-            <h2 class="section-title">Large Character Calligraphy</h2>
-            <p>During this period, I also read extensively about calligraphy—its history, lineage, theories, and the biographies of calligraphers. One book had a profound influence on me: <span class="hl" data-link="img_2_1"><i>Yu-ichi Inoue: The Calligraphy Is for Everyone</i></span>.</p>
-            <p>Inoue Yuichi was a pioneer of modern Japanese calligraphy and played an important role in introducing it to the West. His work resonated with Western modern art movements of his time. What struck me the most, however, was not his historical contribution but his <span class="hl" data-link="img_2_2a img_2_2b">giant single-character works created with enormous brushes</span>. They carried both tradition and bold innovation.</p>
-            <p>To be honest, I knew my foundation in traditional calligraphy wasn't yet solid enough, and it would be difficult for me to make real breakthroughs within its traditional framework. But Inoue Yuichi's practice opened a door for me. It made me realize that with a large brush, I might be able to create something powerful myself.</p>
-            <p>So I began to shape my own artistic practice. The first step, was to have a <span class="hl" data-link="img_2_3">large brush custom-made</span> and to buy a lot of Xuan paper. Then I started <span class="hl" data-link="img_2_4a img_2_4b">looking for a studio. In the nearby city of Vejle, I found Spinderihallerne</span>, a former spinning mill that had been turned into a creative hub for start-ups, independent designers, and artists. I rented a small spot there—an open area of about three by three meters. Most people there worked regular office hours. I was almost the only one who came in after work and on weekends. That made it possible for me to make use of the large shared spaces. This proved crucial for my work. It allowed me to make large-scale work and later shaped my entire creative process in ways I did not yet understand.</p>
-            <p><span class="hl" data-link="img_2_5a img_2_5b">The early attempts of my calligraphy work</span> were, strictly speaking, not really "authentic." They were closer to an imitation of Inoue Yuichi. The oversized brushes, the way I used the edges of the paper to slice through the character—although I felt I was trying many formal variations at the time, I still hadn't actually stepped outside the framework he had established. Most of my effort then was spent experimenting with materials and techniques, trying to feel my way forward.</p>
-            <p>Writing with an oversized brush breaks the traditional paradigm. Traditional calligraphy is usually done on a desk, relying on the coordination of fingers and wrist to achieve different strokes. But once the characters grow to the scale of the body, you have to write on the floor, using your whole arm and even your whole body. So I had to develop an entirely new way of handling the brush that made sense for large characters.</p>
-            <p>Controlling the ink was just as crucial. With a large brush, everything changes—the amount of ink you load, the speed of your strokes, the ratio of ink to water, and how different kinds of Xuan paper absorb and spread the ink. I had to rebuild my understanding of all of this from scratch. Otherwise, the result could easily turn into one dark, muddled blot.</p>
-            <p>Around this time, another artist came into my view—<span class="hl" data-link="img_2_6">Wang Dongling</span>. He is also known for writing large characters, creating monumental works, and developing his own form called "chaos script." Beyond that, he made many new explorations in contemporary calligraphy. His focus on <span class="hl" data-link="img_2_7">cursive script</span> was especially significant to me. I felt an inherent connection between cursive writing and large-scale brushwork, and my intuition told me that big characters should be written in cursive.</p>
-            <p>So I decisively shifted to writing in cursive and began studying it more systematically. Practice soon showed me that it not only made the writing feel more fluid, but also addressed a key issue of working with a large brush: the faster pace of cursive keeps the ink from spreading into a blot. Even if there was some pooling at the beginning of a stroke, the dry-brush effect that appeared as the ink thinned out created a striking contrast.</p>
-            <p>Once I began <span class="hl" data-link="img_2_8a img_2_8b img_2_8c">writing large characters in cursive</span>, I could feel myself improving noticeably. I often slipped into a state of full concentration, finishing a piece in one continuous motion and feeling a clear sense of exhilaration. I also tried new approaches to structure and composition, and the writing as a whole began to feel more confident.</p>
+            <div class="section-number">第二章</div>
+            <h2 class="section-title">大字书法</h2>
+            <p>在这期间我也读了大量与书法相关的书，有书法史、书法脉络、书法理论与实践，还有一些类似书法家传记的书籍。其中一本对我影响至深的书叫《井上有一——书法是万人的艺术》。</p>
+            <p>井上有一是日本现代书法的开拓者，他对现代书法在西方的传播产生了深远影响。他的艺术创作与同时代的西方现代艺术运动不谋而合、相互呼应。但对我影响最大的并不是他对现代书法的贡献，而是他用巨型毛笔创作的巨幅单字书法作品：既有传统书法的传承，又有对新艺术形式的探索。这给了我极大的启发。</p>
+            <p>说实话，对于传统书法的研习我自知功力尚浅，很难在传统体系中有所突破。但井上有一的书法实践像是给我开了一扇大门——我知道只要给我一支大笔，我也可以写出有力量的作品。于是我开始产生书法创作的动机。</p>
+            <p>于是我开始筹划我的艺术创作，首先当然是定制了大毛笔，买了很多宣纸。接着就开始寻找合适的工作室。在我附近一个叫 Vejle 的城市，有一个名为 Spinderihallerne 的空间，是一座由老纺线厂房改造而成，里面有大量的初创公司、独立设计师和艺术家入驻。我就在这里租到了一个位置作为我的艺术创作工作室。我的位置不大，大概是一个 3×3 米的开放空间。但这里的大部分人都是工作日上班，基本只有我是在下班后和周末才来这里创作，所以我可以利用很大的公共空间。</p>
+            <p>这对我的创作至关重要。不仅能让我创作出更大画幅的作品，也对我之后的创作过程产生了很大的帮助，稍后我会再提及。</p>
+            <p>开始的书法创作在严格意义上来说并不能算是真正的创作，而更像是对井上有一的一种效仿。大笔、利用纸张本身的边界切割文字——虽然当时觉得自己在形式上做了很多尝试，但并没有跳脱出井上有一的框架。其实大部分时间都是在材料和技法上的尝试与摸索。</p>
+            <p>用超大号毛笔写字本身就打破了传统书法的范式：传统书法大多是在桌面上，通过手指和手腕的配合来实现各种笔法。但当字放大到身体的尺度时，就不得不用整个手臂乃至身体在地面上书写。所以相应地，我需要摸索出一套适合大字、大笔的全新笔法。</p>
+            <p>另外，对墨的控制也是至关重要的。用大笔时，沾多少墨、以什么速度书写、墨与水的配比、不同宣纸的吸收与扩散效果，都需要我重新积累经验，否则最终很容易变成黑乎乎的一团。</p>
+            <p>在这个时期，另一位艺术家也进入了我的视野——王冬龄。他同样以写大字、大幅作品著称，创造了“乱书”的形式，并在当代书法领域做了很多新的尝试。王冬龄的创作主要以草书为主，而这一点对我来说至关重要。</p>
+            <p>我发现草书的表现力与大笔大字之间似乎有一种强烈的内在联系。我的第一直觉就是：写大字应该用草书才更畅快。</p>
+            <p>于是我果断开始用草书来书写，并系统地学习草书。实践告诉我，这不仅让书写更畅快，更重要的是：草书的书写速度本身解决了大笔书写的一个关键问题——速度加快使墨不容易在纸上摊成一团。即使起笔时会有一些淤积，但随着墨量减少产生的飞白，反而会形成很强烈的对比效果。</p>
+            <p>自从开始用草书写大字以后，我确实感觉自己有很大的进步，也时常能在全神贯注、一气呵成的书写状态中体验到酣畅淋漓的快感。在结字和构图上我也做了很多新的尝试，整体的书写感觉更加自信了。</p>
         </div>
         <div class="section-images" data-section="2">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1124,13 +1140,13 @@
     <!-- CHAPTER III -->
     <div class="section" id="chapter3">
         <div class="section-text">
-            <div class="section-number">Chapter III</div>
-            <h2 class="section-title">Line Works</h2>
-            <p>Writing large characters in cursive requires an intense moment of focus, and a piece is usually finished within a few seconds, with no chance to revise. This immediacy is one of the reasons I love calligraphy. But working this way continuously is extremely demanding, both mentally and physically, so I began looking for another mode of working—one that didn't rely on sudden bursts of energy, but instead allowed me to settle into a slower, almost meditative pace.</p>
-            <p>The first thing that came to mind was drawing lines. When I studied design, we often practiced basic horizontal and vertical lines in sketchbooks to build fundamental sketching skills. So I started using a small brush fully loaded with ink, <span class="hl" data-link="img_3_1">drawing lines on a large sheet of Xuan paper</span>. I began by drawing straight lines in <span class="hl" data-link="img_3_2">horizontal, vertical, and diagonal directions, and later I moved on to arcs</span>. Each time I loaded the brush with ink, I would draw one line and then repeat the same action right next to the previous line.</p>
-            <p>This seemingly mechanical motion produced endlessly <span class="hl" data-link="img_3_3">varied gradations</span> as the ink slowly dried out. The repeated lines also opened up many possibilities for composition. Later, I began using masking, which expanded the complexity of the compositions even further. This was exciting for me, and I felt as if I had discovered a parallel creative path in my practice.</p>
-            <p>This way of working seemed to echo my calligraphy practice: one was fast, the other slow; one required an intense, momentary focus, while the other called for a long, almost meditative concentration. One was active, the other still, and they complemented each other. Ultimately, both forms of practice helped me get to know the brush, the ink, and the Xuan paper more intimately, bringing me closer to a sense of ease with these tools and materials.</p>
-            <p>As my exploration of lines continued, I no longer aimed to draw perfect straight lines or arcs. Instead, I began trying lines with <span class="hl" data-link="img_3_4">a freer, more organic form</span>, which gradually expanded the boundaries of the line series.</p>
+            <div class="section-number">第三章</div>
+            <h2 class="section-title">线条作品</h2>
+            <p>用草书写大字是非常需要瞬时高度专注的，一幅创作基本上就在几秒钟内完成，而且没有修改的余地。这种瞬时性也是我喜欢书法的重要原因之一。但连续以这种方式书写其实非常耗费精力和体力，所以我也在尝试不一样的创作方式——一种不需要瞬时爆发力，而是几乎不需要思考、类似冥想状态的创作。</p>
+            <p>我首先想到的就是画线条。因为以前在学习设计的时候，会经常在手绘本上练习基本的横竖线条来培养画 sketch 的基本功。于是我开始尝试用小号毛笔蘸满墨汁，在宣纸上画线条。最开始是横向、竖向、斜向的直线，再后来是圆弧线。每蘸一次墨就画一条线，然后再重复同样的操作。</p>
+            <p>这看似机械的运动，却因为墨汁不断接近干枯而产生了千变万化的渐变效果。而且由这种简单线条的不断重复，也能带来各种构图上的可能性。后来我又开始使用遮罩，进一步拓宽了构图的复杂程度。这令我非常兴奋，我似乎看到了创作的另一条平行支线。</p>
+            <p>而这种创作方式与书法创作似乎遥相呼应：一个快，一个慢；一个需要瞬间的注意力高度集中，一个则是长时间类似冥想的专注。一动一静，相互补充。但究其本质，这两种创作训练都让我对毛笔、墨汁、宣纸有了更深入的掌控，让我逐渐接近对工具和材料的游刃有余。</p>
+            <p>后期的线条创作中，我不再追求画出完美的直线与弧线，而是尝试更加自由的线条，这也开始拓宽了线条系列作品的边界。</p>
         </div>
         <div class="section-images" data-section="3">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1140,13 +1156,13 @@
     <!-- CHAPTER IV -->
     <div class="section" id="chapter4">
         <div class="section-text">
-            <div class="section-number">Chapter IV</div>
-            <h2 class="section-title">Bottlenecks and Reflection</h2>
-            <p>This period of exploring calligraphy and line work lasted for nearly three years. Looking back now, I see it as a crucial stage of accumulation in my artistic practice. I produced many studies, <span class="hl" data-link="img_4_1">a few pieces I was genuinely happy with</span>, and a large number of failed attempts as well.</p>
-            <p>As I continued to repeat the process, certain limitations began to surface, and I started questioning the meaning of what I was doing, especially the large-character calligraphy. Although the line-based work carried a degree of innovation, after a long period of experimentation I found myself approached the compositional boundaries. If I continued in the same way, similarity and repetition would become inevitable.</p>
-            <p>The situation with my calligraphy was even less encouraging. I began to feel that I had never really stepped out of the shadows of Inoue Yuichi and Wang Dongling. And the act of enlarging characters itself had become such a familiar formula in contemporary calligraphy that it no longer felt new. Since Inoue, countless people had tried to follow the same path, and in today's context it can hardly be called innovative at all.</p>
-            <p>I also began to notice works that seemed to move toward performance rather than calligraphy. At times, <span class="hl" data-link="img_4_2">the scale of the brush and paper placed the emphasis on the physical act of writing</span>, which felt increasingly distant from my own understanding of calligraphy.</p>
-            <p>When I looked back at my own work, I realized I hadn't really escaped the influence of contemporary calligraphy practice I was surrounded by, and true originality still felt out of reach. And if that was the case, then what was the point of my writing at all? These questions started to surface quietly, nudging me to face the difficulties within my own practice.</p>
+            <div class="section-number">第四章</div>
+            <h2 class="section-title">瓶颈与反思</h2>
+            <p>这个时期的书法和线条探索大概持续了将近三年。现在回看，我觉得这是我艺术实践中非常重要的积累阶段。产生了许多习作，也有一些令我比较满意的作品，同时也有大量失败的创作。</p>
+            <p>在不断重复的创作过程中，瓶颈也开始逐渐显现，我开始思考自己的创作意义，尤其是在大字书法上的探索。虽然线条创作具有一定的创新性，但经过长时间不断的尝试，我其实也触碰到了构图上的局限。如果继续这样创作下去，相似和重复将成为必然。</p>
+            <p>书法创作的情况更加不容乐观。我开始觉得自己始终没有跳脱出井上有一和王冬龄的影响。而且这种把字写大的方式似乎已经成为现代书法创作中非常惯用的套路。自井上有一之后，有太多人试图走同一条路，在当代这根本谈不上什么创新。</p>
+            <p>我也开始注意到一些作品似乎更接近表演，而不是书法。笔和纸的放大，有时会让身体动作本身成为焦点，这与我所理解的书法渐行渐远。</p>
+            <p>回看我自己的书法创作，也没有哪一点能够跳脱出当代各种书法实践的影子，更谈不上独创性。那即使我的字写得再好，又有什么意义呢？这些思考和反思开始在我脑中隐隐浮现，迫使我不得不面对自身创作的困境。</p>
         </div>
         <div class="section-images" data-section="4">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1156,18 +1172,18 @@
     <!-- CHAPTER V -->
     <div class="section" id="chapter5">
         <div class="section-text">
-            <div class="section-number">Chapter V</div>
-            <h2 class="section-title">The Turning Point: Collage</h2>
-            <p>After a period of reflection, I realized that I needed to look for something more distinct in my artistic practice, even though I didn't yet know what that might be. Looking back now, I can see that a key moment came later, when I took part in a collage workshop hosted by an artist, where we created images using piles of discarded magazines.</p>
-            <p>I had never tried collage before. In my mind, it was a form that leaned too much toward literal imagery and often carried a Pop Art sensibility, which didn't really speak to me. So I simply never found myself engaging with it.</p>
-            <p><span class="hl" data-link="img_5_1">The magazines available at the workshop contained a wide range of documentary photographs</span>, many of which carried a strong visual and social tension. Although I had never worked with collage before, I soon realized that the process came naturally to me. Faced with piles of unrelated images, I could sense small visual or thematic echoes almost immediately, then cut and piece them together into something new, creating a sharp visual shift or a twist in meaning.</p>
-            <p>Within about two hours, I made nearly ten pieces. Each was a simple collage made from just two images, yet both the content and the visual quality felt deeply satisfying. After the workshop, I sensed that I had unlocked a new skill, although I didn't realize how much it would impact my creative path later. Collage made from magazine images felt distant from my ink-based practice, and at the time it was hard to imagine how the two might connect.</p>
-            <p>After the workshop, I returned to my normal work routine. It wasn't until some time later that I had to face the large number of failed calligraphy and line pieces that had accumulated over the years. They were gradually taking over my studio, and I either needed a bigger space or had to find a way to deal with them.</p>
-            <p>As I remember in that book about Inoue Yuichi, he would simply burn all the works he was unsatisfied with in his backyard. I once had the same impulse—to burn everything and start again. But then a small thought sparked in me: wasn't I good at piecing things together into a collage? Why not cut these so-called failed pieces apart and reassemble them into something new? Perhaps there was a hidden possibility there.</p>
-            <p>I started with the line pieces, since they had a certain level of consistency in form, and my intuition told me that they would be easier to reshape into new compositions. <span class="hl" data-link="img_5_2">I spread a large number of discarded line works across the floor</span>, looking closely at them and considering which combinations of the pieces might give them a new life.</p>
-            <p>This was my first time making collages out of my own materials, and the first attempt went surprisingly smoothly. Within a short time, three or four pieces took shape that I felt genuinely satisfied with. Following the same approach, I soon created the <span class="hl" data-link="img_5_3">first group of line collages</span>.</p>
-            <p>I continued to develop the line collages, trying different approaches based on the materials at hand. The whole process felt unexpectedly fluid. Looking back now, it was likely because the textures of the line pieces were relatively consistent, making it easier for them to merge with one another, and I soon produced a large number of <span class="hl" data-link="img_5_4">works in this series</span>.</p>
-            <p>This period of practice also gave me greater confidence in the collage technique. I felt that a new direction was opening up in my art. I ended up using almost all of my failed line pieces, until there was hardly any material left to work with. At that point, a natural thought emerged: if I could make the line collages work, then in theory, calligraphy pieces could be reworked through the same approach.</p>
+            <div class="section-number">第五章</div>
+            <h2 class="section-title">拼贴的转折</h2>
+            <p>经过一段时间的反思，我深刻意识到自己需要在艺术实践中寻找更独特的东西，但答案却并不明朗。我现在可以确定，其中一个关键事件，或者说转机，是我参加了一个艺术家举办的拼贴工作坊，使用大量废弃杂志来创作拼贴图像。</p>
+            <p>我从来没有尝试过拼贴这种形式，因为在我的固有印象中，这种创作方式往往太过具象，并带有强烈的波普艺术气息。而波普艺术恰恰不是我偏爱的艺术风格。所以我一直没有机会接触。</p>
+            <p>工作坊提供的杂志中包含大量纪实摄影，许多图像都带有强烈的视觉张力和社会意味。虽然我此前从未做过拼贴，但我很快发现这个过程对我来说很自然。面对一堆彼此无关的图像，我几乎立刻就能感受到它们之间细微的视觉或主题呼应，再将它们切割、拼合成新的图像，形成一种鲜明的视觉转折或意义上的变化。</p>
+            <p>在两个小时左右的时间里，我创作了近十幅作品，都是由两张图组合而成的简单拼贴，但无论在内容还是视觉上都令我十分满意。这次工作坊之后，我感觉自己好像解锁了一项新技能，但当时并没有意识到这会对我之后的创作产生多么大的影响。毕竟杂志图像的拼贴与我的水墨创作相差甚远，看似很难联系到一起。</p>
+            <p>工作坊之后，我还是回到日常的创作中。直到过了一段时间，我不得不面对长期创作所产生的大量失败的书法和线条作品——它们不断挤压我的工作室空间。要么我需要更大的工作室，要么就必须处理这些失败的作品。</p>
+            <p>我记得在读井上有一那本书时，他的做法是干脆在后院烧掉所有不满意的作品。我也曾产生过同样的冲动：干脆烧掉算了，再创作更好的作品。但是突然一转念，我不是很擅长拼贴吗？为什么不把这些所谓失败的作品切割、重新组合？说不定会有意外的收获。</p>
+            <p>于是我开始从线条作品入手，毕竟线条作品在形式上具有一定的一致性，直觉告诉我，切割重组后的效果应该更容易把握。于是我将大量废弃的线条作品铺在地上，审视它们，端详哪些形式的组合有机会赋予它们新生。这是我第一次尝试用自己的创作材料进行拼贴。</p>
+            <p>第一次的创作过程也异常顺利，很快便成型了三、四幅让我十分满意的作品。于是我按照相同的思路，很快创作出第一批线条拼贴作品。</p>
+            <p>之后，我继续在线条拼贴的方向上深化，根据拼贴素材的不同做各种尝试。整个创作过程似乎非常顺利。我现在回看，大概是因为线条作品的纹理相对统一，较容易相互融合，因此很快便产出了一大批线条拼贴作品。</p>
+            <p>这个时期也让我对拼贴有了更大的信心，我似乎看到了创作的一个崭新方向。我几乎将所有失败的线条作品都做了最大化利用，直到最后已经没有太多材料可供继续创作。这时，一个很自然的想法产生了：既然我能把线条拼贴成功，那理论上书法作品也可以按照同样的逻辑进行拼贴。</p>
         </div>
         <div class="section-images" data-section="5">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1177,24 +1193,24 @@
     <!-- CHAPTER VI -->
     <div class="section" id="chapter6">
         <div class="section-text">
-            <div class="section-number">Chapter VI</div>
-            <h2 class="section-title">Calligraphy Collage: Exploration and Methodology</h2>
-            <p>So I returned to the method I had developed and <span class="hl" data-link="img_6_1">spread more calligraphy fragments across the studio floor</span>, trying to see how they might relate. With the openness of the shared studio space, I could finally lay out a large amount of material at once and observe the relationships among them as a whole.</p>
-            <p>The first attempts were not as smooth as the line collages, although that didn't really surprise me. Calligraphy, especially cursive script, has a much more open structure, with denser overlaps and more difficult choices to make. I had a tendency to see the marks as written characters, and it took time to set that aside and treat them simply as images.</p>
-            <p>Although the initial process was extremely challenging, I also came to realize that compared with the line collages, calligraphy offered far greater freedom and many more possibilities, along with a higher level of difficulty. I believed that with enough time and exploration, I would eventually find a way into this way of working and let the process unfold more smoothly.</p>
-            <p>In the phase that followed, my work with calligraphy collage took much longer to find its rhythm. The process shifted constantly between ease and difficulty. Some days I could complete several pieces, while on other days I felt completely stuck, unable to move forward. It became clear that calligraphy collage was far more complex than the line collage work. With the line pieces, two or three separate elements were often enough to create a strong visual impact and a complete composition. Calligraphy collage, by contrast, felt like something that had to grow outward from a small fragment. It needed more elements, more layers of overlap, and many more rounds of trial and adjustment before the image could settle and the work finally take shape.</p>
-            <p>After a long period of exploration, I gradually began to form a clearer sense of the methods, ideas, and techniques that supported this way of working. One of the first abilities I developed was a sharp intuition for which visual elements held the most potential, whether they were single strokes or small fragments. I had to separate them decisively with a knife. This step was crucial, because it shaped the level of difficulty in everything that followed. Yet the decision itself was almost entirely intuitive, built through repeated practice, and not really a matter of right or wrong.</p>
-            <p>I usually prepare part of the material in advance, cutting as many usable fragments as I can from each piece of calligraphy. Once I feel there are enough elements to work with, I begin the actual collage. I found that if I prepare too much material at once, the number of possible combinations grows almost exponentially. Rather than giving me more options, it makes the process far more difficult, and I struggle to make quick decisions with so many possibilities open in front of me.</p>
-            <p>Each time I begin a collage, I first mark out the approximate size of the piece on a sheet of white paper laid over cardboard. This prevents the work from expanding endlessly and becoming difficult to contain. It may seem like a constraint, but it forces me to search for the perfect fragment that fits the scale of the work and completes the missing part of the puzzle.</p>
-            <p>In terms of composition, I also began to recognize certain internal impulses within the collage process. For instance, I often found myself instinctively following the calligraphic idea of strokes that appear broken on the paper but are carried by a continuous movement. Even when the fragments came from unrelated sources, I still hoped that once assembled, they would carry a sense of flow and rhythm consistent with the structure of cursive script.</p>
-            <p>Another impulse that excited me was the search for those rare, accidental moments of correspondence. Two fragments might come from different periods or entirely different works, yet when placed together they could fit so seamlessly that they even created a kind of visual illusion, as if they had always belonged to one another. It requires great patience and a bit of luck, but whenever such a coincidence appears, I feel a clear sense of creative satisfaction.</p>
-            <p>The calligraphy collages became the body of work I engaged with most deeply, spanning nearly three to four years of exploration and practice. The first batch of writing material was used up quickly, and after that I produced several more rounds of large cursive writing. It was less about creating finished pieces and more a kind of daily "copying" practice. But even the word "copying" is not quite accurate, since copying in the traditional sense aims at imitation, and this kind of large-scale calligraphy has no model to follow in the first place.</p>
-            <p><span class="hl" data-link="img_6_2">It reminded me of Wang Duo's work. Many of his scrolls grew out of his daily "copying" practice</span>, yet he never aimed for likeness. Instead, he allowed those exercises to merge naturally into a powerful personal style. With that in mind, I immersed myself in <span class="hl" data-link="img_6_3">Wang Xizhi's <i>The Seventeen Letters</i></span> as my model book, studying it with focus and using it as the basis for my own form of "copying."</p>
-            <p>This shift naturally changed my motivation for writing large characters. Earlier, my writing was driven by the desire to create, with the hope that each piece might become something final. Later, the writing became simply part of my daily practice, and I no longer carried any expectations for the result. This gave the act of writing a greater sense of purity, almost like returning to my childhood, when I practiced calligraphy simply out of love for it. And as a kind of by-product, this daily writing produced a great deal of material for the next stage of my collage work.</p>
-            <p>At this point, I began to realize that an entirely new working process was taking shape. The daily practice of writing large characters had become the preparatory stage for generating collage material. It was almost completely separate from the collage work that followed. What first felt like a disconnect ended up freeing my writing in an unexpected way. The act of writing no longer carried any intention of making a finished piece, but existed simply for the sake of writing itself.</p>
-            <p>Even the quality of the writing, whether it turned out well or poorly, was no longer something to be criticized, since both the successful strokes and the failed ones would eventually find their place within the collage. <span class="hl" data-link="img_6_4">The process became something closer to assembling a puzzle</span>, requiring considerable patience and a keen sensitivity to form and image, searching through a wide field of material for moments that seem almost accidental yet somehow inevitable. And the results continued to offer surprises, as the finished collages often moved beyond the limits of my own visual language.</p>
-            <p>This process applied just as well to the line series. I began to abstract and clarify the steps involved, which eventually formed a simple working sequence: preparing material without any creative intention, piecing it together following a logic I had established, and allowing the finished work to emerge. The process began to function almost like an assembly line, with each step contributing to steady production.</p>
-            <p>But the analogy is not entirely accurate. An assembly line produces identical outcomes, while this process kept generating its own quiet surprises, producing works that stayed within a coherent style yet gradually broadened the scope of my visual language. To see whether the method could reach beyond its original context, I began experimenting with <span class="hl" data-link="img_6_5">combining line pieces with calligraphy</span> and also created <span class="hl" data-link="img_6_6">various kinds of ink-wash material for collage</span>. These experiments showed that each direction had the potential to unfold.</p>
+            <div class="section-number">第六章</div>
+            <h2 class="section-title">书法拼贴：探索与方法</h2>
+            <p>于是我故技重施，把更多的书法拼贴素材铺满工作室的地面，尝试将其嫁接。得益于工作室宽阔的公共空间，我终于可以把大量的素材一次性全部摊开，从整体去观察它们之间的关联。</p>
+            <p>然而第一次的尝试并没有像线条拼贴那样顺利，但这也在我的预料之中。毕竟书法，尤其是草书，形式更加自由，笔画之间的重叠更多，取舍也更困难。而且我对其有文字上的固有认知，需要时间来打破这种认知，将其当作图像来处理。</p>
+            <p>虽然初次尝试极其具有挑战，但我也深刻认识到：相较于线条拼贴，书法拼贴的自由度更大、可能性更多，当然难度也更高。我相信，经过一段时间的摸索，我一定能找到书法拼贴的路数与规律，让创作变得更加顺畅。</p>
+            <p>接下来我在书法拼贴上的尝试确实花费了更长的时间，其过程时而顺利，时而异常困难。有时一天可以创作出几幅作品，而有时却会被完全卡住，陷入瓶颈。书法拼贴的复杂程度的确比线条拼贴高出许多。线条作品通常用两三个独立元素就可以形成不错的视觉冲击并完成构图，但书法拼贴更像是从一个局部开始慢慢生长：需要更多元素、更多层次的交叠与更多次的尝试，才能将画面补齐并最终完成作品。</p>
+            <p>经过长时间的摸索，我也逐渐总结出一些越来越清晰的创作经验、创作思路和创作技巧。首先，在海量素材中，我需要对潜力更大的视觉元素（也就是局部笔画）培养出敏锐的直觉，并果断用刀将其切割分离出来。这一步至关重要，它会对下一步拼贴的难度产生关键影响。但这几乎完全来自大量实践后形成的直觉判断，本质上无关对错。</p>
+            <p>通常我会预先处理一部分材料，从每幅字中尽量切割出更多可用的局部。当我觉得材料数量足够时，就会开始正式的拼贴创作。我发现，如果一次性预处理太多材料，拼贴的可能性会呈指数级增长，这并不会让我拥有更多“可控的选择”，反而会极大提高拼贴的难度，让我难以在无数可能中快速做出判断。</p>
+            <p>其次，每次开始拼贴时，我都会先在纸板上用白色宣纸框出作品的大致尺寸，避免作品无限生长而难以收束。看似是一种局限，却逼迫我去寻找最适合该尺幅、最恰当的那块“缺失的拼图”。</p>
+            <p>在构图方面，我也逐渐总结出拼贴创作中的一些内在动机。例如，我会下意识遵循书法结字中的“笔断意连”：即便是数个彼此无关的局部，我依然希望它们在组合后，从草书结字的角度看起来气韵与节奏是连贯的。</p>
+            <p>另一个让我兴奋的动机，是寻找那些极为随机的巧合：两个局部可能来自不同时期、不同作品，但拼在一起却天衣无缝、完美贴合，甚至会产生一种视觉欺骗，让人误以为它们本就是一体。这当然需要极大的耐心与一些运气，但每当这种“巧合”出现，我都会获得强烈的创作快感。</p>
+            <p>书法拼贴是我目前最为深入的系列，前后大概有近三四年的探索与实践。第一批的书法素材很快就耗尽了，之后我又先后进行了好几次大字草书的创作。与其说是创作，不如说是日常的“临摹”练习。但“临摹”也不是一个完全准确的说法，因为临摹毕竟以写得像为目的，而这种大字书法根本没有范本可供临摹。</p>
+            <p>这让我联想到王铎的创作。王铎的许多条幅都是他日常临摹的结果，但他并不拘泥于形似，而是将这些“临摹”作品融入了极为强烈的个人风格。于是我深入研习王羲之的《十七帖》，以此作为“临摹”的对象。</p>
+            <p>这种转变其实已经自然的改变了我写大字的动机。以前写字是以创作为导向，希望每一幅都能成为自己满意的作品；而后来写字则只是作为日常练习，完全不会对最后的结果抱有任何预期。这反而让书写变得更加纯粹，好像又回到了我儿时练字的状态，纯粹因为喜欢书法本身而去书写。而其副产品，就是为下一阶段的书法拼贴创作产出了大量素材。</p>
+            <p>至此，我开始逐渐意识到一个全新的创作过程正在形成：大字书法的日常练习成为拼贴素材的前期准备。这与下一阶段的拼贴创作几乎完全分离。这种不相关看上去是一种割裂，却极大地解放了我的书写——写字几乎不再带有任何创作目的，而是单纯为了书写本身。</p>
+            <p>甚至写得好或不好都不再是评判标准，因为神来之笔与败笔都会在拼贴中找到它们各自的归宿。而整个拼贴的过程更像是在玩一个拼图游戏，需要极大的耐心和对图形图像的高度敏感，在大量素材中去寻找那些近乎偶然的必然性。而产出的结果几乎会持续带给我视觉上的惊喜，因为最终的拼贴往往能突破我自身视觉语言的局限与边界。</p>
+            <p>这个过程当然同样适用于线条系列的实践。于是我试着将这个创作过程进一步抽象与规范，便得到如下流程：无创作目的的素材制备 → 遵循预设逻辑进行拼贴 → 作品产出。这就好像工厂的流水线：各个环节各司其职，便能确保产出稳定的“产品”。</p>
+            <p>但这个比喻又不完全恰当——流水线产出的东西一模一样，而这个创作流程的成果却会在统一风格的基础上持续带来巧合的惊喜，不断拓展我对图像的认知与实践的边界。为了测试这个创作过程是否具有普遍性，在此期间我尝试将线条与书法做拼贴融合，也尝试创作一些单纯的水墨晕染素材用于拼贴。实践证明这些思路都是可行的。</p>
         </div>
         <div class="section-images" data-section="6">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1204,15 +1220,15 @@
     <!-- CHAPTER VII -->
     <div class="section" id="chapter7">
         <div class="section-text">
-            <div class="section-number">Chapter VII</div>
-            <h2 class="section-title">Meaning of Calligraphy Collage and Future Directions</h2>
-            <p>After all these experiments, <span class="hl" data-link="img_7_1">calligraphy collage</span> remains my favorite, and my heart still follows it. My work is rooted in calligraphy, and it is the starting point of all my artistic practice. Calligraphy, especially cursive script, carries a natural expressive strength that makes it an ideal source for collage. The discipline inherent in the act of writing gives the finished piece a coherent character, while the endless variations created by overlapping strokes introduce shifts and surprises that shape the outcome of each work.</p>
-            <p>Calligraphy collage also responds to my reflections on contemporary calligraphy practice. Through physical cutting, it breaks open the traditional structure, and through reassembly, it brings calligraphy into the field of contemporary art. The strokes and lines within these collages carry the meaning of cultural symbols, and at the same time move toward the realm of Western abstraction. The overlapping layers create a sense of spatial depth. They bring a new dimension to what is otherwise a flat form of line art. For me, it opens a direction that feels genuinely innovative.</p>
-            <p>Calligraphy, by its nature, is immediate and irreversible, whereas collage is a long process that involves continual adjustment, is time-consuming, and demands repeated consideration. Bringing these two contrasting processes together creates a practice that feels conceptually intriguing to me.</p>
-            <p>At last, bringing collage into my practice also dissolved the usual way of evaluating calligraphy. Calligraphy became simply writing. It felt closer to how people in the past wrote their daily letters, never imagining that those casual notes would one day be regarded as masterpieces of art. The large cursive characters became part of my daily writing. Of course, steady practice leads to improvement, but the quality of any single session, whether good or bad, no longer had much impact on the collage work that followed. Writing, in this sense, became pure.</p>
-            <p>Although calligraphy collage is the direction I have worked for the longest period of time, I know clearly that I have not yet uncovered its full potential. It is a path that can still grow in depth and also branch into new directions.</p>
-            <p>For the time being, I have set this work aside. I feel that I need some time to let things settle, to think about the ideas behind my work and the way it has developed, and to make time to explore other possibilities in collage. Recently, I have been experimenting with canvas and acrylic paint as new materials for collage. The process is exactly the same as in my calligraphy collage. The resulting series has largely met what I hoped for from the experiment, and it continues to bring surprises.</p>
-            <p>This once again confirmed that the working process I established is reliable. It allows me to produce work consistently, and it can extend into other mediums. Recently, I have also begun thinking about new motifs. One direction I feel particularly drawn to is bringing Chinese painting into my collage vocabulary, since it was an important part of my early artistic journey. Although I have not yet put this idea into practice, I remain curious about the process and the results it might lead to. Perhaps it will become another important piece in the larger picture of my artistic exploration.</p>
+            <div class="section-number">第七章</div>
+            <h2 class="section-title">书法拼贴的意义与未来方向</h2>
+            <p>经过这么多的尝试，我自身还是更钟爱书法拼贴。首先，我的创作根植于书法，这是我所有艺术实践的起点。书法，尤其是草书，其自身的表现力是极好的拼贴素材。书写所遵循的法度能使最终作品在整体上形成统一的风格，而线条交叠的千变万化又会为拼贴的结果带来变量与惊喜。</p>
+            <p>书法拼贴也在一定程度上回应了我对当代书法的反思：它以物理切割解构传统，又以拼贴重组将书法带入当代艺术的范畴。书法拼贴中的笔画与线条既承载着文化符号的属性，又将一只脚伸向西方绘画的抽象领域。另外，不同层次的上下交叠也将空间概念引入了原本平面的书法艺术之中，这对我来说本身就具有一定的创新意义。</p>
+            <p>书法创作本身是瞬时的、不可撤销的，而拼贴则是一个需要不断推敲、耗时且反复斟酌的长时过程。将这两种矛盾的性质放在一起，在概念上来说就是一个非常有趣的实践。</p>
+            <p>最后，拼贴的引入也消解了我对书法的评价体系。书法变成了书写。就像古人的日常手札，他们当时也从未想过这些文字未来会成为不朽的艺术。草书大字完全成为了我的日常书写。持续练习当然会带来进步，但一时的书写好坏却不会对拼贴创作产生任何影响。书写因此变得纯粹。</p>
+            <p>虽然我在书法拼贴上的创作时间最长，但我深知自己还没有挖掘出这个方向的全部潜力。它既可以继续深入，也可以横向拓展。</p>
+            <p>目前，我在这个方向的探索暂时按下了暂停键，因为我觉得自己需要一些时间来沉淀，来思考自己的创作理念和脉络，也希望腾出时间去探索其他方向的拼贴可能性。最近的一次尝试是拓宽媒介，引入画布和丙烯颜料来创造新的拼贴素材。整个创作过程与书法拼贴完全一致，而这个系列作品的结果也基本达到了我实验的预期，并且时常带来一些惊喜。</p>
+            <p>这再次验证了我所建立的创作流程是可靠的，能够持续稳定地产出作品，而且可以嫁接到其他媒介之中。近期我也开始酝酿一些新的思路，其中一个我颇为看好的方向，是将中国画引入到我的拼贴体系之中。毕竟中国画的临摹也是我童年艺术启蒙的重要部分。虽然尚未落实到实践，但我对整个过程和可能的结果依然抱有好奇与期待。或许这会成为我艺术探索中另一张重要的拼图。</p>
         </div>
         <div class="section-images" data-section="7">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1223,33 +1239,33 @@
 
 <!-- ===== FOOTER ===== -->
 <div class="footer">
-    <nav class="site-links" aria-label="Artist links">
+    <nav class="site-links" aria-label="艺术家链接">
         <a href="https://www.instagram.com/presentink/" target="_blank" rel="noopener noreferrer">INS @presentink</a>
         <span class="site-link-separator" aria-hidden="true">·</span>
-        <a href="Yufan_Wang_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        <a href="../Yufan_Wang_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
         <span class="site-link-separator" aria-hidden="true">·</span>
         <a href="mailto:presentink.studio@gmail.com">presentink.studio@gmail.com</a>
         <span class="site-link-separator" aria-hidden="true">·</span>
-        <a href="https://yufangised.github.io/index.html" target="_blank" rel="noopener noreferrer">Design Portfolio</a>
+        <a href="https://yufangised.github.io/index.html" target="_blank" rel="noopener noreferrer">设计作品集</a>
         <span class="site-link-separator" aria-hidden="true">·</span>
-        <span class="language-switch" aria-label="Language">
-            <span class="language-current" aria-current="page">EN</span>
+        <span class="language-switch" aria-label="语言">
+            <a href="/" data-language-link data-language-base="/" lang="en">EN</a>
             <span class="language-divider" aria-hidden="true">/</span>
-            <a href="/zh/" data-language-link data-language-base="/zh/" lang="zh-Hans">中文</a>
+            <span class="language-current" aria-current="page">中文</span>
         </span>
     </nav>
 </div>
 
 <!-- ===== OVERLAY ===== -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-caption">
-    <button class="overlay-close" type="button" aria-label="Close image" onclick="closeOverlay()">✕</button>
-    <button class="overlay-nav overlay-prev" type="button" aria-label="Previous image" onclick="navOverlay(-1)">←</button>
-    <button class="overlay-nav overlay-next" type="button" aria-label="Next image" onclick="navOverlay(1)">→</button>
+    <button class="overlay-close" type="button" aria-label="关闭图片" onclick="closeOverlay()">✕</button>
+    <button class="overlay-nav overlay-prev" type="button" aria-label="上一件作品" onclick="navOverlay(-1)">←</button>
+    <button class="overlay-nav overlay-next" type="button" aria-label="下一件作品" onclick="navOverlay(1)">→</button>
     <div class="overlay-image">
-        <span class="overlay-image-placeholder" id="overlay-placeholder">Image Placeholder</span>
+        <span class="overlay-image-placeholder" id="overlay-placeholder">图片占位</span>
     </div>
     <p class="overlay-caption" id="overlay-caption"></p>
-    <a class="overlay-ig-link" href="#" target="_blank" rel="noopener noreferrer" id="overlay-ig">View on Instagram →</a>
+    <a class="overlay-ig-link" href="#" target="_blank" rel="noopener noreferrer" id="overlay-ig">在 Instagram 查看 →</a>
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
@@ -1720,7 +1736,7 @@
         } else {
             overlayPlaceholder.textContent = caption || uiCopy.imagePlaceholder;
         }
-        
+
         overlayIgLink.href = 'https://www.instagram.com/presentink/';
     }
 
@@ -1773,18 +1789,18 @@
     async function loadFeaturedArtwork() {
         const extensions = ['webp', 'WEBP', 'jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF'];
         const loadedImages = [];
-        
-        
+
+
         // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
         for (let i = 1; i <= 10; i++) {
             let found = false;
-            
+
             // Try each extension for this number
             for (const ext of extensions) {
                 if (found) break; // Skip other extensions once found
-                
+
                 const imagePath = `${assetPrefix}featured_artwork/${i}.${ext}`;
-                
+
                 try {
                     const exists = await testImage(imagePath);
                     if (exists) {
@@ -1794,7 +1810,7 @@
                             index: i
                         });
                         found = true;
-                        
+
                         // Add small delay between successful loads to prevent overwhelming mobile browsers
                         if (window.innerWidth <= 600) {
                             await new Promise(resolve => setTimeout(resolve, 100));
@@ -1803,7 +1819,7 @@
                 } catch (error) {
                 }
             }
-            
+
             if (!found) {
                 // Stop if we've tried many consecutive numbers without success
                 if (i > 3 && loadedImages.length === 0) {
@@ -1827,10 +1843,10 @@
             }
         }
 
-        
+
         // Sort by index to ensure proper order
         loadedImages.sort((a, b) => a.index - b.index);
-        
+
         return loadedImages;
     }
 
@@ -1839,22 +1855,22 @@
         return new Promise((resolve) => {
             const img = new Image();
             let resolved = false;
-            
+
             const resolveOnce = (result) => {
                 if (!resolved) {
                     resolved = true;
                     resolve(result);
                 }
             };
-            
+
             img.onload = () => {
                 resolveOnce(true);
             };
-            
+
             img.onerror = (error) => {
                 resolveOnce(false);
             };
-            
+
             // Mobile-specific timeout - longer for slower connections
             const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
             setTimeout(() => {
@@ -1862,7 +1878,7 @@
                     resolveOnce(false);
                 }
             }, timeoutDuration);
-            
+
             // Set src after all handlers are attached
             try {
                 img.src = src;
@@ -1874,7 +1890,7 @@
 
     // Generate gallery HTML
     function generateGallery(images) {
-        
+
         if (images.length === 0) {
             gallerySlidesContainer.innerHTML = '<div class="gallery-slide active"><div style="display: flex; align-items: center; justify-content: center; height: 400px; background: #f5f5f5; color: #666; text-align: center; padding: 20px;">' + uiCopy.noFeaturedArtwork + '<br><small>' + uiCopy.noFeaturedArtworkHint + '</small></div></div>';
             galleryDotsContainer.innerHTML = '';
@@ -1882,29 +1898,29 @@
         }
 
         // Generate slides
-        const slidesHTML = images.map((img, index) => 
+        const slidesHTML = images.map((img, index) =>
             `<div class="gallery-slide${index === 0 ? ' active' : ''}">
                 <img src="${img.src}" alt="${img.alt}" loading="lazy" />
             </div>`
         ).join('');
-        
+
         gallerySlidesContainer.innerHTML = slidesHTML;
 
         // Generate dots
-        const dotsHTML = images.map((_, index) => 
+        const dotsHTML = images.map((_, index) =>
             `<button class="gallery-dot${index === 0 ? ' active' : ''}" aria-label="${uiCopy.galleryImage} ${index + 1}"></button>`
         ).join('');
-        
+
         galleryDotsContainer.innerHTML = dotsHTML;
 
         // Update references
         gallerySlides = document.querySelectorAll('.gallery-slide');
         galleryDots = document.querySelectorAll('.gallery-dot');
-        
+
     }
 
     function showGallerySlide(index) {
-        
+
         // Remove active class from all slides and dots
         gallerySlides.forEach((slide, i) => {
             if (i === index) {
@@ -1913,7 +1929,7 @@
                 slide.classList.remove('active');
             }
         });
-        
+
         galleryDots.forEach((dot, i) => {
             if (i === index) {
                 dot.classList.add('active');
@@ -1921,7 +1937,7 @@
                 dot.classList.remove('active');
             }
         });
-        
+
         galleryCurrentIndex = index;
     }
 
@@ -1946,29 +1962,29 @@
 
     // Gallery initialization flag to prevent multiple initializations
     let galleryInitialized = false;
-    
+
     // Initialize gallery
     async function initializeGallery() {
         if (galleryInitialized) {
             return;
         }
-        
+
         galleryInitialized = true;
-        
+
         // Load images dynamically
         const images = await loadFeaturedArtwork();
-        
+
         generateGallery(images);
-        
+
         if (gallerySlides.length > 0) {
             // Show first slide
             showGallerySlide(0);
-            
+
             // Start auto-rotation only if there are multiple images
             if (gallerySlides.length > 1) {
                 startGalleryAutoRotate();
             }
-            
+
             // Setup navigation buttons
             setupGalleryNavigation();
         }
@@ -1980,8 +1996,8 @@
             return;
         }
         setupGalleryNavigation.initialized = true;
-        
-        
+
+
         // Navigation button events
         if (galleryPrevBtn) {
             galleryPrevBtn.addEventListener('click', () => {
@@ -1991,7 +2007,7 @@
                 setTimeout(startGalleryAutoRotate, 8000);
             });
         }
-        
+
         if (galleryNextBtn) {
             galleryNextBtn.addEventListener('click', () => {
                 if (gallerySlides.length <= 1) return;
@@ -2000,7 +2016,7 @@
                 setTimeout(startGalleryAutoRotate, 8000);
             });
         }
-        
+
         // Dot navigation events
         galleryDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
@@ -2011,7 +2027,7 @@
                 }
             });
         });
-        
+
         // Pause auto-rotation on hover
         const galleryWrapper = document.querySelector('.gallery-wrapper');
         if (galleryWrapper && !galleryWrapper.hasGalleryListeners) {
@@ -2056,7 +2072,7 @@
             }, isMobile ? 500 : 100);
         });
     } else {
-        // Add delay for mobile devices  
+        // Add delay for mobile devices
         const isMobile = window.innerWidth <= 600;
         setTimeout(() => {
             initializeGallery();
