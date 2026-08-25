@@ -103,11 +103,19 @@
             text-transform: uppercase;
             color: #ffffff;
             cursor: pointer;
+            border: 0;
+            background: transparent;
+            padding: 0;
             transition: color 0.3s;
             animation: pulse 2s ease-in-out infinite;
         }
 
         .hero-scroll:hover { color: #ccc; }
+
+        .hero-scroll:focus-visible {
+            outline: 2px solid #ffffff;
+            outline-offset: 6px;
+        }
 
         .site-links {
             display: flex;
@@ -480,6 +488,11 @@
             border-bottom-color: var(--accent);
         }
 
+        .hl:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
         /* Right: Image column */
         .section-images {
             display: grid;
@@ -525,6 +538,12 @@
             border: 3px solid var(--accent);
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .thumb:focus-visible,
+        .gallery-slide:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
         }
 
         /* Completely disable hover for unlinked placeholder thumbnails with high priority */
@@ -949,7 +968,7 @@
             <h1 class="hero-name">Present Ink</h1>
         <p class="hero-author">Yufan Wang</p>
         <p class="hero-tagline">Calligraphy · Collage · Denmark</p>
-        <p class="hero-scroll" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</p>
+        <button class="hero-scroll" type="button" onclick="document.getElementById('featured-gallery').scrollIntoView({behavior:'smooth'})">Scroll to read ↓</button>
     </div>
 </div>
 
@@ -1172,15 +1191,15 @@
 </div>
 
 <!-- ===== OVERLAY ===== -->
-<div class="overlay" id="overlay">
-    <button class="overlay-close" onclick="closeOverlay()">✕</button>
-    <button class="overlay-nav overlay-prev" onclick="navOverlay(-1)">←</button>
-    <button class="overlay-nav overlay-next" onclick="navOverlay(1)">→</button>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-caption">
+    <button class="overlay-close" type="button" aria-label="Close image" onclick="closeOverlay()">✕</button>
+    <button class="overlay-nav overlay-prev" type="button" aria-label="Previous image" onclick="navOverlay(-1)">←</button>
+    <button class="overlay-nav overlay-next" type="button" aria-label="Next image" onclick="navOverlay(1)">→</button>
     <div class="overlay-image">
         <span class="overlay-image-placeholder" id="overlay-placeholder">Image Placeholder</span>
     </div>
     <p class="overlay-caption" id="overlay-caption"></p>
-    <a class="overlay-ig-link" href="#" target="_blank" id="overlay-ig">View on Instagram →</a>
+    <a class="overlay-ig-link" href="#" target="_blank" rel="noopener noreferrer" id="overlay-ig">View on Instagram →</a>
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
@@ -1257,6 +1276,9 @@
         el.id = data.id;
         el.dataset.caption = data.caption;
         if (data.imageSrc) {
+            el.setAttribute('role', 'button');
+            el.tabIndex = 0;
+            el.setAttribute('aria-label', 'View artwork: ' + data.caption);
             el.innerHTML =
                 '<img src="' + data.imageSrc + '" alt="' + data.caption + '" loading="lazy">' +
                 '<span class="thumb-label">' + data.label + '</span>';
@@ -1432,9 +1454,22 @@
             });
 
             // Clicking the phrase opens the first of its images that has a file.
+            const real = targets.find(t => t.querySelector('img'));
+            if (real) {
+                hl.setAttribute('role', 'button');
+                hl.tabIndex = 0;
+                hl.setAttribute('aria-label', 'View related artwork: ' + real.dataset.caption);
+                hl.addEventListener('focus', on);
+                hl.addEventListener('blur', off);
+                hl.addEventListener('keydown', e => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    e.preventDefault();
+                    openOverlay(real);
+                });
+            }
+
             hl.addEventListener('click', e => {
                 e.preventDefault();
-                const real = targets.find(t => t.querySelector('img'));
                 if (real) openOverlay(real);
             });
         });
@@ -1446,6 +1481,11 @@
             if (el.dataset.clickWired || !el.querySelector('img')) return;
             el.dataset.clickWired = '1';
             el.addEventListener('click', () => openOverlay(el));
+            el.addEventListener('keydown', e => {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                e.preventDefault();
+                openOverlay(el);
+            });
         });
     }
 
@@ -1454,10 +1494,12 @@
     const overlayCaption = document.getElementById('overlay-caption');
     const overlayPlaceholder = document.getElementById('overlay-placeholder');
     const overlayIgLink = document.getElementById('overlay-ig');
+    const overlayClose = overlay.querySelector('.overlay-close');
 
     let allThumbs = [];
     let overlayItems = [];
     let currentIndex = 0;
+    let overlayReturnFocus = null;
 
     function updateAllThumbs() {
         allThumbs = Array.from(document.querySelectorAll('.thumb[id]'));
@@ -1471,10 +1513,14 @@
         };
     }
 
-    function showOverlay() {
+    function showOverlay(trigger) {
+        overlayReturnFocus = trigger || document.activeElement;
         updateOverlay();
         overlay.style.display = 'flex';
-        requestAnimationFrame(() => overlay.classList.add('visible'));
+        requestAnimationFrame(() => {
+            overlay.classList.add('visible');
+            overlayClose.focus({ preventScroll: true });
+        });
         document.body.style.overflow = 'hidden';
     }
 
@@ -1483,21 +1529,26 @@
         overlayItems = allThumbs.map(createOverlayItem);
         currentIndex = allThumbs.indexOf(el);
         if (currentIndex === -1) return;
-        showOverlay();
+        showOverlay(el);
     }
 
-    function openFeaturedOverlay(index) {
+    function openFeaturedOverlay(index, trigger) {
         overlayItems = Array.from(gallerySlides).map(createOverlayItem);
         currentIndex = index;
         if (!overlayItems[currentIndex]) return;
-        showOverlay();
+        showOverlay(trigger);
     }
 
     function closeOverlay() {
+        const returnFocus = overlayReturnFocus;
+        overlayReturnFocus = null;
         overlay.classList.remove('visible');
         setTimeout(() => {
             overlay.style.display = 'none';
             document.body.style.overflow = '';
+            if (returnFocus && document.contains(returnFocus)) {
+                returnFocus.focus({ preventScroll: true });
+            }
         }, 300);
     }
 
@@ -1537,6 +1588,21 @@
         if (e.key === 'Escape') closeOverlay();
         if (e.key === 'ArrowLeft') navOverlay(-1);
         if (e.key === 'ArrowRight') navOverlay(1);
+        if (e.key === 'Tab') {
+            const focusable = Array.from(overlay.querySelectorAll(
+                'button:not([disabled]), a[href]'
+            ));
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (!first || !last) return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
     });
 
     // Initialize the chapter grids after the DOM is ready.
@@ -1815,8 +1881,19 @@
             if (img && !slide.hasClickListener) {
                 slide.hasClickListener = true;
                 slide.style.cursor = 'pointer';
-                slide.addEventListener('click', () => {
-                    openFeaturedOverlay(index);
+                slide.setAttribute('role', 'button');
+                slide.tabIndex = 0;
+                slide.setAttribute('aria-label', 'View artwork: ' + img.alt);
+                const open = () => openFeaturedOverlay(index, slide);
+                slide.addEventListener('click', open);
+                slide.addEventListener('keydown', e => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    e.preventDefault();
+                    open();
+                });
+                slide.addEventListener('focus', stopGalleryAutoRotate);
+                slide.addEventListener('blur', () => {
+                    if (gallerySlides.length > 1) startGalleryAutoRotate();
                 });
             }
         });

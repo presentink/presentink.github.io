@@ -45,8 +45,8 @@ available on port 8001; real browser click testing remains to be run because Pla
 in the current environment. /
 **2026-08-25 已完成:** Selected Works 灯箱现使用独立、明确的图片列表与翻页顺序，不再临时创建章节缩略图。
 移除了手机端图库初始化时的强制回顶，因此 `#chapter…` 跳转与恢复的阅读位置可以保留。内联 JavaScript
-解析及 `git diff --check` 已通过。本地服务可在 8001 端口访问；由于当前环境没有可用的 Playwright，真实浏览器
-点击验证仍待补跑。
+解析及 `git diff --check` 已通过。本地服务可在 8001 端口访问；2026-08-25 已由用户在真实手机视图中验证
+章节深链接不会回顶，Selected Works 灯箱可正常打开与翻页。Playwright 自动化验证仍可在后续补跑。
 
 ### Index audit / 主体审阅（2026-08-24）
 
