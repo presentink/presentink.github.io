@@ -37,6 +37,40 @@ email with a direct `mailto:` link. /
 和章节跳转的七章 `The Full Journey` 索引。次级信息改用 Space Grotesk,调整 Hero 与章节标题层级,
 并以直接 `mailto:` 链接替换 Cloudflare 混淆邮箱。
 
+### Index audit / 主体审阅（2026-08-24）
+
+The current narrative structure is sound: Hero → Featured Artwork → Artist Statement →
+The Full Journey → chapters. Before further visual tuning or adding new material, resolve the
+visitor-facing interaction defects below. Media optimization and missing artist-owned material
+remain deliberately deferred, as agreed. /
+目前的叙事结构已经成立：Hero → Featured Artwork → Artist Statement → The Full Journey → 章节正文。
+继续微调视觉或补充新素材前，优先处理下列会影响访客使用的交互问题。图片/视频优化及缺失的艺术家素材仍按约定后置。
+
+- [ ] **P1 — Fix Featured Artwork lightbox opening / 修复精选作品灯箱打开失败。** The gallery click
+  handler creates a temporary thumbnail without an `id`, while `openOverlay()` only indexes
+  thumbnails with ids. This can make the selected index `-1` and cause `updateOverlay()` to fail.
+  Replace the temporary-node path with a gallery-aware overlay entry, or let the overlay accept
+  image source and caption directly. See `index.html` `openOverlay()` and the gallery click handler.
+  精选轮播点击时创建的临时缩略图没有 `id`，但 `openOverlay()` 只索引带 id 的章节缩略图；索引可能成为
+  `-1`，导致 `updateOverlay()` 失败。应为精选图库建立正确的灯箱数据入口，或让灯箱直接接收图片路径与说明。
+- [ ] **P1 — Preserve mobile deep links and reading position / 保留手机端深链接与阅读位置。** Remove
+  the gallery initialization code that scrolls mobile visitors to the top. It currently disrupts
+  `#chapter…` links and restored scroll positions.
+  移除图库初始化中手机端强制回到顶部的代码；它会破坏 `#chapter…` 跳转和页面恢复阅读位置。
+- [ ] **P1 — Make image interaction keyboard-accessible / 让图片交互支持键盘。** Use semantic buttons
+  (or equivalent roles, focusability, and Enter/Space handlers) for clickable thumbnails, text
+  highlights, and the hero scroll cue. Give the overlay dialog semantics and restore focus when it
+  closes. / 可点击缩略图、文字高亮与 Hero 滚动提示需要语义化按钮，或等效的 role、焦点与 Enter/Space
+  操作；灯箱应具有 dialog 语义，并在关闭时恢复原焦点。
+- [ ] **P2 — Keep reading-time copy in one source / 集中维护阅读时间文案。** The chapter times and
+  “about 25 minutes” introduction are hand-maintained in separate markup. Move them to one small
+  chapter data structure, or review them whenever the narrative copy changes.
+  每章时间与“约 25 分钟”的说明目前分散手工维护；可集中进一个小型章节数据结构，或每次改正文时一并复核。
+- [ ] **P3 — Test the live page, not only the prototype / 测试真实首页而非仅 prototype。** Set the
+  browser suite default target to `/`, then add assertions for Featured Artwork opening, mobile
+  deep links, and keyboard/focus behavior.
+  浏览器测试默认目标应设为 `/`，并补充精选作品打开、手机深链接、键盘/焦点操作测试。
+
 ---
 
 ## 🔴 P0 — Biggest impact on real visitors / 对访客影响最大

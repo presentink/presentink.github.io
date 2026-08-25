@@ -34,14 +34,6 @@ Once I began writing large characters in cursive, I could feel myself improving 
 
 Writing large characters in cursive requires an intense moment of focus, and a piece is usually finished within a few seconds, with no chance to revise. This immediacy is one of the reasons I love calligraphy. But working this way continuously is extremely demanding, both mentally and physically, so I began looking for another mode of working—one that didn’t rely on sudden bursts of energy, but instead allowed me to settle into a slower, almost meditative pace.
 
-The first thing that came to mind was drawing lines. When I studied design, we often practiced basic horizontal and vertical lines in sketchbooks to build foundational sketching skills. So I started using a small brush dipped fully in ink, drawing lines on xuan paper. At first it was straight lines—horizontal, vertical, diagonal—then later arcs. Each time I loaded the brush with ink, I would draw one line, then repeat the same action.
-
-On the surface this looked like a mechanical motion, but because the ink was constantly approaching dryness, it produced endlessly shifting gradations. The repeated simple lines also opened up many compositional possibilities. Later I started using masks, which further expanded the complexity of the images. This excited me a lot. It felt as though I’d discovered a parallel track of creation.
-
-This kind of work echoed my calligraphic practice in an interesting way: one fast, one slow; one demanding explosive, momentary attention, the other asking for long, meditative focus. Movement and stillness, balancing one another. At their core, both forms of practice helped me gain a deeper command over the brush, ink, and paper, gradually moving toward a more effortless relationship with my tools and materials.
-
-In the later stages of the line series, I stopped trying to draw perfect straight or curved lines. I began to explore more free, open lines, which also pushed the boundaries of the series itself.
-
 The first thing that came to mind was drawing lines. When I studied design, we often practiced basic horizontal and vertical lines in sketchbooks to build fundamental sketching skills. So I started using a small brush fully loaded with ink, drawing lines on a large sheet of Xuan paper. I began by drawing straight lines in horizontal, vertical, and diagonal directions, and later I moved on to arcs. Each time I loaded the brush with ink, I would draw one line and then repeat the same action right next to the previous line.
 
 This seemingly mechanical motion produced endlessly varied gradations as the ink slowly dried out. The repeated lines also opened up many possibilities for composition. Later, I began using masking, which expanded the complexity of the compositions even further. This was exciting for me, and I felt as if I had discovered a parallel creative path in my practice.
@@ -58,7 +50,7 @@ As I continued to repeat the process, certain limitations began to surface, and 
 
 The situation with my calligraphy was even less encouraging. I began to feel that I had never really stepped out of the shadows of Inoue Yuichi and Wang Dongling. And the act of enlarging characters itself had become such a familiar formula in contemporary calligraphy that it no longer felt new. Since Inoue, countless people had tried to follow the same path, and in today’s context it can hardly be called innovative at all.
 
-I also began to notice works that felt more like performances than calligraphy. Without much engagement with tradition, some artists simply scaled up the brush and the paper to a point where the body could barely control them, turning the whole act into something meant to impress. It felt far from what I understood calligraphy to be.
+I also began to notice works that seemed to move toward performance rather than calligraphy. At times, the scale of the brush and paper placed the emphasis on the physical act of writing, which felt increasingly distant from my own understanding of calligraphy.
 
 When I looked back at my own work, I realized I hadn’t really escaped the influence of contemporary calligraphy practice I was surrounded by, and true originality still felt out of reach. And if that was the case, then what was the point of my writing at all? These questions started to surface quietly, nudging me to face the difficulties within my own practice.
 
@@ -68,7 +60,7 @@ After a period of reflection, I realized that I needed to look for something mor
 
 I had never tried collage before. In my mind, it was a form that leaned too much toward literal imagery and often carried a Pop Art sensibility, which didn’t really speak to me. So I simply never found myself engaging with it.
 
-The workshop offered a wide range of documentary photographs, many of which carried a strong visual and social tension. Although I had never worked with collage before, I soon realized that the process came naturally to me. Faced with piles of unrelated images, I could sense small visual or thematic echoes almost immediately, then cut and piece them together into something new, creating a sharp visual shift or a twist in meaning.
+The magazines available at the workshop contained a wide range of documentary photographs, many of which carried a strong visual and social tension. Although I had never worked with collage before, I soon realized that the process came naturally to me. Faced with piles of unrelated images, I could sense small visual or thematic echoes almost immediately, then cut and piece them together into something new, creating a sharp visual shift or a twist in meaning.
 
 Within about two hours, I made nearly ten pieces. Each was a simple collage made from just two images, yet both the content and the visual quality felt deeply satisfying. After the workshop, I sensed that I had unlocked a new skill, although I didn’t realize how much it would impact my creative path later. Collage made from magazine images felt distant from my ink-based practice, and at the time it was hard to imagine how the two might connect.
 
@@ -83,8 +75,6 @@ This was my first time making collages out of my own materials, and the first at
 I continued to develop the line collages, trying different approaches based on the materials at hand. The whole process felt unexpectedly fluid. Looking back now, it was likely because the textures of the line pieces were relatively consistent, making it easier for them to merge with one another, and I soon produced a large number of works in this series.
 
 This period of practice also gave me greater confidence in the collage technique. I felt that a new direction was opening up in my art. I ended up using almost all of my failed line pieces, until there was hardly any material left to work with. At that point, a natural thought emerged: if I could make the line collages work, then in theory, calligraphy pieces could be reworked through the same approach.
-
-But the analogy is not entirely accurate. An assembly line produces identical outcomes, while this process kept generating its own quiet surprises, producing works that stayed within a coherent style yet gradually broadened the scope of my visual language. To see whether the method could reach beyond its original context, I began experimenting with combining line pieces with calligraphy and also created various kinds of ink-wash material for collage. These experiments showed that each direction had the potential to unfold.
 
 **VI. Calligraphy Collage: Exploration and Methodology**
 
@@ -118,9 +108,9 @@ Even the quality of the writing, whether it turned out well or poorly, was no lo
 
 This process applied just as well to the line series. I began to abstract and clarify the steps involved, which eventually formed a simple working sequence: preparing material without any creative intention, piecing it together following a logic I had established, and allowing the finished work to emerge. The process began to function almost like an assembly line, with each step contributing to steady production.
 
-**VII. Meaning of Calligraphy Collage and Future Directions**
+But the analogy is not entirely accurate. An assembly line produces identical outcomes, while this process kept generating its own quiet surprises, producing works that stayed within a coherent style yet gradually broadened the scope of my visual language. To see whether the method could reach beyond its original context, I began experimenting with combining line pieces with calligraphy and also created various kinds of ink-wash material for collage. These experiments showed that each direction had the potential to unfold.
 
-After all these experiments, I found that my heart still followed the calligraphy collages. My work is rooted in calligraphy, and it is the starting point of all my artistic practice. Calligraphy, especially cursive script, carries a natural expressive strength that makes it an ideal source for collage. The discipline inherent in the act of writing allows the finished work to hold together with a coherent character, while the endless variations created by overlapping strokes introduce shifts and small surprises that shape the outcome of each piece.
+**VII. Meaning of Calligraphy Collage and Future Directions**
 
 After all these experiments, calligraphy collage remains my favorite, and my heart still follows it. My work is rooted in calligraphy, and it is the starting point of all my artistic practice. Calligraphy, especially cursive script, carries a natural expressive strength that makes it an ideal source for collage. The discipline inherent in the act of writing gives the finished piece a coherent character, while the endless variations created by overlapping strokes introduce shifts and surprises that shape the outcome of each work.
 
@@ -131,5 +121,7 @@ Calligraphy, by its nature, is immediate and irreversible, whereas collage is a 
 At last, bringing collage into my practice also dissolved the usual way of evaluating calligraphy. Calligraphy became simply writing. It felt closer to how people in the past wrote their daily letters, never imagining that those casual notes would one day be regarded as masterpieces of art. The large cursive characters became part of my daily writing. Of course, steady practice leads to improvement, but the quality of any single session, whether good or bad, no longer had much impact on the collage work that followed. Writing, in this sense, became pure.
 
 Although calligraphy collage is the direction I have worked for the longest period of time, I know clearly that I have not yet uncovered its full potential. It is a path that can still grow in depth and also branch into new directions.
+
+For the time being, I have set this work aside. I feel that I need some time to let things settle, to think about the ideas behind my work and the way it has developed, and to make time to explore other possibilities in collage. Recently, I have been experimenting with canvas and acrylic paint as new materials for collage. The process is exactly the same as in my calligraphy collage. The resulting series has largely met what I hoped for from the experiment, and it continues to bring surprises.
 
 This once again confirmed that the working process I established is reliable. It allows me to produce work consistently, and it can extend into other mediums. Recently, I have also begun thinking about new motifs. One direction I feel particularly drawn to is bringing Chinese painting into my collage vocabulary, since it was an important part of my early artistic journey. Although I have not yet put this idea into practice, I remain curious about the process and the results it might lead to. Perhaps it will become another important piece in the larger picture of my artistic exploration.
