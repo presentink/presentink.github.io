@@ -369,7 +369,7 @@
             overflow: hidden;
             border-radius: 8px;
             background: #fff;
-            aspect-ratio: var(--gallery-ratio, 3 / 2);
+            aspect-ratio: 3 / 2;
         }
 
         .gallery-slides {
@@ -400,6 +400,12 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+
+        .gallery-slide.gallery-slide-framed img {
+            width: auto;
+            height: 80%;
+            max-width: calc(100% - 2rem);
         }
 
         .gallery-nav {
@@ -657,6 +663,7 @@
         .overlay {
             position: fixed;
             inset: 0;
+            padding: 1rem;
             background: var(--overlay-bg);
             z-index: 1000;
             display: none;
@@ -698,8 +705,26 @@
         .overlay-image {
             background: #e8e4de;
             display: inline-block;
-            max-width: 90vw;
-            max-height: 85vh;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+        }
+
+        .overlay-media {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+        }
+
+        .overlay-image img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+            object-fit: contain;
         }
 
         .overlay-image-placeholder {
@@ -717,21 +742,6 @@
             margin-top: 1rem;
             letter-spacing: 0.05em;
         }
-
-        .overlay-ig-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            color: #666;
-            margin-top: 0.5rem;
-            text-decoration: none;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border-bottom: 1px solid #444;
-            padding-bottom: 1px;
-            transition: color 0.2s;
-        }
-
-        .overlay-ig-link:hover { color: #ccc; }
 
         .overlay-nav {
             position: absolute;
@@ -756,8 +766,13 @@
             color: #fff;
         }
 
-        .overlay-prev { left: 2rem; }
-        .overlay-next { right: 2rem; }
+        .overlay-prev {
+            left: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
+        }
+
+        .overlay-next {
+            right: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
+        }
 
         /* ============ FOOTER ============ */
         .footer {
@@ -877,8 +892,18 @@
 
             /* Overlay adjustments */
             .overlay-image {
-                max-width: 95vw;
-                max-height: 80vh;
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
+            }
+
+            .overlay-media {
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
+            }
+
+            .overlay-image img {
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
             }
 
             .overlay-nav {
@@ -887,8 +912,13 @@
                 font-size: 0.9rem;
             }
 
-            .overlay-prev { left: 0.5rem; }
-            .overlay-next { right: 0.5rem; }
+            .overlay-prev {
+                left: max(-2.75rem, calc((100% - 100vw) / 2 + 0.5rem));
+            }
+
+            .overlay-next {
+                right: max(-2.75rem, calc((100% - 100vw) / 2 + 0.5rem));
+            }
 
             /* Featured Gallery Mobile */
             .featured-section {
@@ -1153,7 +1183,7 @@
             <p>在这个时期，另一位艺术家也进入了我的视野——<span class="hl" data-link="img_2_6">王冬龄</span>。他同样以写大字、大幅作品著称，创造了“乱书”的形式，并在当代书法领域做了很多新的尝试。王冬龄的创作主要以<span class="hl" data-link="img_2_7">草书</span>为主，而这一点对我来说至关重要。</p>
             <p>我发现草书的表现力与大笔大字之间似乎有一种强烈的内在联系。我的第一直觉就是：写大字应该用草书才更畅快。</p>
             <p>于是我果断开始用草书来书写，并系统地学习草书。实践告诉我，这不仅让书写更畅快，更重要的是：草书的书写速度本身解决了大笔书写的一个关键问题——速度加快使墨不容易在纸上摊成一团。即使起笔时会有一些淤积，但随着墨量减少产生的飞白，反而会形成很强烈的对比效果。</p>
-            <p>自从<span class="hl" data-link="img_2_8a img_2_8b img_2_8c">开始用草书写大字</span>以后，我确实感觉自己有很大的进步，也时常能在全神贯注、一气呵成的书写状态中体验到酣畅淋漓的快感。在结字和构图上我也做了很多新的尝试，整体的书写感觉更加自信了。</p>
+            <p>自从<span class="hl" data-link="img_2_8a img_2_8b">开始用草书写大字</span>以后，我确实感觉自己有很大的进步，也时常能在全神贯注、一气呵成的书写状态中体验到酣畅淋漓的快感。在结字和构图上我也做了很多新的尝试，整体的书写感觉更加自信了。</p>
         </div>
         <div class="section-images" data-section="2">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1167,9 +1197,9 @@
             <h2 class="section-title">线条作品</h2>
             <p>用草书写大字是非常需要瞬时高度专注的，一幅创作基本上就在几秒钟内完成，而且没有修改的余地。这种瞬时性也是我喜欢书法的重要原因之一。但连续以这种方式书写其实非常耗费精力和体力，所以我也在尝试不一样的创作方式——一种不需要瞬时爆发力，而是几乎不需要思考、类似冥想状态的创作。</p>
             <p>我首先想到的就是画线条。因为以前在学习设计的时候，会经常在手绘本上练习基本的横竖线条来培养画 sketch 的基本功。于是我开始尝试用小号毛笔蘸满墨汁，<span class="hl" data-link="img_3_1">在宣纸上画线条</span>。最开始是<span class="hl" data-link="img_3_2">横向、竖向、斜向的直线，再后来是圆弧线</span>。每蘸一次墨就画一条线，然后再重复同样的操作。</p>
-            <p>这看似机械的运动，却因为墨汁不断接近干枯而产生了<span class="hl" data-link="img_3_3">千变万化的渐变效果</span>。而且由这种简单线条的不断重复，也能带来各种构图上的可能性。后来我又开始使用遮罩，进一步拓宽了构图的复杂程度。这令我非常兴奋，我似乎看到了创作的另一条平行支线。</p>
+            <p>这看似机械的运动，却因为墨汁不断接近干枯而产生了<span class="hl" data-link="img_3_3a img_3_3b">千变万化的渐变效果</span>。而且由这种简单线条的不断重复，也能带来各种构图上的可能性。后来我又开始使用遮罩，进一步拓宽了构图的复杂程度。这令我非常兴奋，我似乎看到了创作的另一条平行支线。</p>
             <p>而这种创作方式与书法创作似乎遥相呼应：一个快，一个慢；一个需要瞬间的注意力高度集中，一个则是长时间类似冥想的专注。一动一静，相互补充。但究其本质，这两种创作训练都让我对毛笔、墨汁、宣纸有了更深入的掌控，让我逐渐接近对工具和材料的游刃有余。</p>
-            <p>后期的线条创作中，我不再追求画出完美的直线与弧线，而是尝试<span class="hl" data-link="img_3_4">更加自由的线条</span>，这也开始拓宽了线条系列作品的边界。</p>
+            <p>后期的线条创作中，我不再追求画出完美的直线与弧线，而是尝试<span class="hl" data-link="img_3_4a img_3_4b">更加自由的线条</span>，这也开始拓宽了线条系列作品的边界。</p>
         </div>
         <div class="section-images" data-section="3">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1181,10 +1211,10 @@
         <div class="section-text">
             <div class="section-number">第四章</div>
             <h2 class="section-title">瓶颈与反思</h2>
-            <p>这个时期的书法和线条探索大概持续了将近三年。现在回看，我觉得这是我艺术实践中非常重要的积累阶段。产生了许多习作，也有<span class="hl" data-link="img_4_1">一些令我比较满意的作品</span>，同时也有大量失败的创作。</p>
+            <p>这个时期的书法和线条探索大概持续了将近三年。现在回看，我觉得这是我艺术实践中非常重要的积累阶段。产生了许多习作，也有<span class="hl" data-link="img_4_1a img_4_1b img_4_1c">一些令我比较满意的作品</span>，同时也有大量失败的创作。</p>
             <p>在不断重复的创作过程中，瓶颈也开始逐渐显现，我开始思考自己的创作意义，尤其是在大字书法上的探索。虽然线条创作具有一定的创新性，但经过长时间不断的尝试，我其实也触碰到了构图上的局限。如果继续这样创作下去，相似和重复将成为必然。</p>
             <p>书法创作的情况更加不容乐观。我开始觉得自己始终没有跳脱出井上有一和王冬龄的影响。而且这种把字写大的方式似乎已经成为现代书法创作中非常惯用的套路。自井上有一之后，有太多人试图走同一条路，在当代这根本谈不上什么创新。</p>
-            <p>我也开始注意到一些作品似乎更接近表演，而不是书法。<span class="hl" data-link="img_4_2">笔和纸的放大，有时会让身体动作本身成为焦点</span>，这与我所理解的书法渐行渐远。</p>
+            <p>我也开始注意到一些作品似乎更接近表演，而不是书法。笔和纸的放大，有时会让身体动作本身成为焦点，这与我所理解的书法渐行渐远。</p>
             <p>回看我自己的书法创作，也没有哪一点能够跳脱出当代各种书法实践的影子，更谈不上独创性。那即使我的字写得再好，又有什么意义呢？这些思考和反思开始在我脑中隐隐浮现，迫使我不得不面对自身创作的困境。</p>
         </div>
         <div class="section-images" data-section="4">
@@ -1204,8 +1234,8 @@
             <p>工作坊之后，我还是回到日常的创作中。直到过了一段时间，我不得不面对长期创作所产生的大量失败的书法和线条作品——它们不断挤压我的工作室空间。要么我需要更大的工作室，要么就必须处理这些失败的作品。</p>
             <p>我记得在读井上有一那本书时，他的做法是干脆在后院烧掉所有不满意的作品。我也曾产生过同样的冲动：干脆烧掉算了，再创作更好的作品。但是突然一转念，我不是很擅长拼贴吗？为什么不把这些所谓失败的作品切割、重新组合？说不定会有意外的收获。</p>
             <p>于是我开始从线条作品入手，毕竟线条作品在形式上具有一定的一致性，直觉告诉我，切割重组后的效果应该更容易把握。于是我<span class="hl" data-link="img_5_2">将大量废弃的线条作品铺在地上</span>，审视它们，端详哪些形式的组合有机会赋予它们新生。这是我第一次尝试用自己的创作材料进行拼贴。</p>
-            <p>第一次的创作过程也异常顺利，很快便成型了三、四幅让我十分满意的作品。于是我按照相同的思路，很快创作出<span class="hl" data-link="img_5_3">第一批线条拼贴作品</span>。</p>
-            <p>之后，我继续在线条拼贴的方向上深化，根据拼贴素材的不同做各种尝试。整个创作过程似乎非常顺利。我现在回看，大概是因为线条作品的纹理相对统一，较容易相互融合，因此很快便产出了一大批<span class="hl" data-link="img_5_4">线条拼贴作品</span>。</p>
+            <p>第一次的创作过程也异常顺利，很快便成型了三、四幅让我十分满意的作品。于是我按照相同的思路，很快创作出<span class="hl" data-link="img_5_3a img_5_3b">第一批线条拼贴作品</span>。</p>
+            <p>之后，我继续在线条拼贴的方向上深化，根据拼贴素材的不同做各种尝试。整个创作过程似乎非常顺利。我现在回看，大概是因为线条作品的纹理相对统一，较容易相互融合，因此很快便产出了一大批<span class="hl" data-link="img_5_4a img_5_4b img_5_4c img_5_4d img_5_4e">线条拼贴作品</span>。</p>
             <p>这个时期也让我对拼贴有了更大的信心，我似乎看到了创作的一个崭新方向。我几乎将所有失败的线条作品都做了最大化利用，直到最后已经没有太多材料可供继续创作。这时，一个很自然的想法产生了：既然我能把线条拼贴成功，那理论上书法作品也可以按照同样的逻辑进行拼贴。</p>
         </div>
         <div class="section-images" data-section="5">
@@ -1218,7 +1248,7 @@
         <div class="section-text">
             <div class="section-number">第六章</div>
             <h2 class="section-title">书法拼贴：探索与方法</h2>
-            <p>于是我故技重施，<span class="hl" data-link="img_6_1">把更多的书法拼贴素材铺满工作室的地面</span>，尝试将其嫁接。得益于工作室宽阔的公共空间，我终于可以把大量的素材一次性全部摊开，从整体去观察它们之间的关联。</p>
+            <p>于是我故技重施，<span class="hl" data-link="img_6_1a img_6_1b">把更多的书法拼贴素材铺满工作室的地面</span>，尝试将其嫁接。得益于工作室宽阔的公共空间，我终于可以把大量的素材一次性全部摊开，从整体去观察它们之间的关联。</p>
             <p>然而第一次的尝试并没有像线条拼贴那样顺利，但这也在我的预料之中。毕竟书法，尤其是草书，形式更加自由，笔画之间的重叠更多，取舍也更困难。而且我对其有文字上的固有认知，需要时间来打破这种认知，将其当作图像来处理。</p>
             <p>虽然初次尝试极其具有挑战，但我也深刻认识到：相较于线条拼贴，书法拼贴的自由度更大、可能性更多，当然难度也更高。我相信，经过一段时间的摸索，我一定能找到书法拼贴的路数与规律，让创作变得更加顺畅。</p>
             <p>接下来我在书法拼贴上的尝试确实花费了更长的时间，其过程时而顺利，时而异常困难。有时一天可以创作出几幅作品，而有时却会被完全卡住，陷入瓶颈。书法拼贴的复杂程度的确比线条拼贴高出许多。线条作品通常用两三个独立元素就可以形成不错的视觉冲击并完成构图，但书法拼贴更像是从一个局部开始慢慢生长：需要更多元素、更多层次的交叠与更多次的尝试，才能将画面补齐并最终完成作品。</p>
@@ -1228,12 +1258,12 @@
             <p>在构图方面，我也逐渐总结出拼贴创作中的一些内在动机。例如，我会下意识遵循书法结字中的“笔断意连”：即便是数个彼此无关的局部，我依然希望它们在组合后，从草书结字的角度看起来气韵与节奏是连贯的。</p>
             <p>另一个让我兴奋的动机，是寻找那些极为随机的巧合：两个局部可能来自不同时期、不同作品，但拼在一起却天衣无缝、完美贴合，甚至会产生一种视觉欺骗，让人误以为它们本就是一体。这当然需要极大的耐心与一些运气，但每当这种“巧合”出现，我都会获得强烈的创作快感。</p>
             <p>书法拼贴是我目前最为深入的系列，前后大概有近三四年的探索与实践。第一批的书法素材很快就耗尽了，之后我又先后进行了好几次大字草书的创作。与其说是创作，不如说是日常的“临摹”练习。但“临摹”也不是一个完全准确的说法，因为临摹毕竟以写得像为目的，而这种大字书法根本没有范本可供临摹。</p>
-            <p>这让我联想到<span class="hl" data-link="img_6_2">王铎的创作。王铎的许多条幅都是他日常临摹的结果</span>，但他并不拘泥于形似，而是将这些“临摹”作品融入了极为强烈的个人风格。于是我深入研习<span class="hl" data-link="img_6_3">王羲之的《十七帖》</span>，以此作为“临摹”的对象。</p>
+            <p>这让我联想到<span class="hl" data-link="img_6_2">王铎的创作。王铎的许多条幅都是他日常临摹的结果</span>，但他并不拘泥于形似，而是将这些“临摹”作品融入了极为强烈的个人风格。于是我深入研习<span class="hl" data-link="img_6_3a">王羲之的《十七帖》</span>，以此作为“临摹”的对象。</p>
             <p>这种转变其实已经自然的改变了我写大字的动机。以前写字是以创作为导向，希望每一幅都能成为自己满意的作品；而后来写字则只是作为日常练习，完全不会对最后的结果抱有任何预期。这反而让书写变得更加纯粹，好像又回到了我儿时练字的状态，纯粹因为喜欢书法本身而去书写。而其副产品，就是为下一阶段的书法拼贴创作产出了大量素材。</p>
             <p>至此，我开始逐渐意识到一个全新的创作过程正在形成：大字书法的日常练习成为拼贴素材的前期准备。这与下一阶段的拼贴创作几乎完全分离。这种不相关看上去是一种割裂，却极大地解放了我的书写——写字几乎不再带有任何创作目的，而是单纯为了书写本身。</p>
-            <p>甚至写得好或不好都不再是评判标准，因为神来之笔与败笔都会在拼贴中找到它们各自的归宿。而<span class="hl" data-link="img_6_4">整个拼贴的过程更像是在玩一个拼图游戏</span>，需要极大的耐心和对图形图像的高度敏感，在大量素材中去寻找那些近乎偶然的必然性。而产出的结果几乎会持续带给我视觉上的惊喜，因为最终的拼贴往往能突破我自身视觉语言的局限与边界。</p>
+            <p>甚至写得好或不好都不再是评判标准，因为神来之笔与败笔都会在拼贴中找到它们各自的归宿。而<span class="hl" data-link="img_6_4a img_6_4b">整个拼贴的过程更像是在玩一个拼图游戏</span>，需要极大的耐心和对图形图像的高度敏感，在大量素材中去寻找那些近乎偶然的必然性。而产出的结果几乎会持续带给我视觉上的惊喜，因为最终的拼贴往往能突破我自身视觉语言的局限与边界。</p>
             <p>这个过程当然同样适用于线条系列的实践。于是我试着将这个创作过程进一步抽象与规范，便得到如下流程：无创作目的的素材制备 → 遵循预设逻辑进行拼贴 → 作品产出。这就好像工厂的流水线：各个环节各司其职，便能确保产出稳定的“产品”。</p>
-            <p>但这个比喻又不完全恰当——流水线产出的东西一模一样，而这个创作流程的成果却会在统一风格的基础上持续带来巧合的惊喜，不断拓展我对图像的认知与实践的边界。为了测试这个创作过程是否具有普遍性，在此期间我尝试<span class="hl" data-link="img_6_5">将线条与书法做拼贴融合</span>，也尝试创作一些<span class="hl" data-link="img_6_6">单纯的水墨晕染素材用于拼贴</span>。实践证明这些思路都是可行的。</p>
+            <p>但这个比喻又不完全恰当——流水线产出的东西一模一样，而这个创作流程的成果却会在统一风格的基础上持续带来巧合的惊喜，不断拓展我对图像的认知与实践的边界。为了测试这个创作过程是否具有普遍性，在此期间我尝试<span class="hl" data-link="img_6_5a img_6_5b">将线条与书法做拼贴融合</span>，也尝试创作一些<span class="hl" data-link="img_6_6a img_6_6b">单纯的水墨晕染素材用于拼贴</span>。实践证明这些思路都是可行的。</p>
         </div>
         <div class="section-images" data-section="6">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1250,7 +1280,7 @@
             <p>书法创作本身是瞬时的、不可撤销的，而拼贴则是一个需要不断推敲、耗时且反复斟酌的长时过程。将这两种矛盾的性质放在一起，在概念上来说就是一个非常有趣的实践。</p>
             <p>最后，拼贴的引入也消解了我对书法的评价体系。书法变成了书写。就像古人的日常手札，他们当时也从未想过这些文字未来会成为不朽的艺术。草书大字完全成为了我的日常书写。持续练习当然会带来进步，但一时的书写好坏却不会对拼贴创作产生任何影响。书写因此变得纯粹。</p>
             <p>虽然我在书法拼贴上的创作时间最长，但我深知自己还没有挖掘出这个方向的全部潜力。它既可以继续深入，也可以横向拓展。</p>
-            <p>目前，我在这个方向的探索暂时按下了暂停键，因为我觉得自己需要一些时间来沉淀，来思考自己的创作理念和脉络，也希望腾出时间去探索其他方向的拼贴可能性。最近的一次尝试是拓宽媒介，<span class="hl" data-link="img_7_6">引入画布和丙烯颜料来创造新的拼贴素材</span>。整个创作过程与书法拼贴完全一致，而这个系列作品的结果也基本达到了我实验的预期，并且时常带来一些惊喜。</p>
+            <p>目前，我在这个方向的探索暂时按下了暂停键，因为我觉得自己需要一些时间来沉淀，来思考自己的创作理念和脉络，也希望腾出时间去探索其他方向的拼贴可能性。最近的一次尝试是拓宽媒介，<span class="hl" data-link="img_7_6a img_7_6b">引入画布和丙烯颜料来创造新的拼贴素材</span>。整个创作过程与书法拼贴完全一致，而<span class="hl" data-link="img_7_3a img_7_3b img_7_3c">这个系列作品的结果</span>也基本达到了我实验的预期，并且时常带来一些惊喜。</p>
             <p>这再次验证了我所建立的创作流程是可靠的，能够持续稳定地产出作品，而且可以嫁接到其他媒介之中。近期我也开始酝酿一些新的思路，其中一个我颇为看好的方向，是将中国画引入到我的拼贴体系之中。毕竟中国画的临摹也是我童年艺术启蒙的重要部分。虽然尚未落实到实践，但我对整个过程和可能的结果依然抱有好奇与期待。或许这会成为我艺术探索中另一张重要的拼图。</p>
         </div>
         <div class="section-images" data-section="7">
@@ -1282,13 +1312,14 @@
 <!-- ===== OVERLAY ===== -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-caption">
     <button class="overlay-close" type="button" aria-label="关闭图片" onclick="closeOverlay()">✕</button>
-    <button class="overlay-nav overlay-prev" type="button" aria-label="上一件作品" onclick="navOverlay(-1)">←</button>
-    <button class="overlay-nav overlay-next" type="button" aria-label="下一件作品" onclick="navOverlay(1)">→</button>
-    <div class="overlay-image">
-        <span class="overlay-image-placeholder" id="overlay-placeholder">图片占位</span>
+    <div class="overlay-media">
+        <button class="overlay-nav overlay-prev" type="button" aria-label="上一件作品" onclick="navOverlay(-1)">←</button>
+        <div class="overlay-image">
+            <span class="overlay-image-placeholder" id="overlay-placeholder">图片占位</span>
+        </div>
+        <button class="overlay-nav overlay-next" type="button" aria-label="下一件作品" onclick="navOverlay(1)">→</button>
     </div>
     <p class="overlay-caption" id="overlay-caption"></p>
-    <a class="overlay-ig-link" href="#" target="_blank" rel="noopener noreferrer" id="overlay-ig">在 Instagram 查看 →</a>
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
@@ -1362,83 +1393,112 @@
         img_2_7: { caption: '怀素草书（737—799）', placeholder: '草书', label: '草书' },
         img_2_8a: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
         img_2_8b: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
-        img_2_8c: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
         img_3_1: { caption: '在宣纸上画线', placeholder: '冥想般的<br>线条', label: '冥想' },
         img_3_2: { caption: '在宣纸上画线', placeholder: '线条<br>绘制', label: '练习' },
-        img_3_3: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
-        img_3_4: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
-        img_4_1: { caption: '这一时期的部分作品', placeholder: '部分<br>作品', label: '作品' },
-        img_4_2: { caption: '大字书法表演', placeholder: '大尺幅<br>书写', label: '表演' },
+        img_3_3a: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
+        img_3_3b: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
+        img_3_4a: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
+        img_3_4b: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
+        img_4_1a: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
+        img_4_1b: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
+        img_4_1c: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
         img_5_1: { caption: '工作坊中的纪实摄影', placeholder: '纪实<br>摄影', label: '素材' },
         img_5_2: { caption: '铺在地上的废弃线条作品', placeholder: '废弃<br>线条', label: '材料' },
         img_5_3: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
+        img_5_3a: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
+        img_5_3b: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
         img_5_4: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4a: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4b: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4c: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4d: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4e: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
         img_6_1: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
+        img_6_1a: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
+        img_6_1b: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
         img_6_2: { caption: '王铎：日常临摹中生长出的条幅', placeholder: '王铎<br>条幅', label: '影响' },
         img_6_3: { caption: '王羲之：《十七帖》', placeholder: '《十七帖》', label: '范本' },
+        img_6_3a: { caption: '王羲之：《十七帖》', placeholder: '《十七帖》', label: '范本' },
         img_6_4: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
-        img_6_5: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
+        img_6_4a: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
+        img_6_4b: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
+        img_6_5a: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
+        img_6_5b: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
         img_6_6: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
+        img_6_6a: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
+        img_6_6b: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
         img_7_1: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
-        img_7_2: { caption: '当代艺术语境中的书法', placeholder: '当代<br>艺术', label: '语境' },
-        img_7_3: { caption: '具有观念性的实践', placeholder: '观念性<br>实践', label: '观念' },
-        img_7_4: { caption: '书写变得纯粹', placeholder: '纯粹<br>书写', label: '纯粹' },
-        img_7_5: { caption: '拼贴语汇中的中国画', placeholder: '中国画', label: '未来' },
-        img_7_6: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' }
+        img_7_3a: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_3b: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_3c: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_6: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' },
+        img_7_6a: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' },
+        img_7_6b: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' }
     };
 
     // ===== DYNAMIC THUMBNAIL GENERATION =====
     const sectionImageData = {
         1: [
-            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.webp' },
-            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.webp' }
+            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.jpg' },
+            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.jpg' }
         ],
         2: [
-            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.webp' },
-            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.webp' },
-            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.webp' },
-            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.webp' },
-            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.webp' },
-            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.webp' },
-            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.webp' },
-            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.webp' },
-            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.webp' },
-            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.webp' },
-            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.webp' },
-            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.webp' },
-            { id: 'img_2_8c', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8c_early_calligraphy.webp' }
+            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.jpg' },
+            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.jpg' },
+            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.jpg' },
+            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.jpeg' },
+            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.jpg' },
+            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.jpeg' },
+            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.jpg' },
+            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.jpg' },
+            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.jpg' },
+            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.jpg' },
+            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.jpeg' },
+            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.jpeg' }
         ],
         3: [
-            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.webp' },
-            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.webp' },
-            { id: 'img_3_3', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3_details.webp' },
-            { id: 'img_3_4', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4_form.webp' }
+            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.jpg' },
+            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.jpg' },
+            { id: 'img_3_3a', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3a_details.jpeg' },
+            { id: 'img_3_3b', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3b_details.jpg' },
+            { id: 'img_3_4a', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4a_form.jpg' },
+            { id: 'img_3_4b', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4b_form.jpg' }
         ],
         4: [
-            { id: 'img_4_1', caption: 'Selected works from this period', placeholder: 'Selected<br>works', label: 'Works' },
-            { id: 'img_4_2', caption: 'Large-scale calligraphy performance', placeholder: 'Large-scale<br>performance', label: 'Performance', imageSrc: 'c4/2_performance.webp'}
+            { id: 'img_4_1a', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1a_selected_works.jpg' },
+            { id: 'img_4_1b', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1b_selected_works.jpeg' },
+            { id: 'img_4_1c', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1c_selected_works.jpg' }
         ],
         5: [
             { id: 'img_5_1', caption: 'Documentary photographs from the workshop', placeholder: 'Documentary<br>photographs', label: 'Source material' },
-            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material' },
-            { id: 'img_5_3', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction' },
-            { id: 'img_5_4', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series' }
+            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material', imageSrc: 'c5/2_discarded_line_works.jpeg' },
+            { id: 'img_5_3a', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3a_first_line_collages.jpg' },
+            { id: 'img_5_3b', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3b_first_line_collages.jpg' },
+            { id: 'img_5_4a', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4a_line_collage_series.jpg' },
+            { id: 'img_5_4b', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4b_line_collage_series.jpg' },
+            { id: 'img_5_4c', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4c_line_collage_series.jpg' },
+            { id: 'img_5_4d', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4d_line_collage_series.jpg' },
+            { id: 'img_5_4e', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4e_line_collage_series.jpg' }
         ],
         6: [
-            { id: 'img_6_1', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material' },
-            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence' },
-            { id: 'img_6_3', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book' },
-            { id: 'img_6_4', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process' },
-            { id: 'img_6_5', caption: 'Combining line pieces with calligraphy', placeholder: 'Line and<br>calligraphy', label: 'Experiment' },
-            { id: 'img_6_6', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment' }
+            { id: 'img_6_1a', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1a_calligraphy_fragments.jpeg' },
+            { id: 'img_6_1b', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1b_calligraphy_fragments.jpeg' },
+            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence', imageSrc: 'c6/2_wang_duo_scroll.jpg' },
+            { id: 'img_6_3a', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book', imageSrc: 'c6/3a_wang_xizhi_seventeen_letters.jpg' },
+            { id: 'img_6_4a', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4a_assembling_fragments.jpeg' },
+            { id: 'img_6_4b', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4b_assembling_fragments.jpeg' },
+            { id: 'img_6_5a', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5a_line_calligraphy_collage.jpg' },
+            { id: 'img_6_5b', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5b_line_calligraphy_collage.jpeg' },
+            { id: 'img_6_6a', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6a_ink_wash_material.jpeg' },
+            { id: 'img_6_6b', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6b_ink_wash_material.jpeg' }
         ],
         7: [
             { id: 'img_7_1', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice' },
-            { id: 'img_7_2', caption: 'Calligraphy in the field of contemporary art', placeholder: 'Contemporary<br>art', label: 'Context' },
-            { id: 'img_7_3', caption: 'Conceptually intriguing practice', placeholder: 'Conceptual<br>practice', label: 'Concept' },
-            { id: 'img_7_4', caption: 'Writing becomes pure', placeholder: 'Pure<br>writing', label: 'Purity' },
-            { id: 'img_7_5', caption: 'Chinese painting in collage vocabulary', placeholder: 'Chinese<br>painting', label: 'Future' },
-            { id: 'img_7_6', caption: 'Canvas and acrylic collage experiments', placeholder: 'Canvas and<br>acrylic', label: 'Experiment' }
+            { id: 'img_7_6a', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2a_canvas_acrylic_collage.jpg' },
+            { id: 'img_7_6b', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2b_canvas_acrylic_collage.jpg' },
+            { id: 'img_7_3a', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3a.jpg' },
+            { id: 'img_7_3b', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3b.jpg' },
+            { id: 'img_7_3c', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3c.jpg' }
         ]
     };
 
@@ -1681,7 +1741,6 @@
     const overlay = document.getElementById('overlay');
     const overlayCaption = document.getElementById('overlay-caption');
     const overlayPlaceholder = document.getElementById('overlay-placeholder');
-    const overlayIgLink = document.getElementById('overlay-ig');
     const overlayClose = overlay.querySelector('.overlay-close');
 
     let allThumbs = [];
@@ -1756,13 +1815,12 @@
             const img = document.createElement('img');
             img.src = item.src;
             img.alt = caption;
-            img.style.cssText = 'display: block; max-width: 90vw; max-height: 85vh; width: auto; height: auto;';
+            img.style.cssText = 'display: block; width: auto; height: auto;';
             overlayPlaceholder.replaceChildren(img);
         } else {
             overlayPlaceholder.textContent = caption || uiCopy.imagePlaceholder;
         }
 
-        overlayIgLink.href = 'https://www.instagram.com/presentink/';
     }
 
     // Close on background click
@@ -1817,7 +1875,7 @@
 
 
         // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
             let found = false;
 
             // Try each extension for this number
@@ -1969,19 +2027,19 @@
     }
 
     function updateGalleryAspect(index) {
-        const wrapper = document.querySelector('.gallery-wrapper');
-        const image = gallerySlides[index] && gallerySlides[index].querySelector('img');
-        if (!wrapper || !image) return;
+        const slide = gallerySlides[index];
+        const image = slide && slide.querySelector('img');
+        if (!slide || !image) return;
 
-        const applyAspect = () => {
+        const applyFraming = () => {
             if (!image.naturalWidth || !image.naturalHeight) return;
-            wrapper.style.setProperty('--gallery-ratio', `${image.naturalWidth} / ${image.naturalHeight}`);
+            slide.classList.toggle('gallery-slide-framed', image.naturalWidth / image.naturalHeight <= 1.1);
         };
 
         if (image.complete) {
-            applyAspect();
+            applyFraming();
         } else {
-            image.addEventListener('load', applyAspect, { once: true });
+            image.addEventListener('load', applyFraming, { once: true });
         }
     }
 

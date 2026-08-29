@@ -369,7 +369,7 @@
             overflow: hidden;
             border-radius: 8px;
             background: #fff;
-            aspect-ratio: var(--gallery-ratio, 3 / 2);
+            aspect-ratio: 3 / 2;
         }
 
         .gallery-slides {
@@ -400,6 +400,12 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+
+        .gallery-slide.gallery-slide-framed img {
+            width: auto;
+            height: 80%;
+            max-width: calc(100% - 2rem);
         }
 
         .gallery-nav {
@@ -657,6 +663,7 @@
         .overlay {
             position: fixed;
             inset: 0;
+            padding: 1rem;
             background: var(--overlay-bg);
             z-index: 1000;
             display: none;
@@ -698,8 +705,26 @@
         .overlay-image {
             background: #e8e4de;
             display: inline-block;
-            max-width: 90vw;
-            max-height: 85vh;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+        }
+
+        .overlay-media {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+        }
+
+        .overlay-image img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100dvh - 8rem);
+            object-fit: contain;
         }
 
         .overlay-image-placeholder {
@@ -717,21 +742,6 @@
             margin-top: 1rem;
             letter-spacing: 0.05em;
         }
-
-        .overlay-ig-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            color: #666;
-            margin-top: 0.5rem;
-            text-decoration: none;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border-bottom: 1px solid #444;
-            padding-bottom: 1px;
-            transition: color 0.2s;
-        }
-
-        .overlay-ig-link:hover { color: #ccc; }
 
         .overlay-nav {
             position: absolute;
@@ -756,8 +766,13 @@
             color: #fff;
         }
 
-        .overlay-prev { left: 2rem; }
-        .overlay-next { right: 2rem; }
+        .overlay-prev {
+            left: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
+        }
+
+        .overlay-next {
+            right: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
+        }
 
         /* ============ FOOTER ============ */
         .footer {
@@ -877,8 +892,18 @@
 
             /* Overlay adjustments */
             .overlay-image {
-                max-width: 95vw;
-                max-height: 80vh;
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
+            }
+
+            .overlay-media {
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
+            }
+
+            .overlay-image img {
+                max-width: calc(100vw - 1.5rem);
+                max-height: calc(100dvh - 7rem);
             }
 
             .overlay-nav {
@@ -887,8 +912,13 @@
                 font-size: 0.9rem;
             }
 
-            .overlay-prev { left: 0.5rem; }
-            .overlay-next { right: 0.5rem; }
+            .overlay-prev {
+                left: max(-2.75rem, calc((100% - 100vw) / 2 + 0.5rem));
+            }
+
+            .overlay-next {
+                right: max(-2.75rem, calc((100% - 100vw) / 2 + 0.5rem));
+            }
 
             /* Featured Gallery Mobile */
             .featured-section {
@@ -1116,7 +1146,7 @@
             <p>Controlling the ink was just as crucial. With a large brush, everything changes—the amount of ink you load, the speed of your strokes, the ratio of ink to water, and how different kinds of Xuan paper absorb and spread the ink. I had to rebuild my understanding of all of this from scratch. Otherwise, the result could easily turn into one dark, muddled blot.</p>
             <p>Around this time, another artist came into my view—<span class="hl" data-link="img_2_6">Wang Dongling</span>. He is also known for writing large characters, creating monumental works, and developing his own form called "chaos script." Beyond that, he made many new explorations in contemporary calligraphy. His focus on <span class="hl" data-link="img_2_7">cursive script</span> was especially significant to me. I felt an inherent connection between cursive writing and large-scale brushwork, and my intuition told me that big characters should be written in cursive.</p>
             <p>So I decisively shifted to writing in cursive and began studying it more systematically. Practice soon showed me that it not only made the writing feel more fluid, but also addressed a key issue of working with a large brush: the faster pace of cursive keeps the ink from spreading into a blot. Even if there was some pooling at the beginning of a stroke, the dry-brush effect that appeared as the ink thinned out created a striking contrast.</p>
-            <p>Once I began <span class="hl" data-link="img_2_8a img_2_8b img_2_8c">writing large characters in cursive</span>, I could feel myself improving noticeably. I often slipped into a state of full concentration, finishing a piece in one continuous motion and feeling a clear sense of exhilaration. I also tried new approaches to structure and composition, and the writing as a whole began to feel more confident.</p>
+            <p>Once I began <span class="hl" data-link="img_2_8a img_2_8b">writing large characters in cursive</span>, I could feel myself improving noticeably. I often slipped into a state of full concentration, finishing a piece in one continuous motion and feeling a clear sense of exhilaration. I also tried new approaches to structure and composition, and the writing as a whole began to feel more confident.</p>
         </div>
         <div class="section-images" data-section="2">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1130,9 +1160,9 @@
             <h2 class="section-title">Line Works</h2>
             <p>Writing large characters in cursive requires an intense moment of focus, and a piece is usually finished within a few seconds, with no chance to revise. This immediacy is one of the reasons I love calligraphy. But working this way continuously is extremely demanding, both mentally and physically, so I began looking for another mode of working—one that didn't rely on sudden bursts of energy, but instead allowed me to settle into a slower, almost meditative pace.</p>
             <p>The first thing that came to mind was drawing lines. When I studied design, we often practiced basic horizontal and vertical lines in sketchbooks to build fundamental sketching skills. So I started using a small brush fully loaded with ink, <span class="hl" data-link="img_3_1">drawing lines on a large sheet of Xuan paper</span>. I began by drawing straight lines in <span class="hl" data-link="img_3_2">horizontal, vertical, and diagonal directions, and later I moved on to arcs</span>. Each time I loaded the brush with ink, I would draw one line and then repeat the same action right next to the previous line.</p>
-            <p>This seemingly mechanical motion produced endlessly <span class="hl" data-link="img_3_3">varied gradations</span> as the ink slowly dried out. The repeated lines also opened up many possibilities for composition. Later, I began using masking, which expanded the complexity of the compositions even further. This was exciting for me, and I felt as if I had discovered a parallel creative path in my practice.</p>
+            <p>This seemingly mechanical motion produced endlessly <span class="hl" data-link="img_3_3a img_3_3b">varied gradations</span> as the ink slowly dried out. The repeated lines also opened up many possibilities for composition. Later, I began using masking, which expanded the complexity of the compositions even further. This was exciting for me, and I felt as if I had discovered a parallel creative path in my practice.</p>
             <p>This way of working seemed to echo my calligraphy practice: one was fast, the other slow; one required an intense, momentary focus, while the other called for a long, almost meditative concentration. One was active, the other still, and they complemented each other. Ultimately, both forms of practice helped me get to know the brush, the ink, and the Xuan paper more intimately, bringing me closer to a sense of ease with these tools and materials.</p>
-            <p>As my exploration of lines continued, I no longer aimed to draw perfect straight lines or arcs. Instead, I began trying lines with <span class="hl" data-link="img_3_4">a freer, more organic form</span>, which gradually expanded the boundaries of the line series.</p>
+            <p>As my exploration of lines continued, I no longer aimed to draw perfect straight lines or arcs. Instead, I began trying lines with <span class="hl" data-link="img_3_4a img_3_4b">a freer, more organic form</span>, which gradually expanded the boundaries of the line series.</p>
         </div>
         <div class="section-images" data-section="3">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1144,10 +1174,10 @@
         <div class="section-text">
             <div class="section-number">Chapter IV</div>
             <h2 class="section-title">Bottlenecks and Reflection</h2>
-            <p>This period of exploring calligraphy and line work lasted for nearly three years. Looking back now, I see it as a crucial stage of accumulation in my artistic practice. I produced many studies, <span class="hl" data-link="img_4_1">a few pieces I was genuinely happy with</span>, and a large number of failed attempts as well.</p>
+            <p>This period of exploring calligraphy and line work lasted for nearly three years. Looking back now, I see it as a crucial stage of accumulation in my artistic practice. I produced many studies, <span class="hl" data-link="img_4_1a img_4_1b img_4_1c">a few pieces I was genuinely happy with</span>, and a large number of failed attempts as well.</p>
             <p>As I continued to repeat the process, certain limitations began to surface, and I started questioning the meaning of what I was doing, especially the large-character calligraphy. Although the line-based work carried a degree of innovation, after a long period of experimentation I found myself approached the compositional boundaries. If I continued in the same way, similarity and repetition would become inevitable.</p>
             <p>The situation with my calligraphy was even less encouraging. I began to feel that I had never really stepped out of the shadows of Inoue Yuichi and Wang Dongling. And the act of enlarging characters itself had become such a familiar formula in contemporary calligraphy that it no longer felt new. Since Inoue, countless people had tried to follow the same path, and in today's context it can hardly be called innovative at all.</p>
-            <p>I also began to notice works that seemed to move toward performance rather than calligraphy. At times, <span class="hl" data-link="img_4_2">the scale of the brush and paper placed the emphasis on the physical act of writing</span>, which felt increasingly distant from my own understanding of calligraphy.</p>
+            <p>I also began to notice works that seemed to move toward performance rather than calligraphy. At times, the scale of the brush and paper placed the emphasis on the physical act of writing, which felt increasingly distant from my own understanding of calligraphy.</p>
             <p>When I looked back at my own work, I realized I hadn't really escaped the influence of contemporary calligraphy practice I was surrounded by, and true originality still felt out of reach. And if that was the case, then what was the point of my writing at all? These questions started to surface quietly, nudging me to face the difficulties within my own practice.</p>
         </div>
         <div class="section-images" data-section="4">
@@ -1167,8 +1197,8 @@
             <p>After the workshop, I returned to my normal work routine. It wasn't until some time later that I had to face the large number of failed calligraphy and line pieces that had accumulated over the years. They were gradually taking over my studio, and I either needed a bigger space or had to find a way to deal with them.</p>
             <p>As I remember in that book about Inoue Yuichi, he would simply burn all the works he was unsatisfied with in his backyard. I once had the same impulse—to burn everything and start again. But then a small thought sparked in me: wasn't I good at piecing things together into a collage? Why not cut these so-called failed pieces apart and reassemble them into something new? Perhaps there was a hidden possibility there.</p>
             <p>I started with the line pieces, since they had a certain level of consistency in form, and my intuition told me that they would be easier to reshape into new compositions. <span class="hl" data-link="img_5_2">I spread a large number of discarded line works across the floor</span>, looking closely at them and considering which combinations of the pieces might give them a new life.</p>
-            <p>This was my first time making collages out of my own materials, and the first attempt went surprisingly smoothly. Within a short time, three or four pieces took shape that I felt genuinely satisfied with. Following the same approach, I soon created the <span class="hl" data-link="img_5_3">first group of line collages</span>.</p>
-            <p>I continued to develop the line collages, trying different approaches based on the materials at hand. The whole process felt unexpectedly fluid. Looking back now, it was likely because the textures of the line pieces were relatively consistent, making it easier for them to merge with one another, and I soon produced a large number of <span class="hl" data-link="img_5_4">works in this series</span>.</p>
+            <p>This was my first time making collages out of my own materials, and the first attempt went surprisingly smoothly. Within a short time, three or four pieces took shape that I felt genuinely satisfied with. Following the same approach, I soon created the <span class="hl" data-link="img_5_3a img_5_3b">first group of line collages</span>.</p>
+            <p>I continued to develop the line collages, trying different approaches based on the materials at hand. The whole process felt unexpectedly fluid. Looking back now, it was likely because the textures of the line pieces were relatively consistent, making it easier for them to merge with one another, and I soon produced a large number of <span class="hl" data-link="img_5_4a img_5_4b img_5_4c img_5_4d img_5_4e">works in this series</span>.</p>
             <p>This period of practice also gave me greater confidence in the collage technique. I felt that a new direction was opening up in my art. I ended up using almost all of my failed line pieces, until there was hardly any material left to work with. At that point, a natural thought emerged: if I could make the line collages work, then in theory, calligraphy pieces could be reworked through the same approach.</p>
         </div>
         <div class="section-images" data-section="5">
@@ -1181,7 +1211,7 @@
         <div class="section-text">
             <div class="section-number">Chapter VI</div>
             <h2 class="section-title">Calligraphy Collage: Exploration and Methodology</h2>
-            <p>So I returned to the method I had developed and <span class="hl" data-link="img_6_1">spread more calligraphy fragments across the studio floor</span>, trying to see how they might relate. With the openness of the shared studio space, I could finally lay out a large amount of material at once and observe the relationships among them as a whole.</p>
+            <p>So I returned to the method I had developed and <span class="hl" data-link="img_6_1a img_6_1b">spread more calligraphy fragments across the studio floor</span>, trying to see how they might relate. With the openness of the shared studio space, I could finally lay out a large amount of material at once and observe the relationships among them as a whole.</p>
             <p>The first attempts were not as smooth as the line collages, although that didn't really surprise me. Calligraphy, especially cursive script, has a much more open structure, with denser overlaps and more difficult choices to make. I had a tendency to see the marks as written characters, and it took time to set that aside and treat them simply as images.</p>
             <p>Although the initial process was extremely challenging, I also came to realize that compared with the line collages, calligraphy offered far greater freedom and many more possibilities, along with a higher level of difficulty. I believed that with enough time and exploration, I would eventually find a way into this way of working and let the process unfold more smoothly.</p>
             <p>In the phase that followed, my work with calligraphy collage took much longer to find its rhythm. The process shifted constantly between ease and difficulty. Some days I could complete several pieces, while on other days I felt completely stuck, unable to move forward. It became clear that calligraphy collage was far more complex than the line collage work. With the line pieces, two or three separate elements were often enough to create a strong visual impact and a complete composition. Calligraphy collage, by contrast, felt like something that had to grow outward from a small fragment. It needed more elements, more layers of overlap, and many more rounds of trial and adjustment before the image could settle and the work finally take shape.</p>
@@ -1191,12 +1221,12 @@
             <p>In terms of composition, I also began to recognize certain internal impulses within the collage process. For instance, I often found myself instinctively following the calligraphic idea of strokes that appear broken on the paper but are carried by a continuous movement. Even when the fragments came from unrelated sources, I still hoped that once assembled, they would carry a sense of flow and rhythm consistent with the structure of cursive script.</p>
             <p>Another impulse that excited me was the search for those rare, accidental moments of correspondence. Two fragments might come from different periods or entirely different works, yet when placed together they could fit so seamlessly that they even created a kind of visual illusion, as if they had always belonged to one another. It requires great patience and a bit of luck, but whenever such a coincidence appears, I feel a clear sense of creative satisfaction.</p>
             <p>The calligraphy collages became the body of work I engaged with most deeply, spanning nearly three to four years of exploration and practice. The first batch of writing material was used up quickly, and after that I produced several more rounds of large cursive writing. It was less about creating finished pieces and more a kind of daily "copying" practice. But even the word "copying" is not quite accurate, since copying in the traditional sense aims at imitation, and this kind of large-scale calligraphy has no model to follow in the first place.</p>
-            <p><span class="hl" data-link="img_6_2">It reminded me of Wang Duo's work. Many of his scrolls grew out of his daily "copying" practice</span>, yet he never aimed for likeness. Instead, he allowed those exercises to merge naturally into a powerful personal style. With that in mind, I immersed myself in <span class="hl" data-link="img_6_3">Wang Xizhi's <i>The Seventeen Letters</i></span> as my model book, studying it with focus and using it as the basis for my own form of "copying."</p>
+            <p><span class="hl" data-link="img_6_2">It reminded me of Wang Duo's work. Many of his scrolls grew out of his daily "copying" practice</span>, yet he never aimed for likeness. Instead, he allowed those exercises to merge naturally into a powerful personal style. With that in mind, I immersed myself in <span class="hl" data-link="img_6_3a">Wang Xizhi's <i>The Seventeen Letters</i></span> as my model book, studying it with focus and using it as the basis for my own form of "copying."</p>
             <p>This shift naturally changed my motivation for writing large characters. Earlier, my writing was driven by the desire to create, with the hope that each piece might become something final. Later, the writing became simply part of my daily practice, and I no longer carried any expectations for the result. This gave the act of writing a greater sense of purity, almost like returning to my childhood, when I practiced calligraphy simply out of love for it. And as a kind of by-product, this daily writing produced a great deal of material for the next stage of my collage work.</p>
             <p>At this point, I began to realize that an entirely new working process was taking shape. The daily practice of writing large characters had become the preparatory stage for generating collage material. It was almost completely separate from the collage work that followed. What first felt like a disconnect ended up freeing my writing in an unexpected way. The act of writing no longer carried any intention of making a finished piece, but existed simply for the sake of writing itself.</p>
-            <p>Even the quality of the writing, whether it turned out well or poorly, was no longer something to be criticized, since both the successful strokes and the failed ones would eventually find their place within the collage. <span class="hl" data-link="img_6_4">The process became something closer to assembling a puzzle</span>, requiring considerable patience and a keen sensitivity to form and image, searching through a wide field of material for moments that seem almost accidental yet somehow inevitable. And the results continued to offer surprises, as the finished collages often moved beyond the limits of my own visual language.</p>
+            <p>Even the quality of the writing, whether it turned out well or poorly, was no longer something to be criticized, since both the successful strokes and the failed ones would eventually find their place within the collage. <span class="hl" data-link="img_6_4a img_6_4b">The process became something closer to assembling a puzzle</span>, requiring considerable patience and a keen sensitivity to form and image, searching through a wide field of material for moments that seem almost accidental yet somehow inevitable. And the results continued to offer surprises, as the finished collages often moved beyond the limits of my own visual language.</p>
             <p>This process applied just as well to the line series. I began to abstract and clarify the steps involved, which eventually formed a simple working sequence: preparing material without any creative intention, piecing it together following a logic I had established, and allowing the finished work to emerge. The process began to function almost like an assembly line, with each step contributing to steady production.</p>
-            <p>But the analogy is not entirely accurate. An assembly line produces identical outcomes, while this process kept generating its own quiet surprises, producing works that stayed within a coherent style yet gradually broadened the scope of my visual language. To see whether the method could reach beyond its original context, I began experimenting with <span class="hl" data-link="img_6_5">combining line pieces with calligraphy</span> and also created <span class="hl" data-link="img_6_6">various kinds of ink-wash material for collage</span>. These experiments showed that each direction had the potential to unfold.</p>
+            <p>But the analogy is not entirely accurate. An assembly line produces identical outcomes, while this process kept generating its own quiet surprises, producing works that stayed within a coherent style yet gradually broadened the scope of my visual language. To see whether the method could reach beyond its original context, I began experimenting with <span class="hl" data-link="img_6_5a img_6_5b">combining line pieces with calligraphy</span> and also created <span class="hl" data-link="img_6_6a img_6_6b">various kinds of ink-wash material for collage</span>. These experiments showed that each direction had the potential to unfold.</p>
         </div>
         <div class="section-images" data-section="6">
             <!-- Dynamic thumbnails will be generated here -->
@@ -1213,7 +1243,7 @@
             <p>Calligraphy, by its nature, is immediate and irreversible, whereas collage is a long process that involves continual adjustment, is time-consuming, and demands repeated consideration. Bringing these two contrasting processes together creates a practice that feels conceptually intriguing to me.</p>
             <p>At last, bringing collage into my practice also dissolved the usual way of evaluating calligraphy. Calligraphy became simply writing. It felt closer to how people in the past wrote their daily letters, never imagining that those casual notes would one day be regarded as masterpieces of art. The large cursive characters became part of my daily writing. Of course, steady practice leads to improvement, but the quality of any single session, whether good or bad, no longer had much impact on the collage work that followed. Writing, in this sense, became pure.</p>
             <p>Although calligraphy collage is the direction I have worked for the longest period of time, I know clearly that I have not yet uncovered its full potential. It is a path that can still grow in depth and also branch into new directions.</p>
-            <p>For the time being, I have set this work aside. I feel that I need some time to let things settle, to think about the ideas behind my work and the way it has developed, and to make time to explore other possibilities in collage. Recently, I have been <span class="hl" data-link="img_7_6">experimenting with canvas and acrylic paint as new materials for collage</span>. The process is exactly the same as in my calligraphy collage. The resulting series has largely met what I hoped for from the experiment, and it continues to bring surprises.</p>
+            <p>For the time being, I have set this work aside. I feel that I need some time to let things settle, to think about the ideas behind my work and the way it has developed, and to make time to explore other possibilities in collage. Recently, I have been <span class="hl" data-link="img_7_6a img_7_6b">experimenting with canvas and acrylic paint as new materials for collage</span>. The process is exactly the same as in my calligraphy collage. <span class="hl" data-link="img_7_3a img_7_3b img_7_3c">The resulting series</span> has largely met what I hoped for from the experiment, and it continues to bring surprises.</p>
             <p>This once again confirmed that the working process I established is reliable. It allows me to produce work consistently, and it can extend into other mediums. Recently, I have also begun thinking about new motifs. One direction I feel particularly drawn to is bringing Chinese painting into my collage vocabulary, since it was an important part of my early artistic journey. Although I have not yet put this idea into practice, I remain curious about the process and the results it might lead to. Perhaps it will become another important piece in the larger picture of my artistic exploration.</p>
         </div>
         <div class="section-images" data-section="7">
@@ -1245,13 +1275,14 @@
 <!-- ===== OVERLAY ===== -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-caption">
     <button class="overlay-close" type="button" aria-label="Close image" onclick="closeOverlay()">✕</button>
-    <button class="overlay-nav overlay-prev" type="button" aria-label="Previous image" onclick="navOverlay(-1)">←</button>
-    <button class="overlay-nav overlay-next" type="button" aria-label="Next image" onclick="navOverlay(1)">→</button>
-    <div class="overlay-image">
-        <span class="overlay-image-placeholder" id="overlay-placeholder">Image Placeholder</span>
+    <div class="overlay-media">
+        <button class="overlay-nav overlay-prev" type="button" aria-label="Previous image" onclick="navOverlay(-1)">←</button>
+        <div class="overlay-image">
+            <span class="overlay-image-placeholder" id="overlay-placeholder">Image Placeholder</span>
+        </div>
+        <button class="overlay-nav overlay-next" type="button" aria-label="Next image" onclick="navOverlay(1)">→</button>
     </div>
     <p class="overlay-caption" id="overlay-caption"></p>
-    <a class="overlay-ig-link" href="#" target="_blank" rel="noopener noreferrer" id="overlay-ig">View on Instagram →</a>
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
@@ -1325,83 +1356,112 @@
         img_2_7: { caption: '怀素草书（737—799）', placeholder: '草书', label: '草书' },
         img_2_8a: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
         img_2_8b: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
-        img_2_8c: { caption: '草书作品', placeholder: '草书<br>作品', label: '草书' },
         img_3_1: { caption: '在宣纸上画线', placeholder: '冥想般的<br>线条', label: '冥想' },
         img_3_2: { caption: '在宣纸上画线', placeholder: '线条<br>绘制', label: '练习' },
-        img_3_3: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
-        img_3_4: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
-        img_4_1: { caption: '这一时期的部分作品', placeholder: '部分<br>作品', label: '作品' },
-        img_4_2: { caption: '大字书法表演', placeholder: '大尺幅<br>书写', label: '表演' },
+        img_3_3a: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
+        img_3_3b: { caption: '不断变化的墨色渐变', placeholder: '墨色<br>渐变', label: '变化' },
+        img_3_4a: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
+        img_3_4b: { caption: '动与静', placeholder: '平衡<br>形态', label: '平衡' },
+        img_4_1a: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
+        img_4_1b: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
+        img_4_1c: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
         img_5_1: { caption: '工作坊中的纪实摄影', placeholder: '纪实<br>摄影', label: '素材' },
         img_5_2: { caption: '铺在地上的废弃线条作品', placeholder: '废弃<br>线条', label: '材料' },
         img_5_3: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
+        img_5_3a: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
+        img_5_3b: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
         img_5_4: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4a: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4b: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4c: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4d: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
+        img_5_4e: { caption: '线条拼贴系列', placeholder: '线条拼贴<br>系列', label: '系列' },
         img_6_1: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
+        img_6_1a: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
+        img_6_1b: { caption: '铺满工作室地面的书法碎片', placeholder: '书法<br>碎片', label: '材料' },
         img_6_2: { caption: '王铎：日常临摹中生长出的条幅', placeholder: '王铎<br>条幅', label: '影响' },
         img_6_3: { caption: '王羲之：《十七帖》', placeholder: '《十七帖》', label: '范本' },
+        img_6_3a: { caption: '王羲之：《十七帖》', placeholder: '《十七帖》', label: '范本' },
         img_6_4: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
-        img_6_5: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
+        img_6_4a: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
+        img_6_4b: { caption: '如拼图般组装书法碎片', placeholder: '组装<br>拼图', label: '过程' },
+        img_6_5a: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
+        img_6_5b: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
         img_6_6: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
+        img_6_6a: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
+        img_6_6b: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
         img_7_1: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
-        img_7_2: { caption: '当代艺术语境中的书法', placeholder: '当代<br>艺术', label: '语境' },
-        img_7_3: { caption: '具有观念性的实践', placeholder: '观念性<br>实践', label: '观念' },
-        img_7_4: { caption: '书写变得纯粹', placeholder: '纯粹<br>书写', label: '纯粹' },
-        img_7_5: { caption: '拼贴语汇中的中国画', placeholder: '中国画', label: '未来' },
-        img_7_6: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' }
+        img_7_3a: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_3b: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_3c: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
+        img_7_6: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' },
+        img_7_6a: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' },
+        img_7_6b: { caption: '画布与丙烯拼贴实验', placeholder: '画布与<br>丙烯', label: '实验' }
     };
 
     // ===== DYNAMIC THUMBNAIL GENERATION =====
     const sectionImageData = {
         1: [
-            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.webp' },
-            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.webp' }
+            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.jpg' },
+            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.jpg' }
         ],
         2: [
-            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.webp' },
-            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.webp' },
-            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.webp' },
-            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.webp' },
-            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.webp' },
-            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.webp' },
-            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.webp' },
-            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.webp' },
-            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.webp' },
-            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.webp' },
-            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.webp' },
-            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.webp' },
-            { id: 'img_2_8c', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8c_early_calligraphy.webp' }
+            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.jpg' },
+            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.jpg' },
+            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.jpg' },
+            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.jpeg' },
+            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.jpg' },
+            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.jpeg' },
+            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.jpg' },
+            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.jpg' },
+            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.jpg' },
+            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.jpg' },
+            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.jpeg' },
+            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.jpeg' }
         ],
         3: [
-            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.webp' },
-            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.webp' },
-            { id: 'img_3_3', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3_details.webp' },
-            { id: 'img_3_4', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4_form.webp' }
+            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.jpg' },
+            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.jpg' },
+            { id: 'img_3_3a', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3a_details.jpeg' },
+            { id: 'img_3_3b', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3b_details.jpg' },
+            { id: 'img_3_4a', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4a_form.jpg' },
+            { id: 'img_3_4b', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4b_form.jpg' }
         ],
         4: [
-            { id: 'img_4_1', caption: 'Selected works from this period', placeholder: 'Selected<br>works', label: 'Works' },
-            { id: 'img_4_2', caption: 'Large-scale calligraphy performance', placeholder: 'Large-scale<br>performance', label: 'Performance', imageSrc: 'c4/2_performance.webp'}
+            { id: 'img_4_1a', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1a_selected_works.jpg' },
+            { id: 'img_4_1b', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1b_selected_works.jpeg' },
+            { id: 'img_4_1c', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1c_selected_works.jpg' }
         ],
         5: [
             { id: 'img_5_1', caption: 'Documentary photographs from the workshop', placeholder: 'Documentary<br>photographs', label: 'Source material' },
-            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material' },
-            { id: 'img_5_3', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction' },
-            { id: 'img_5_4', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series' }
+            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material', imageSrc: 'c5/2_discarded_line_works.jpeg' },
+            { id: 'img_5_3a', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3a_first_line_collages.jpg' },
+            { id: 'img_5_3b', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3b_first_line_collages.jpg' },
+            { id: 'img_5_4a', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4a_line_collage_series.jpg' },
+            { id: 'img_5_4b', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4b_line_collage_series.jpg' },
+            { id: 'img_5_4c', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4c_line_collage_series.jpg' },
+            { id: 'img_5_4d', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4d_line_collage_series.jpg' },
+            { id: 'img_5_4e', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4e_line_collage_series.jpg' }
         ],
         6: [
-            { id: 'img_6_1', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material' },
-            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence' },
-            { id: 'img_6_3', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book' },
-            { id: 'img_6_4', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process' },
-            { id: 'img_6_5', caption: 'Combining line pieces with calligraphy', placeholder: 'Line and<br>calligraphy', label: 'Experiment' },
-            { id: 'img_6_6', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment' }
+            { id: 'img_6_1a', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1a_calligraphy_fragments.jpeg' },
+            { id: 'img_6_1b', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1b_calligraphy_fragments.jpeg' },
+            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence', imageSrc: 'c6/2_wang_duo_scroll.jpg' },
+            { id: 'img_6_3a', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book', imageSrc: 'c6/3a_wang_xizhi_seventeen_letters.jpg' },
+            { id: 'img_6_4a', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4a_assembling_fragments.jpeg' },
+            { id: 'img_6_4b', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4b_assembling_fragments.jpeg' },
+            { id: 'img_6_5a', caption: 'Combining line pieces with calligraphy', placeholder: 'Line and<br>calligraphy', label: 'Experiment', imageSrc: 'c6/5a_line_calligraphy_collage.jpg' },
+            { id: 'img_6_5b', caption: 'Combining line pieces with calligraphy', placeholder: 'Line and<br>calligraphy', label: 'Experiment', imageSrc: 'c6/5b_line_calligraphy_collage.jpeg' },
+            { id: 'img_6_6a', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6a_ink_wash_material.jpeg' },
+            { id: 'img_6_6b', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6b_ink_wash_material.jpeg' }
         ],
         7: [
             { id: 'img_7_1', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice' },
-            { id: 'img_7_2', caption: 'Calligraphy in the field of contemporary art', placeholder: 'Contemporary<br>art', label: 'Context' },
-            { id: 'img_7_3', caption: 'Conceptually intriguing practice', placeholder: 'Conceptual<br>practice', label: 'Concept' },
-            { id: 'img_7_4', caption: 'Writing becomes pure', placeholder: 'Pure<br>writing', label: 'Purity' },
-            { id: 'img_7_5', caption: 'Chinese painting in collage vocabulary', placeholder: 'Chinese<br>painting', label: 'Future' },
-            { id: 'img_7_6', caption: 'Canvas and acrylic collage experiments', placeholder: 'Canvas and<br>acrylic', label: 'Experiment' }
+            { id: 'img_7_6a', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2a_canvas_acrylic_collage.jpg' },
+            { id: 'img_7_6b', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2b_canvas_acrylic_collage.jpg' },
+            { id: 'img_7_3a', caption: 'The resulting series', placeholder: 'Resulting<br>series', label: 'Series', imageSrc: 'c7/3a.jpg' },
+            { id: 'img_7_3b', caption: 'The resulting series', placeholder: 'Resulting<br>series', label: 'Series', imageSrc: 'c7/3b.jpg' },
+            { id: 'img_7_3c', caption: 'The resulting series', placeholder: 'Resulting<br>series', label: 'Series', imageSrc: 'c7/3c.jpg' }
         ]
     };
 
@@ -1644,7 +1704,6 @@
     const overlay = document.getElementById('overlay');
     const overlayCaption = document.getElementById('overlay-caption');
     const overlayPlaceholder = document.getElementById('overlay-placeholder');
-    const overlayIgLink = document.getElementById('overlay-ig');
     const overlayClose = overlay.querySelector('.overlay-close');
 
     let allThumbs = [];
@@ -1719,13 +1778,12 @@
             const img = document.createElement('img');
             img.src = item.src;
             img.alt = caption;
-            img.style.cssText = 'display: block; max-width: 90vw; max-height: 85vh; width: auto; height: auto;';
+            img.style.cssText = 'display: block; width: auto; height: auto;';
             overlayPlaceholder.replaceChildren(img);
         } else {
             overlayPlaceholder.textContent = caption || uiCopy.imagePlaceholder;
         }
         
-        overlayIgLink.href = 'https://www.instagram.com/presentink/';
     }
 
     // Close on background click
@@ -1780,7 +1838,7 @@
         
         
         // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
             let found = false;
             
             // Try each extension for this number
@@ -1932,19 +1990,19 @@
     }
 
     function updateGalleryAspect(index) {
-        const wrapper = document.querySelector('.gallery-wrapper');
-        const image = gallerySlides[index] && gallerySlides[index].querySelector('img');
-        if (!wrapper || !image) return;
+        const slide = gallerySlides[index];
+        const image = slide && slide.querySelector('img');
+        if (!slide || !image) return;
 
-        const applyAspect = () => {
+        const applyFraming = () => {
             if (!image.naturalWidth || !image.naturalHeight) return;
-            wrapper.style.setProperty('--gallery-ratio', `${image.naturalWidth} / ${image.naturalHeight}`);
+            slide.classList.toggle('gallery-slide-framed', image.naturalWidth / image.naturalHeight <= 1.1);
         };
 
         if (image.complete) {
-            applyAspect();
+            applyFraming();
         } else {
-            image.addEventListener('load', applyAspect, { once: true });
+            image.addEventListener('load', applyFraming, { once: true });
         }
     }
 
