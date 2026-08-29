@@ -58,3 +58,10 @@ yarn-error.log*
 # =====================
 dist/
 build/
+
+# Local image-editing scratch space (white-balance experiments + pre-correction
+# backups). Hundreds of MB and not needed to build or serve the site.
+edited_images/
+
+# Apple photo format — browsers cannot display it
+*.HEIC
