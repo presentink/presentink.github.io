@@ -37,7 +37,7 @@ const collect = () => {
     const grid = sec.querySelector('.section-images');
     const cs = getComputedStyle(grid);
     const cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length;
-    const cells = [...grid.children];
+    const cells = [...grid.children].filter(c => getComputedStyle(c).display !== 'none');
     const tr = text.getBoundingClientRect();
     const gr = grid.getBoundingClientRect();
     const cellBox = cells.length ? cells[0].getBoundingClientRect() : null;
@@ -51,12 +51,32 @@ const collect = () => {
       (hl.dataset.link || '').split(/\s+/).filter(Boolean).forEach((id, nth) => {
         const fig = document.getElementById(id);
         if (!fig || !grid.contains(fig)) return;
+        // A phrase may carry more images than the grid shows; the extras are
+        // display:none (lightbox only) and have no geometry to assert on.
+        if (getComputedStyle(fig).display === 'none') return;
         drifts.push({ id, nth, drift: Math.round(fig.getBoundingClientRect().top - hy) });
       });
     });
 
+    // Every image a phrase points at must exist in the DOM — shown in a cell or
+    // display:none for the lightbox. An image placed in a row the render loop never
+    // reaches is in neither, and disappears from the site entirely.
+    const linkedIds = new Set();
+    sec.querySelectorAll('.hl[data-link]').forEach(hl =>
+      (hl.dataset.link || '').split(/\s+/).filter(Boolean).forEach(id => linkedIds.add(id)));
+    const missing = [...linkedIds].filter(id => !document.getElementById(id));
+
+    // "+N" badges must account for exactly the images this chapter hides, and must
+    // never sit on a hidden thumbnail — a stale badge survives a column-count change.
+    const badgeEls = [...grid.querySelectorAll('[data-more]')];
+    const badgeTotal = badgeEls.reduce((a, e) => a + (parseInt(e.dataset.more, 10) || 0), 0);
+    const badgeOnHidden = badgeEls.filter(e => getComputedStyle(e).display === 'none').length;
+    const hiddenCount = [...grid.children]
+      .filter(c => c.id && getComputedStyle(c).display === 'none').length;
+
     return {
       chapter: i + 1,
+      missing, badgeTotal, badgeOnHidden, hiddenCount,
       cols,
       cells: cells.length,
       rows: Math.ceil(cells.length / cols),
@@ -85,6 +105,12 @@ async function runEngine(name, launcher) {
   const rows = [];
 
   await page.goto(URL, { waitUntil: 'load' });
+  // Wait for the web fonts. Text height decides the row count, and a chapter whose text
+  // lands exactly on a row boundary (chapter I is 733px against a 231px row) flips
+  // between 3 and 4 rows on a 1px difference. The page relayouts on fonts.ready; measure
+  // after that, or the first reading is a transient the site itself corrects.
+  await page.evaluate(() => document.fonts && document.fonts.ready).catch(() => {});
+  await page.waitForTimeout(400);
 
   let prevCell = Infinity;
 
@@ -103,6 +129,20 @@ async function runEngine(name, launcher) {
       if (s.gridLeft < s.textRight - 1)
         fail(name, width, `ch.${s.chapter}: image column stacked below/overlapping text `
           + `(gridLeft ${s.gridLeft} < textRight ${s.textRight})`);
+
+      /* 2b. no image may vanish: a phrase's image is either in a cell or hidden
+             for the lightbox, never absent from the DOM */
+      if (s.missing.length)
+        fail(name, width, `ch.${s.chapter}: ${s.missing.length} linked image(s) missing from `
+          + `the DOM entirely — neither shown nor hidden (${s.missing.join(', ')})`);
+
+      /* 2c. the "+N" badges must add up to what the chapter actually hides, and must
+             not linger on a hidden thumbnail after a relayout */
+      if (s.badgeTotal !== s.hiddenCount)
+        fail(name, width, `ch.${s.chapter}: badges total +${s.badgeTotal} but ${s.hiddenCount} `
+          + `image(s) are hidden — a stale or missing "+N"`);
+      if (s.badgeOnHidden)
+        fail(name, width, `ch.${s.chapter}: ${s.badgeOnHidden} badge(s) sit on a hidden thumbnail`);
 
       /* 3. cells stay square */
       if (!s.cellSquare) fail(name, width, `ch.${s.chapter}: cells are not square`);
