@@ -12,12 +12,12 @@
     <meta property="og:title" content="Present Ink | 王聿凡">
     <meta property="og:description" content="艺术家王聿凡的线上作品集：书法、拼贴、线条作品与当代抽象实践。">
     <meta property="og:url" content="https://presentink.github.io/zh/">
-    <meta property="og:image" content="https://presentink.github.io/featured_artwork/1.jpg">
+    <meta property="og:image" content="https://presentink.github.io/selected_work/og-cover.jpg">
     <meta property="og:image:alt" content="王聿凡的作品">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Present Ink | 王聿凡">
     <meta name="twitter:description" content="艺术家王聿凡的线上作品集：书法、拼贴、线条作品与当代抽象实践。">
-    <meta name="twitter:image" content="https://presentink.github.io/featured_artwork/1.jpg">
+    <meta name="twitter:image" content="https://presentink.github.io/selected_work/og-cover.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,6 +31,8 @@
             --highlight-border: rgba(181, 63, 49, 0.3);
             --thumb-border: rgba(181, 63, 49, 0.5);
             --overlay-bg: rgba(10, 10, 10, 0.92);
+            --body-copy-size: 18px;
+            --body-copy-line-height: 1.75;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -218,8 +220,8 @@
         }
 
         .featured-description {
-            font-size: inherit;
-            line-height: inherit;
+            font-size: var(--body-copy-size);
+            line-height: var(--body-copy-line-height);
             color: var(--text-primary);
             max-width: none;
             margin: 0 auto;
@@ -243,14 +245,16 @@
         }
 
         .artist-statement p {
+            font-size: var(--body-copy-size);
+            line-height: var(--body-copy-line-height);
             margin-bottom: 1.35rem;
             color: var(--text-primary);
             text-align: left;
         }
 
         .artist-statement p:first-of-type {
-            font-size: inherit;
-            line-height: inherit;
+            font-size: var(--body-copy-size);
+            line-height: var(--body-copy-line-height);
         }
 
         .artist-statement p:first-of-type::before,
@@ -301,8 +305,8 @@
             max-width: none;
             margin: -0.25rem 0 2rem;
             color: var(--text-primary);
-            font-size: inherit;
-            line-height: inherit;
+            font-size: var(--body-copy-size);
+            line-height: var(--body-copy-line-height);
             text-align: left;
         }
 
@@ -402,10 +406,10 @@
             object-fit: contain;
         }
 
-        .gallery-slide.gallery-slide-framed img {
-            width: auto;
+        .gallery-slide.gallery-slide-buffered img {
+            width: 100%;
             height: 80%;
-            max-width: calc(100% - 2rem);
+            object-fit: contain;
         }
 
         .gallery-nav {
@@ -492,6 +496,8 @@
 
         /* Left: Text column */
         .section-text {
+            font-size: var(--body-copy-size);
+            line-height: var(--body-copy-line-height);
             padding-right: 1rem;
         }
 
@@ -548,6 +554,30 @@
             padding-top: 2.5rem;
             padding-left: 2rem;
             align-content: flex-start;
+        }
+
+        /* A phrase carrying more images than the grid should show: the extras stay in
+           the DOM so the lightbox can page through them, but display:none keeps them
+           out of the grid's cell flow entirely (a display:none element is not a grid
+           item, so it occupies no cell). */
+        .thumb.grid-hidden {
+            display: none;
+        }
+
+        /* "+N more" badge on the last thumbnail the grid does show for that phrase. */
+        .thumb[data-more]::after {
+            content: '+' attr(data-more);
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, 0.68);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.05em;
+            padding: 2px 6px;
+            border-radius: 2px;
+            pointer-events: none;
         }
 
         .thumb img {
@@ -789,6 +819,10 @@
 
         /* ============ TABLET ============ */
         @media (max-width: 960px) {
+            :root {
+                --body-copy-size: 17px;
+            }
+
             .section {
                 grid-template-columns: 60% 40%;
             }
@@ -820,6 +854,11 @@
 
         /* ============ MOBILE ============ */
         @media (max-width: 600px) {
+            :root {
+                --body-copy-size: 15.5px;
+                --body-copy-line-height: 1.7;
+            }
+
             .site-links {
                 max-width: 18rem;
                 margin: 0 auto;
@@ -1057,6 +1096,28 @@
         }
         html[lang="zh-CN"] .section-title,
         html[lang="zh-CN"] .story-index-title { font-family: "Zhuque Fangsong", "Noto Serif SC", "Songti SC", STSong, serif; font-weight: 700; }
+        html[lang="zh-CN"] .story-index-number,
+        html[lang="zh-CN"] .story-index-time {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        html[lang="zh-CN"] .story-index-title {
+            font-size: 1.32rem;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 600px) {
+            html[lang="zh-CN"] .story-index-number,
+            html[lang="zh-CN"] .story-index-time {
+                font-size: 0.66rem;
+            }
+
+            html[lang="zh-CN"] .story-index-title {
+                font-size: 1.18rem;
+                line-height: 1.35;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1229,7 +1290,7 @@
             <h2 class="section-title">拼贴的转折</h2>
             <p>经过一段时间的反思，我深刻意识到自己需要在艺术实践中寻找更独特的东西，但答案却并不明朗。我现在可以确定，其中一个关键事件，或者说转机，是我参加了一个艺术家举办的拼贴工作坊，使用大量废弃杂志来创作拼贴图像。</p>
             <p>我从来没有尝试过拼贴这种形式，因为在我的固有印象中，这种创作方式往往太过具象，并带有强烈的波普艺术气息。而波普艺术恰恰不是我偏爱的艺术风格。所以我一直没有机会接触。</p>
-            <p><span class="hl" data-link="img_5_1">工作坊提供的杂志中包含大量纪实摄影</span>，许多图像都带有强烈的视觉张力和社会意味。虽然我此前从未做过拼贴，但我很快发现这个过程对我来说很自然。面对一堆彼此无关的图像，我几乎立刻就能感受到它们之间细微的视觉或主题呼应，再将它们切割、拼合成新的图像，形成一种鲜明的视觉转折或意义上的变化。</p>
+            <p>工作坊提供的杂志中包含大量纪实摄影，许多图像都带有强烈的视觉张力和社会意味。虽然我此前从未做过拼贴，但我很快发现这个过程对我来说很自然。面对一堆彼此无关的图像，我几乎立刻就能感受到它们之间细微的视觉或主题呼应，再将它们切割、拼合成新的图像，<span class="hl" data-link="img_5_1a img_5_1b img_5_1c img_5_1d img_5_1e img_5_1f img_5_1g img_5_1h">形成一种鲜明的视觉转折或意义上的变化</span>。</p>
             <p>在两个小时左右的时间里，我创作了近十幅作品，都是由两张图组合而成的简单拼贴，但无论在内容还是视觉上都令我十分满意。这次工作坊之后，我感觉自己好像解锁了一项新技能，但当时并没有意识到这会对我之后的创作产生多么大的影响。毕竟杂志图像的拼贴与我的水墨创作相差甚远，看似很难联系到一起。</p>
             <p>工作坊之后，我还是回到日常的创作中。直到过了一段时间，我不得不面对长期创作所产生的大量失败的书法和线条作品——它们不断挤压我的工作室空间。要么我需要更大的工作室，要么就必须处理这些失败的作品。</p>
             <p>我记得在读井上有一那本书时，他的做法是干脆在后院烧掉所有不满意的作品。我也曾产生过同样的冲动：干脆烧掉算了，再创作更好的作品。但是突然一转念，我不是很擅长拼贴吗？为什么不把这些所谓失败的作品切割、重新组合？说不定会有意外的收获。</p>
@@ -1255,7 +1316,7 @@
             <p>经过长时间的摸索，我也逐渐总结出一些越来越清晰的创作经验、创作思路和创作技巧。首先，在海量素材中，我需要对潜力更大的视觉元素（也就是局部笔画）培养出敏锐的直觉，并果断用刀将其切割分离出来。这一步至关重要，它会对下一步拼贴的难度产生关键影响。但这几乎完全来自大量实践后形成的直觉判断，本质上无关对错。</p>
             <p>通常我会预先处理一部分材料，从每幅字中尽量切割出更多可用的局部。当我觉得材料数量足够时，就会开始正式的拼贴创作。我发现，如果一次性预处理太多材料，拼贴的可能性会呈指数级增长，这并不会让我拥有更多“可控的选择”，反而会极大提高拼贴的难度，让我难以在无数可能中快速做出判断。</p>
             <p>其次，每次开始拼贴时，我都会先在纸板上用白色宣纸框出作品的大致尺寸，避免作品无限生长而难以收束。看似是一种局限，却逼迫我去寻找最适合该尺幅、最恰当的那块“缺失的拼图”。</p>
-            <p>在构图方面，我也逐渐总结出拼贴创作中的一些内在动机。例如，我会下意识遵循书法结字中的“笔断意连”：即便是数个彼此无关的局部，我依然希望它们在组合后，从草书结字的角度看起来气韵与节奏是连贯的。</p>
+            <p>在构图方面，我也逐渐总结出拼贴创作中的一些内在动机。例如，我会下意识遵循<span class="hl" data-link="img_6_7">书法结字中的“笔断意连”</span>：即便是数个彼此无关的局部，我依然希望它们在组合后，从草书结字的角度看起来气韵与节奏是连贯的。</p>
             <p>另一个让我兴奋的动机，是寻找那些极为随机的巧合：两个局部可能来自不同时期、不同作品，但拼在一起却天衣无缝、完美贴合，甚至会产生一种视觉欺骗，让人误以为它们本就是一体。这当然需要极大的耐心与一些运气，但每当这种“巧合”出现，我都会获得强烈的创作快感。</p>
             <p>书法拼贴是我目前最为深入的系列，前后大概有近三四年的探索与实践。第一批的书法素材很快就耗尽了，之后我又先后进行了好几次大字草书的创作。与其说是创作，不如说是日常的“临摹”练习。但“临摹”也不是一个完全准确的说法，因为临摹毕竟以写得像为目的，而这种大字书法根本没有范本可供临摹。</p>
             <p>这让我联想到<span class="hl" data-link="img_6_2">王铎的创作。王铎的许多条幅都是他日常临摹的结果</span>，但他并不拘泥于形似，而是将这些“临摹”作品融入了极为强烈的个人风格。于是我深入研习<span class="hl" data-link="img_6_3a">王羲之的《十七帖》</span>，以此作为“临摹”的对象。</p>
@@ -1275,7 +1336,7 @@
         <div class="section-text">
             <div class="section-number">第七章</div>
             <h2 class="section-title">书法拼贴的意义与未来方向</h2>
-            <p>经过这么多的尝试，我自身还是更钟爱<span class="hl" data-link="img_7_1">书法拼贴</span>。首先，我的创作根植于书法，这是我所有艺术实践的起点。书法，尤其是草书，其自身的表现力是极好的拼贴素材。书写所遵循的法度能使最终作品在整体上形成统一的风格，而线条交叠的千变万化又会为拼贴的结果带来变量与惊喜。</p>
+            <p>经过这么多的尝试，我自身还是更钟爱<span class="hl" data-link="img_7_1a img_7_1b img_7_1c img_7_1d img_7_1e img_7_1f img_7_1g img_7_1h img_7_1i img_7_1j img_7_1k img_7_1l img_7_1m img_7_1n img_7_1o img_7_1p img_7_1q">书法拼贴</span>。首先，我的创作根植于书法，这是我所有艺术实践的起点。书法，尤其是草书，其自身的表现力是极好的拼贴素材。书写所遵循的法度能使最终作品在整体上形成统一的风格，而线条交叠的千变万化又会为拼贴的结果带来变量与惊喜。</p>
             <p>书法拼贴也在一定程度上回应了我对当代书法的反思：它以物理切割解构传统，又以拼贴重组将书法带入当代艺术的范畴。书法拼贴中的笔画与线条既承载着文化符号的属性，又将一只脚伸向西方绘画的抽象领域。另外，不同层次的上下交叠也将空间概念引入了原本平面的书法艺术之中，这对我来说本身就具有一定的创新意义。</p>
             <p>书法创作本身是瞬时的、不可撤销的，而拼贴则是一个需要不断推敲、耗时且反复斟酌的长时过程。将这两种矛盾的性质放在一起，在概念上来说就是一个非常有趣的实践。</p>
             <p>最后，拼贴的引入也消解了我对书法的评价体系。书法变成了书写。就像古人的日常手札，他们当时也从未想过这些文字未来会成为不朽的艺术。草书大字完全成为了我的日常书写。持续练习当然会带来进步，但一时的书写好坏却不会对拼贴创作产生任何影响。书写因此变得纯粹。</p>
@@ -1332,14 +1393,14 @@
         featuredArtwork: '精选作品',
         galleryImage: '作品',
         noFeaturedArtwork: '精选作品图片暂未找到',
-        noFeaturedArtworkHint: '请将图片命名为 1.jpg、2.jpg 等。',
+        noFeaturedArtworkHint: '请将图片放入 selected_work，并命名为 1.jpg、2.jpg 等。',
         imagePlaceholder: '图片占位'
     } : {
         viewArtwork: 'View artwork: ',
         viewRelatedArtwork: 'View related artwork: ',
-        featuredArtwork: 'Featured Artwork',
+        featuredArtwork: 'Selected Work',
         galleryImage: 'Image',
-        noFeaturedArtwork: 'No images found in featured_artwork folder',
+        noFeaturedArtwork: 'No images found in selected_work folder',
         noFeaturedArtworkHint: 'Try adding images with names like: 1.jpg, 2.jpg, etc.',
         imagePlaceholder: 'Image Placeholder'
     };
@@ -1402,7 +1463,14 @@
         img_4_1a: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
         img_4_1b: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
         img_4_1c: { caption: '这一时期的作品', placeholder: '部分<br>作品', label: '作品' },
-        img_5_1: { caption: '工作坊中的纪实摄影', placeholder: '纪实<br>摄影', label: '素材' },
+        img_5_1a: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1b: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1c: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1d: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1e: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1f: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1g: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
+        img_5_1h: { caption: '工作坊拼贴——两张图像的组合', placeholder: '工作坊<br>拼贴', label: '拼贴' },
         img_5_2: { caption: '铺在地上的废弃线条作品', placeholder: '废弃<br>线条', label: '材料' },
         img_5_3: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
         img_5_3a: { caption: '最初的线条拼贴', placeholder: '线条<br>拼贴', label: '新方向' },
@@ -1426,8 +1494,25 @@
         img_6_5b: { caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验' },
         img_6_6: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
         img_6_6a: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
+        img_6_7: { caption: '笔断意连——笔画断开而笔势连贯', placeholder: '笔断<br>意连', label: '结字' },
         img_6_6b: { caption: '用于拼贴的水墨晕染材料', placeholder: '水墨<br>材料', label: '实验' },
-        img_7_1: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1a: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1b: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1c: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1d: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1e: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1f: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1g: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1h: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1i: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1j: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1k: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1l: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1m: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1n: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1o: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1p: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
+        img_7_1q: { caption: '书法拼贴', placeholder: '书法<br>拼贴', label: '实践' },
         img_7_3a: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
         img_7_3b: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
         img_7_3c: { caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列' },
@@ -1439,66 +1524,90 @@
     // ===== DYNAMIC THUMBNAIL GENERATION =====
     const sectionImageData = {
         1: [
-            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.jpg' },
-            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.jpg' }
+            { id: 'img_1_1', caption: 'Calligraphy model books', placeholder: 'Model<br>books', label: 'Self-taught', imageSrc: 'c1/1_model_books.webp' },
+            { id: 'img_1_2', caption: 'Chinese painting', placeholder: 'Chinese<br>painting', label: 'Painting', imageSrc: 'c1/2_chinese_painting.webp' }
         ],
         2: [
-            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.jpg' },
-            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.jpg' },
-            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.jpg' },
-            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.jpeg' },
-            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.jpg' },
-            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.jpeg' },
-            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.jpg' },
-            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.jpg' },
-            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.jpg' },
-            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.jpg' },
-            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.jpeg' },
-            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.jpeg' }
+            { id: 'img_2_1', caption: 'Yu-ichi Inoue: The Calligraphy Is for Everyone', placeholder: 'Inoue<br>book', label: 'Key influence', imageSrc: 'c2/1_book.webp' },
+            { id: 'img_2_2a', caption: 'Inoue writing process', placeholder: 'Inoue<br>writing', label: 'Process', imageSrc: 'c2/2a_inoue_writing.webp' },
+            { id: 'img_2_2b', caption: 'Giant single-character works', placeholder: 'Giant<br>characters', label: 'Innovation', imageSrc: 'c2/2b_inoue_work.webp' },
+            { id: 'img_2_3', caption: 'Large custom-made brush', placeholder: 'Large<br>brush', label: 'Tools', imageSrc: 'c2/3_brushes.webp' },
+            { id: 'img_2_4a', caption: 'Spinderihallerne studio in Vejle', placeholder: 'Studio<br>space', label: 'Workspace', imageSrc: 'c2/4a_spinderi.webp' },
+            { id: 'img_2_4b', caption: 'Studio workspace setup', placeholder: 'Studio<br>setup', label: 'Space', imageSrc: 'c2/4b_studio.webp' },
+            { id: 'img_2_5a', caption: 'Early calligraphy attempts', placeholder: 'Early<br>attempts', label: 'Learning', imageSrc: 'c2/5a_early_attemps.webp' },
+            { id: 'img_2_5b', caption: 'Early calligraphy practice', placeholder: 'Early<br>practice', label: 'Development', imageSrc: 'c2/5b_early_attemps.webp' },
+            { id: 'img_2_6', caption: 'Wang Dongling — chaos script', placeholder: 'Wang<br>Dongling', label: 'Inspiration', imageSrc: 'c2/6_wangdongling.webp' },
+            { id: 'img_2_7', caption: 'Cursive script Huaisu 737-799', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/7_cursive.webp' },
+            { id: 'img_2_8a', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8a_early_calligraphy.webp' },
+            { id: 'img_2_8b', caption: 'Cursive Calligraphy Work', placeholder: 'Cursive<br>script', label: 'Cursive', imageSrc: 'c2/8b_early_calligraphy.webp' }
         ],
         3: [
-            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.jpg' },
-            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.jpg' },
-            { id: 'img_3_3a', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3a_details.jpeg' },
-            { id: 'img_3_3b', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3b_details.jpg' },
-            { id: 'img_3_4a', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4a_form.jpg' },
-            { id: 'img_3_4b', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4b_form.jpg' }
+            { id: 'img_3_1', caption: 'Drawing lines on xuan paper', placeholder: 'Meditative<br>lines', label: 'Meditation', imageSrc: 'c3/1_drawing_lines.webp' },
+            { id: 'img_3_2', caption: 'Drawing lines on xuan paper', placeholder: 'Line<br>drawing', label: 'Practice', imageSrc: 'c3/2_shapes.webp' },
+            { id: 'img_3_3a', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3a_details.webp' },
+            { id: 'img_3_3b', caption: 'Endlessly shifting gradations', placeholder: 'Ink<br>gradations', label: 'Variations', imageSrc: 'c3/3b_details.webp' },
+            { id: 'img_3_4a', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4a_form.webp' },
+            { id: 'img_3_4b', caption: 'Movement and stillness', placeholder: 'Balance<br>forms', label: 'Balance', imageSrc: 'c3/4b_form.webp' }
         ],
         4: [
-            { id: 'img_4_1a', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1a_selected_works.jpg' },
-            { id: 'img_4_1b', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1b_selected_works.jpeg' },
-            { id: 'img_4_1c', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1c_selected_works.jpg' }
+            { id: 'img_4_1a', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1a_selected_works.webp' },
+            { id: 'img_4_1b', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1b_selected_works.webp' },
+            { id: 'img_4_1c', caption: 'Selected work from this period', placeholder: 'Selected<br>work', label: 'Works', imageSrc: 'c4/1c_selected_works.webp' }
         ],
         5: [
-            { id: 'img_5_1', caption: 'Documentary photographs from the workshop', placeholder: 'Documentary<br>photographs', label: 'Source material' },
-            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material', imageSrc: 'c5/2_discarded_line_works.jpeg' },
-            { id: 'img_5_3a', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3a_first_line_collages.jpg' },
-            { id: 'img_5_3b', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3b_first_line_collages.jpg' },
-            { id: 'img_5_4a', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4a_line_collage_series.jpg' },
-            { id: 'img_5_4b', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4b_line_collage_series.jpg' },
-            { id: 'img_5_4c', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4c_line_collage_series.jpg' },
-            { id: 'img_5_4d', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4d_line_collage_series.jpg' },
-            { id: 'img_5_4e', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4e_line_collage_series.jpg' }
+            { id: 'img_5_1a', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1a_workshop_collages.webp' },
+            { id: 'img_5_1b', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1b_workshop_collages.webp' },
+            { id: 'img_5_1c', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1c_workshop_collages.webp' },
+            { id: 'img_5_1d', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1d_workshop_collages.webp' },
+            { id: 'img_5_1e', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1e_workshop_collages.webp' },
+            { id: 'img_5_1f', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1f_workshop_collages.webp' },
+            { id: 'img_5_1g', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1g_workshop_collages.webp' },
+            { id: 'img_5_1h', caption: 'Workshop collage — two images combined', placeholder: 'Workshop<br>collage', label: 'Collage', imageSrc: 'c5/1h_workshop_collages.webp' },
+            { id: 'img_5_2', caption: 'Discarded line works spread across the floor', placeholder: 'Discarded<br>line works', label: 'Material', imageSrc: 'c5/2_discarded_line_works.webp' },
+            { id: 'img_5_3a', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3a_first_line_collages.webp' },
+            { id: 'img_5_3b', caption: 'First line collages', placeholder: 'Line<br>collages', label: 'New direction', imageSrc: 'c5/3b_first_line_collages.webp' },
+            { id: 'img_5_4a', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4a_line_collage_series.webp' },
+            { id: 'img_5_4b', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4b_line_collage_series.webp' },
+            { id: 'img_5_4c', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4c_line_collage_series.webp' },
+            { id: 'img_5_4d', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4d_line_collage_series.webp' },
+            { id: 'img_5_4e', caption: 'Line collage series', placeholder: 'Line collage<br>series', label: 'Series', imageSrc: 'c5/4e_line_collage_series.webp' }
         ],
         6: [
-            { id: 'img_6_1a', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1a_calligraphy_fragments.jpeg' },
-            { id: 'img_6_1b', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1b_calligraphy_fragments.jpeg' },
-            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence', imageSrc: 'c6/2_wang_duo_scroll.jpg' },
-            { id: 'img_6_3a', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book', imageSrc: 'c6/3a_wang_xizhi_seventeen_letters.jpg' },
-            { id: 'img_6_4a', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4a_assembling_fragments.jpeg' },
-            { id: 'img_6_4b', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4b_assembling_fragments.jpeg' },
-            { id: 'img_6_5a', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5a_line_calligraphy_collage.jpg' },
-            { id: 'img_6_5b', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5b_line_calligraphy_collage.jpeg' },
-            { id: 'img_6_6a', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6a_ink_wash_material.jpeg' },
-            { id: 'img_6_6b', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6b_ink_wash_material.jpeg' }
+            { id: 'img_6_1a', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1a_calligraphy_fragments.webp' },
+            { id: 'img_6_1b', caption: 'Calligraphy fragments across the studio floor', placeholder: 'Calligraphy<br>fragments', label: 'Material', imageSrc: 'c6/1b_calligraphy_fragments.webp' },
+            { id: 'img_6_2', caption: 'Wang Duo: scrolls from daily copying practice', placeholder: 'Wang Duo<br>scrolls', label: 'Influence', imageSrc: 'c6/2_wang_duo_scroll.webp' },
+            { id: 'img_6_3a', caption: 'Wang Xizhi: The Seventeen Letters', placeholder: 'The Seventeen<br>Letters', label: 'Model book', imageSrc: 'c6/3a_wang_xizhi_seventeen_letters.webp' },
+            { id: 'img_6_4a', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4a_assembling_fragments.webp' },
+            { id: 'img_6_4b', caption: 'Assembling calligraphy fragments like a puzzle', placeholder: 'Assembling<br>a puzzle', label: 'Process', imageSrc: 'c6/4b_assembling_fragments.webp' },
+            { id: 'img_6_5a', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5a_line_calligraphy_collage.webp' },
+            { id: 'img_6_5b', caption: '线条与书法的拼贴融合', placeholder: '线条与<br>书法', label: '实验', imageSrc: 'c6/5b_line_calligraphy_collage.webp' },
+            { id: 'img_6_6a', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6a_ink_wash_material.webp' },
+            { id: 'img_6_6b', caption: 'Ink-wash material for collage', placeholder: 'Ink-wash<br>material', label: 'Experiment', imageSrc: 'c6/6b_ink_wash_material.webp' },
+            { id: 'img_6_7', caption: 'Strokes broken on the paper, carried by a continuous movement', placeholder: 'Broken stroke<br>continuous flow', label: 'Structure', imageSrc: 'c6/7_biduanyilian.webp' }
         ],
         7: [
-            { id: 'img_7_1', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice' },
-            { id: 'img_7_6a', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2a_canvas_acrylic_collage.jpg' },
-            { id: 'img_7_6b', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2b_canvas_acrylic_collage.jpg' },
-            { id: 'img_7_3a', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3a.jpg' },
-            { id: 'img_7_3b', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3b.jpg' },
-            { id: 'img_7_3c', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3c.jpg' }
+            { id: 'img_7_1a', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1a_calligraphy_collage.webp' },
+            { id: 'img_7_1b', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1b_calligraphy_collage.webp' },
+            { id: 'img_7_1c', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1c_calligraphy_collage.webp' },
+            { id: 'img_7_1d', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1d_calligraphy_collage.webp' },
+            { id: 'img_7_1e', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1e_calligraphy_collage.webp' },
+            { id: 'img_7_1f', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1f_calligraphy_collage.webp' },
+            { id: 'img_7_1g', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1g_calligraphy_collage.webp' },
+            { id: 'img_7_1h', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1h_calligraphy_collage.webp' },
+            { id: 'img_7_1i', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1i_calligraphy_collage.webp' },
+            { id: 'img_7_1j', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1j_calligraphy_collage.webp' },
+            { id: 'img_7_1k', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1k_calligraphy_collage.webp' },
+            { id: 'img_7_1l', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1l_calligraphy_collage.webp' },
+            { id: 'img_7_1m', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1m_calligraphy_collage.webp' },
+            { id: 'img_7_1n', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1n_calligraphy_collage.webp' },
+            { id: 'img_7_1o', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1o_calligraphy_collage.webp' },
+            { id: 'img_7_1p', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1p_calligraphy_collage.webp' },
+            { id: 'img_7_1q', caption: 'Calligraphy collage', placeholder: 'Calligraphy<br>collage', label: 'Practice', imageSrc: 'c7/1q_calligraphy_collage.webp' },
+            { id: 'img_7_6a', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2a_canvas_acrylic_collage.webp' },
+            { id: 'img_7_6b', caption: 'Canvas and acrylic collage experiment', placeholder: 'Canvas and<br>acrylic', label: 'Experiment', imageSrc: 'c7/2b_canvas_acrylic_collage.webp' },
+            { id: 'img_7_3a', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3a.webp' },
+            { id: 'img_7_3b', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3b.webp' },
+            { id: 'img_7_3c', caption: '画布与丙烯拼贴系列', placeholder: '结果<br>系列', label: '系列', imageSrc: 'c7/3c.webp' }
         ]
     };
 
@@ -1514,16 +1623,21 @@
 
     const thumbIndex = {};   // id -> persistent .thumb element (listeners survive relayout)
 
+
     function buildThumb(data) {
         const el = document.createElement('div');
         const copy = isChinesePage && chineseImageCopy[data.id]
             ? { ...data, ...chineseImageCopy[data.id] }
             : data;
-        const imageSrc = copy.imageSrc ? assetPrefix + copy.imageSrc : '';
+        // Two sizes per artwork: the grid cell is at most ~220 CSS px, so it loads a
+        // 600px thumbnail; the full 3000px file is fetched only when the lightbox opens.
+        const fullSrc = copy.imageSrc ? assetPrefix + copy.imageSrc : '';
+        const imageSrc = fullSrc ? fullSrc.replace(/([^/]+)$/, 'thumb/$1') : '';
         el.className = 'thumb';
         el.id = copy.id;
         el.dataset.caption = copy.caption;
         if (imageSrc) {
+            el.dataset.full = fullSrc;
             el.setAttribute('role', 'button');
             el.tabIndex = 0;
             el.setAttribute('aria-label', uiCopy.viewArtwork + copy.caption);
@@ -1576,10 +1690,6 @@
         // drift 91px vs 58px, worst 225px vs 115px). Nearest caps the error at half
         // a row and leaves it unbiased.
         const gridTop = grid.getBoundingClientRect().top + padTop;
-        const rows = Math.max(
-            Math.ceil(data.length / cols),
-            Math.ceil((textSection.offsetHeight - padTop) / rowH)
-        );
 
         const hits = [];
         textSection.querySelectorAll('.hl[data-link]').forEach(hl => {
@@ -1591,6 +1701,12 @@
                     Math.round((hl.getBoundingClientRect().top - gridTop) / rowH))
             });
         });
+
+        // The text alone sets the height. How many images fit is then a consequence,
+        // not an input: each phrase fills the rows between itself and the next phrase,
+        // and whatever does not fit is left to the lightbox. Deriving rows from the
+        // image count instead is what used to push the grid far below the text.
+        const rows = Math.max(1, Math.ceil((textSection.offsetHeight - padTop) / rowH));
 
         return { grid: grid, data: data, cols: cols, rows: rows, hits: hits };
     }
@@ -1610,23 +1726,53 @@
         // would show the artwork before the sentence introducing it. If a chapter runs out
         // of room (a phrase near the end carrying several images), the grid grows: the
         // row count derived from the text is a minimum, not a cap.
-        let lastRow = plan.rows - 1;
-        hits.forEach(h => h.ids.forEach(id => {
-            const img = data.find(i => i.id === id);
-            if (!img || used.has(id)) return;
-            let r = h.row;
-            while (!free(r)) r++;
-            rowMap[r].push(img);
-            used.add(id);
-            if (r > lastRow) lastRow = r;
-        }));
+        const overflow = [];          // extras: lightbox only, never given a cell
+        let maxRow = plan.rows - 1;
 
-        // Images no phrase points at fall into the earliest free cell.
+        // Clear every badge first. Setting it only on the thumbnail that ends a phrase
+        // this time round would leave a stale "+N" on whichever thumbnail ended it in
+        // the previous layout — visible as two badges after a column-count change.
+        data.forEach(d => { const el = thumbIndex[d.id]; if (el) delete el.dataset.more; });
+
+        // A phrase may use the rows between itself and the next phrase, and no further —
+        // that is what keeps every image level with the sentence it belongs to. Show as
+        // many as fit in that space; the rest are reachable in the lightbox. The last
+        // phrase runs to the end of the text.
+        const ordered = hits.slice().sort((a, b) => a.row - b.row);
+        ordered.forEach((h, i) => {
+            const limit = (i + 1 < ordered.length) ? ordered[i + 1].row : plan.rows;
+            let shown = 0, lastShownId = null;
+            const hiddenIds = [];
+            h.ids.forEach(id => {
+                const img = data.find(x => x.id === id);
+                if (!img || used.has(id)) return;
+                used.add(id);
+                let r = h.row;
+                while (!free(r)) r++;
+                // Always show at least one image per phrase, even where two phrases
+                // land in the same row and there is strictly no space between them.
+                if (r >= limit && shown > 0) { overflow.push({ id: id, after: lastShownId }); hiddenIds.push(id); return; }
+                rowMap[r].push(img);
+                if (r > maxRow) maxRow = r;   // that guaranteed first image may sit past
+                                              // the text-derived last row; the render loop
+                                              // must still reach it or it vanishes entirely
+                shown++;
+                lastShownId = id;
+            });
+            // Tell the reader the phrase has more behind it.
+            if (lastShownId) {
+                const el = thumbIndex[lastShownId];
+                if (el) { if (hiddenIds.length) el.dataset.more = hiddenIds.length; else delete el.dataset.more; }
+            }
+        });
+
+        // Images no phrase points at fall into the earliest free cell; any that still
+        // have nowhere to go join the lightbox-only set rather than lengthening the grid.
         const leftover = data.filter(i => !used.has(i.id));
-        let total = lastRow + 1;
+        const total = Math.max(plan.rows, maxRow + 1);
         let vacancies = 0;
         for (let r = 0; r < total; r++) vacancies += cols - (rowMap[r] || []).length;
-        while (vacancies < leftover.length) { total++; vacancies += cols; }
+        while (leftover.length > vacancies) overflow.push({ id: leftover.pop().id, after: null });
 
         // Detach the persistent thumbs, then rebuild the cell order around them.
         data.forEach(d => {
@@ -1638,7 +1784,9 @@
             const r = Math.floor(i / cols);
             const img = ((rowMap[r] || []).length ? rowMap[r].shift() : leftover.shift());
             if (img) {
-                grid.appendChild(thumbIndex[img.id]);
+                const el = thumbIndex[img.id];
+                el.classList.remove('grid-hidden');
+                grid.appendChild(el);
             } else {
                 const filler = document.createElement('div');
                 filler.className = 'thumb placeholder-only unlinked';
@@ -1646,6 +1794,21 @@
                 grid.appendChild(filler);
             }
         }
+
+        // Place the extras straight after the last thumbnail their phrase does show, so
+        // the lightbox pages through the whole set in order. They are display:none, so
+        // this costs no cell and does not disturb the layout above.
+        const insertedAfter = {};
+        overflow.forEach(o => {
+            const el = thumbIndex[o.id];
+            if (!el) return;
+            el.classList.add('grid-hidden');
+            delete el.dataset.more;
+            const ref = insertedAfter[o.after] || (o.after ? thumbIndex[o.after] : null);
+            if (ref && ref.parentNode === grid) grid.insertBefore(el, ref.nextSibling);
+            else grid.appendChild(el);
+            insertedAfter[o.after] = el;
+        });
     }
 
     function layoutChapters() {
@@ -1756,7 +1919,8 @@
         const img = el.querySelector('img');
         return {
             caption: el.dataset.caption || (img ? img.alt : ''),
-            src: img ? (img.currentSrc || img.src) : ''
+            // data-full is the 3000px file; the <img> in the cell is only a 600px thumb.
+            src: el.dataset.full || (img ? (img.currentSrc || img.src) : '')
         };
     }
 
@@ -1870,19 +2034,19 @@
 
     // Dynamic image loading function
     async function loadFeaturedArtwork() {
-        const extensions = ['webp', 'WEBP', 'jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF'];
+        const extensions = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'WEBP', 'JPG', 'JPEG', 'PNG', 'GIF'];
         const loadedImages = [];
 
 
-        // Simple sequential numbering: 1.jpg, 2.png, 3.webp, etc.
-        for (let i = 1; i <= 20; i++) {
+        // Simple sequential numbering: 1.jpg, 2.png, etc.
+        for (let i = 1; i <= 60; i++) {
             let found = false;
 
             // Try each extension for this number
             for (const ext of extensions) {
                 if (found) break; // Skip other extensions once found
 
-                const imagePath = `${assetPrefix}featured_artwork/${i}.${ext}`;
+                const imagePath = `${assetPrefix}selected_work/${i}.${ext}`;
 
                 try {
                     const exists = await testImage(imagePath);
@@ -1934,44 +2098,19 @@
     }
 
     // Improved image testing with better error handling
+    // Probe with HEAD: it asks the server whether the file exists and stops there.
+    // The previous version created `new Image()` and set src, which downloads the whole
+    // file just to find out — measured at 49.5 MB of needless traffic on the first
+    // screen before any slide was even shown.
     function testImage(src) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            let resolved = false;
-
-            const resolveOnce = (result) => {
-                if (!resolved) {
-                    resolved = true;
-                    resolve(result);
-                }
-            };
-
-            img.onload = () => {
-                resolveOnce(true);
-            };
-
-            img.onerror = (error) => {
-                resolveOnce(false);
-            };
-
-            // Mobile-specific timeout - longer for slower connections
-            const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
-            setTimeout(() => {
-                if (!resolved) {
-                    resolveOnce(false);
-                }
-            }, timeoutDuration);
-
-            // Set src after all handlers are attached
-            try {
-                img.src = src;
-            } catch (error) {
-                resolveOnce(false);
-            }
-        });
+        const timeoutDuration = window.innerWidth <= 600 ? 5000 : 3000;
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        const timer = setTimeout(() => controller && controller.abort(), timeoutDuration);
+        return fetch(src, { method: 'HEAD', signal: controller ? controller.signal : undefined })
+            .then(r => r.ok)
+            .catch(() => false)
+            .finally(() => clearTimeout(timer));
     }
-
-    // Generate gallery HTML
     function generateGallery(images) {
 
         if (images.length === 0) {
@@ -1981,9 +2120,13 @@
         }
 
         // Generate slides
+        // loading="lazy" does not help here: every slide sits inside the viewport, so the
+        // browser fetches all of them at once — measured at 50 images / 49.5 MB on the
+        // first screen. Hold the URL in data-src and attach it only for the slide being
+        // shown and its immediate neighbours.
         const slidesHTML = images.map((img, index) =>
-            `<div class="gallery-slide${index === 0 ? ' active' : ''}">
-                <img src="${img.src}" alt="${img.alt}" loading="lazy" />
+            `<div class="gallery-slide${index === 0 ? ' active' : ''}" data-gallery-index="${img.index}">
+                <img data-src="${img.src}" alt="${img.alt}" />
             </div>`
         ).join('');
 
@@ -2023,7 +2166,19 @@
         });
 
         galleryCurrentIndex = index;
+        loadGallerySlides(index);
         updateGalleryAspect(index);
+    }
+
+    // Attach src for the current slide and the one either side, so a click on prev/next
+    // shows an image that is already there rather than starting a download.
+    function loadGallerySlides(index) {
+        const n = gallerySlides.length;
+        if (!n) return;
+        [index, (index + 1) % n, (index - 1 + n) % n].forEach(i => {
+            const img = gallerySlides[i] && gallerySlides[i].querySelector('img[data-src]');
+            if (img) { img.src = img.dataset.src; delete img.dataset.src; }
+        });
     }
 
     function updateGalleryAspect(index) {
@@ -2033,7 +2188,17 @@
 
         const applyFraming = () => {
             if (!image.naturalWidth || !image.naturalHeight) return;
-            slide.classList.toggle('gallery-slide-framed', image.naturalWidth / image.naturalHeight <= 1.1);
+            const portraitFullHeightIndexes = new Set([16, 27, 28, 29, 30]);
+            const galleryAspectRatio = 3 / 2;
+            const aspectTolerance = 0.035;
+            const artworkIndex = Number(slide.dataset.galleryIndex);
+            const imageAspectRatio = image.naturalWidth / image.naturalHeight;
+            const isThreeTwo = Math.abs(imageAspectRatio - galleryAspectRatio) <= aspectTolerance;
+
+            slide.classList.toggle(
+                'gallery-slide-buffered',
+                !portraitFullHeightIndexes.has(artworkIndex) && !isThreeTwo
+            );
         };
 
         if (image.complete) {
