@@ -65,3 +65,6 @@ edited_images/
 
 # Apple photo format — browsers cannot display it
 *.HEIC
+
+# Unreferenced and larger than the hero-video.mp4 actually in use
+hero-video-web.mp4
