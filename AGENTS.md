@@ -31,7 +31,7 @@ hero-video.mp4          # Hero autoplay background video / 首页自动播放背
 README.md               # One-line description / 一行简介
 .gitignore
 c1/ c2/ c3/ c4/         # Per-chapter image assets (ch.1–4) / 各章节配图(第 1–4 章)
-featured_artwork/       # Hero carousel images / 首页轮播图,命名 1.jpg, 2.JPG, 3.jpg ...
+selected_work/          # Selected work gallery images / 精选作品轮播图,命名 1.jpg, 2.jpg, 3.jpg ...
 text/                   # Source narrative drafts (not loaded at runtime) / 叙述原稿(运行时不加载)
   Artistic narrative.md # English narrative / 英文叙述(与正文章节一致)
   艺术叙述.md            # Chinese narrative / 中文叙述
@@ -42,8 +42,8 @@ text/                   # Source narrative drafts (not loaded at runtime) / 叙�
 
 1. **Hero / 首页** — `hero-video.mp4` background, title "Present Ink", author, tagline, scroll cue.
    背景视频、标题、作者、副标题、向下滚动提示。
-2. **Featured Artwork / 精选作品** — carousel (prev/next + dots), images auto-discovered from
-   `featured_artwork/`. / 轮播(左右箭头 + 圆点),图片从 `featured_artwork/` 自动探测。
+2. **Selected Work / 精选作品** — carousel (prev/next + dots), images auto-discovered from
+   `selected_work/`. / 轮播(左右箭头 + 圆点),图片从 `selected_work/` 自动探测。
 3. **Seven chapters / 七个章节** (`#chapter1` … `#chapter7`) — each a two-column `.section`
    (text + image grid). / 每章为左右两栏(文字 + 图片网格):
    - I. Beginnings and a Return / 起点与回归
@@ -62,15 +62,15 @@ text/                   # Source narrative drafts (not loaded at runtime) / 叙�
 - **EN** — Chapter images are configured in the `sectionImageData` object in `<script>`. Each
   entry is `{ id, caption, placeholder, label, imageSrc }`. Entries **without** `imageSrc` render
   as a placeholder box (several chapters are still placeholders). The chapter body text is
-  **hard-coded in HTML** and duplicates `text/Artistic narrative.md`. Featured carousel images are
-  discovered at runtime by `loadFeaturedArtwork()`, which probes `featured_artwork/{n}.{ext}`.
+  **hard-coded in HTML** and duplicates `text/Artistic narrative.md`. Selected work carousel images are
+  discovered at runtime by `loadFeaturedArtwork()`, which probes `selected_work/{n}.{ext}`.
   A large JS block (`generateThumbnails` / `generateThumbnailsForSection`) measures text height to
   align the two columns, using many forced reflows — the main source of technical debt
   (see `IMPROVEMENTS.md`).
 - **中** — 章节图片在 `<script>` 里的 `sectionImageData` 对象中配置,每项为
   `{ id, caption, placeholder, label, imageSrc }`;**没有 `imageSrc`** 的项会显示为占位框
   (目前多个章节仍是占位)。章节正文**硬编码在 HTML 中**,与 `text/Artistic narrative.md` 重复。
-  首页轮播图由 `loadFeaturedArtwork()` 在运行时通过探测 `featured_artwork/{n}.{ext}` 发现。
+  首页轮播图由 `loadFeaturedArtwork()` 在运行时通过探测 `selected_work/{n}.{ext}` 发现。
   一大段 JS(`generateThumbnails` / `generateThumbnailsForSection`)通过测量文字高度来对齐两栏,
   使用大量强制重排,是主要技术债(见 `IMPROVEMENTS.md`)。
 
@@ -89,8 +89,8 @@ python3 -m http.server 8000
 - Keep everything **dependency-free and static** so it runs as-is on GitHub Pages.
   保持**无依赖、纯静态**,确保在 GitHub Pages 上可直接运行。
 - Image filenames matter: chapter images are referenced by exact path in `sectionImageData`;
-  featured images must be named `1`, `2`, `3`… (extension may vary, incl. uppercase).
-  文件名很关键:章节图按精确路径引用;精选图必须命名为 `1`、`2`、`3`…(后缀可不同,含大写)。
+  selected work images must be named `1`, `2`, `3`… (extension may vary, incl. uppercase).
+  文件名很关键:章节图按精确路径引用;精选作品图必须命名为 `1`、`2`、`3`…(后缀可不同,含大写)。
 - Author name is **王聿凡 / Yufan Wang** (note: 聿, not 宇/宇凡).
   作者姓名为 **王聿凡 / Yufan Wang**(注意是"聿",不是"宇/宇凡")。
 - There is currently a lot of `console.log` and a visible debug panel; review `IMPROVEMENTS.md`
