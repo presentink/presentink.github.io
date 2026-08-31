@@ -1706,7 +1706,12 @@
         // not an input: each phrase fills the rows between itself and the next phrase,
         // and whatever does not fit is left to the lightbox. Deriving rows from the
         // image count instead is what used to push the grid far below the text.
-        const rows = Math.max(1, Math.ceil((textSection.offsetHeight - padTop) / rowH));
+        // The epsilon absorbs sub-pixel measurement noise. Chapter I's text is 733px
+        // against a 231px row: (733 - 40) / 231 is exactly 3.000, sitting on the integer
+        // boundary, so a 1px difference in how the text measures — a web font swapping in,
+        // a scrollbar appearing — would otherwise add a whole row. 2% of a row is far
+        // below anything visible but well above that jitter.
+        const rows = Math.max(1, Math.ceil((textSection.offsetHeight - padTop) / rowH - 0.02));
 
         return { grid: grid, data: data, cols: cols, rows: rows, hits: hits };
     }

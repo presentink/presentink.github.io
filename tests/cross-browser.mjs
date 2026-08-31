@@ -105,18 +105,31 @@ async function runEngine(name, launcher) {
   const rows = [];
 
   await page.goto(URL, { waitUntil: 'load' });
-  // Wait for the web fonts. Text height decides the row count, and a chapter whose text
-  // lands exactly on a row boundary (chapter I is 733px against a 231px row) flips
-  // between 3 and 4 rows on a 1px difference. The page relayouts on fonts.ready; measure
-  // after that, or the first reading is a transient the site itself corrects.
+
+  // Read only once the layout has stopped moving. Waiting a fixed number of
+  // milliseconds is a guess: fonts.ready can resolve before the relayout it triggers
+  // has run, and the ResizeObserver callback is asynchronous on top of that. Poll
+  // instead until two consecutive readings agree.
+  const settle = async () => {
+    let prev = null;
+    for (let i = 0; i < 25; i++) {
+      const now = await page.evaluate(() => [...document.querySelectorAll('.section-images')]
+        .map(g => g.children.length + ':' + Math.round(g.getBoundingClientRect().height)).join('|'));
+      if (now === prev) return true;
+      prev = now;
+      await page.waitForTimeout(120);
+    }
+    return false;                       // still moving; assertions will say so
+  };
+
   await page.evaluate(() => document.fonts && document.fonts.ready).catch(() => {});
-  await page.waitForTimeout(400);
+  await settle();
 
   let prevCell = Infinity;
 
   for (const width of WIDTHS) {
     await page.setViewportSize({ width, height: 1000 });
-    await page.waitForTimeout(150);          // let ResizeObserver settle
+    await settle();
     const m = await page.evaluate(collect);
     const ch1 = m.sections[0];
 
@@ -202,13 +215,13 @@ async function runEngine(name, launcher) {
 
   /* 7. resize must be idempotent — going away and coming back gives the same layout */
   await page.setViewportSize({ width: 1280, height: 1000 });
-  await page.waitForTimeout(150);
+  await settle();
   const before = (await page.evaluate(collect)).sections.map(s => s.cells).join(',');
   for (const w of [700, 1500, 420, 1100, 1280]) {
     await page.setViewportSize({ width: w, height: 1000 });
     await page.waitForTimeout(80);
   }
-  await page.waitForTimeout(200);
+  await settle();
   const after = (await page.evaluate(collect)).sections.map(s => s.cells).join(',');
   if (before !== after)
     fail(name, 1280, `layout not idempotent across resizes: cells ${before} -> ${after}`);
