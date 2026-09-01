@@ -2405,6 +2405,34 @@
             initializeGallery();
         }, isMobile ? 500 : 100);
     }
+    // The hero video autoplays muted, which every current browser allows — except
+    // iOS in Low Power Mode, and Safari when a visitor has set autoplay to "Never".
+    // There the poster stays frozen for the whole visit unless we ask again, so
+    // retry on the first thing the visitor does, and after a return to the tab.
+    (function () {
+        const video = document.querySelector('.hero-video');
+        if (!video) return;
+        const WAKE = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
+
+        function play() {
+            const p = video.play();
+            return p && p.catch ? p : Promise.resolve();
+        }
+        function retry() {
+            WAKE.forEach(ev => window.removeEventListener(ev, retry));
+            if (video.paused) play().catch(() => {});
+        }
+        play().catch(() => {
+            WAKE.forEach(ev => window.addEventListener(ev, retry, { passive: true }));
+        });
+
+        // iOS also pauses the video when the tab is backgrounded and does not
+        // always resume it on return.
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && video.paused) play().catch(() => {});
+        });
+    })();
+
 </script>
 
 </body>
