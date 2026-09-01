@@ -669,7 +669,8 @@
         .overlay {
             position: fixed;
             inset: 0;
-            padding: 1rem;
+            /* Top padding clears the close button, so the artwork band starts below it. */
+            padding: calc(2rem + 44px) 1rem 1rem;
             background: var(--overlay-bg);
             z-index: 1000;
             display: none;
@@ -685,55 +686,122 @@
             opacity: 1;
         }
 
-        .overlay-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            border: 1px solid #555;
-            border-radius: 50%;
-            background: none;
-            color: #aaa;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
 
-        .overlay-close:hover {
-            border-color: #fff;
-            color: #fff;
-        }
 
-        .overlay-image {
-            background: #e8e4de;
-            display: inline-block;
-            max-width: calc(100vw - 2rem);
-            max-height: calc(100dvh - 8rem);
-        }
 
+
+
+        /* The lightbox is three stacked bands: the artwork, its caption, and the controls.
+           The artwork band takes whatever is left over, so it can never reach the buttons —
+           previously they shared the same space and only avoided each other by arithmetic,
+           which failed whenever an image was wide enough (a 1008x672 image overlapped all
+           three at 1100x800). It also removes the fixed dvh reserves, which had made a
+           phone in landscape show the artwork smaller than in portrait. */
         .overlay-media {
+            /* flex-basis must be 0, not auto: a percentage max-height on the artwork can
+               only resolve against a parent with a definite height, and `auto` leaves it
+               indefinite — the image then ignored the cap and overflowed the viewport. */
+            flex: 1 1 0;
+            min-height: 0;
+            width: 100%;
             position: relative;
+        }
+
+        /* Absolute inset gives this box the band's exact size, which is what makes the
+           artwork's percentage max-height resolve. As a plain flex child its own height
+           came from its max-height, and a height derived that way still counts as
+           indefinite for its children — the percentage was dropped and the image
+           overflowed to 939px inside a 715px band. */
+        .overlay-image {
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            max-width: calc(100vw - 2rem);
-            max-height: calc(100dvh - 8rem);
         }
 
+        /* The box fills the band and `scale-down` fits the picture inside it. Sizing the
+           element itself with a percentage max-height did not hold — the image rendered
+           853px tall inside a 715px parent — and `scale-down` also guarantees an artwork
+           is never enlarged past its own pixels, which plain `contain` would do. */
         .overlay-image img {
             display: block;
-            width: auto;
-            height: auto;
-            max-width: calc(100vw - 2rem);
-            max-height: calc(100dvh - 8rem);
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: scale-down;
         }
 
+        /* Beige only for the text placeholder, never behind an artwork. */
+        .overlay-image-placeholder:not(:has(img)) {
+            background: #e8e4de;
+            padding: 3rem 4rem;
+            width: auto;
+            height: auto;
+        }
+
+        .overlay-controls {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 0.75rem;
+        }
+
+        /* One shape for all three. They were 34, 40 and 44px depending on the button and
+           the breakpoint; the right-hand pair share an edge so they line up. */
+        .overlay-close,
+        .overlay-nav {
+            width: 44px;
+            height: 44px;
+            flex: 0 0 auto;
+            border: 1px solid #555;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.35);
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .overlay-close:hover,
+        .overlay-nav:hover,
+        .overlay-close:focus-visible,
+        .overlay-nav:focus-visible {
+            color: #fff;
+            border-color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .overlay-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+
+        .overlay-caption {
+            flex: 0 0 auto;
+            margin: 0.75rem 0 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+            text-align: center;
+        }
+
+        /* The lightbox drops the <img> inside this element, so it has to be the box that
+           fills the band; the beige only shows when it is holding placeholder text. */
         .overlay-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             color: #888;
@@ -749,36 +817,9 @@
             letter-spacing: 0.05em;
         }
 
-        .overlay-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
-            border: 1px solid #444;
-            border-radius: 50%;
-            background: none;
-            color: #999;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
 
-        .overlay-nav:hover {
-            border-color: #fff;
-            color: #fff;
-        }
 
-        .overlay-prev {
-            left: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
-        }
 
-        .overlay-next {
-            right: max(-3.5rem, calc((100% - 100vw) / 2 + 0.75rem));
-        }
 
         /* ============ FOOTER ============ */
         .footer {
@@ -906,50 +947,15 @@
             }
 
             /* Overlay adjustments */
-            .overlay-image {
-                max-width: calc(100vw - 1.5rem);
-                max-height: calc(100dvh - 7rem);
-            }
 
-            .overlay-media {
-                max-width: calc(100vw - 1.5rem);
-                max-height: calc(100dvh - 7rem);
-            }
 
-            .overlay-image img {
-                max-width: calc(100vw - 1.5rem);
-                max-height: calc(100dvh - 7rem);
-            }
 
             /* Pin the controls to the corners of the screen rather than to the sides of
                the artwork. Anchored to the image they sat on top of it, and on a phone
                there is no room beside it for them to sit clear. */
-            .overlay-nav {
-                position: fixed;
-                top: auto;
-                bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-                transform: none;
-                width: 44px;
-                height: 44px;
-                font-size: 1rem;
-                background: rgba(0, 0, 0, 0.45);
-                border-color: #666;
-                color: #ddd;
-            }
 
-            .overlay-prev {
-                left: 1rem;
-                right: auto;
-            }
 
-            .overlay-next {
-                right: 1rem;
-                left: auto;
-            }
 
-            .overlay-close {
-                position: fixed;
-            }
 
             /* Featured Gallery Mobile */
             .featured-section {
@@ -1011,53 +1017,42 @@
                 height: 8px;
             }
 
-            .overlay-close {
-                top: 1rem;
-                right: 1rem;
-                width: 34px;
-                height: 34px;
-            }
 
-            .overlay-caption {
-                font-size: 0.65rem;
-                padding: 0 1rem;
-                text-align: center;
-            }
 
             .footer {
                 padding: 2.5rem 1rem;
             }
         }
 
-        /* A phone in landscape is about 390px tall, and a fixed 7rem reserve for the
-           caption and buttons took 112px of it — the artwork ended up smaller than in
-           portrait, which is backwards. Reserve a proportion instead, and let the caption
-           sit over the backdrop rather than push the image down. */
+
+        /* A phone in landscape has height to spare in neither direction, but plenty of
+           width. Stacking the controls under the artwork spent 178px of a 393px viewport
+           on chrome and left the image smaller than in portrait. Here they move to the
+           sides instead, and the artwork keeps almost the full height. */
         @media (max-height: 500px) {
-            .overlay-image,
-            .overlay-media,
-            .overlay-image img {
-                max-height: calc(100dvh - 3rem);
-                max-width: calc(100vw - 7rem);
+            .overlay {
+                padding: 0.75rem 4rem;
             }
 
-            .overlay-caption {
+            .overlay-controls {
                 position: fixed;
-                left: 50%;
-                bottom: 0.35rem;
-                transform: translateX(-50%);
+                inset: 0;
                 margin: 0;
-                padding: 0 6rem;
+                padding: 0 0.75rem;
+                pointer-events: none;
             }
 
             .overlay-nav {
-                bottom: 50%;
-                transform: translateY(50%);
+                pointer-events: auto;
             }
 
             .overlay-close {
-                top: 0.5rem;
-                right: 0.5rem;
+                top: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .overlay-caption {
+                margin-top: 0.4rem;
             }
         }
 
@@ -1384,13 +1379,15 @@
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-caption">
     <button class="overlay-close" type="button" aria-label="关闭图片" onclick="closeOverlay()">✕</button>
     <div class="overlay-media">
-        <button class="overlay-nav overlay-prev" type="button" aria-label="上一件作品" onclick="navOverlay(-1)">←</button>
         <div class="overlay-image">
             <span class="overlay-image-placeholder" id="overlay-placeholder">图片占位</span>
         </div>
-        <button class="overlay-nav overlay-next" type="button" aria-label="下一件作品" onclick="navOverlay(1)">→</button>
     </div>
     <p class="overlay-caption" id="overlay-caption"></p>
+    <div class="overlay-controls">
+        <button class="overlay-nav overlay-prev" type="button" aria-label="上一件作品" onclick="navOverlay(-1)">←</button>
+        <button class="overlay-nav overlay-next" type="button" aria-label="下一件作品" onclick="navOverlay(1)">→</button>
+    </div>
 </div>
 
 <!-- ===== DEBUG PANEL ===== -->
@@ -2026,7 +2023,9 @@
             const img = document.createElement('img');
             img.src = item.src;
             img.alt = caption;
-            img.style.cssText = 'display: block; width: auto; height: auto;';
+            // No inline sizing here. It used to set width/height:auto, which outranks any
+            // stylesheet rule and silently defeated every attempt to bound the image —
+            // the artwork rendered at its full 3000px inside a 715px band.
             overlayPlaceholder.replaceChildren(img);
         } else {
             overlayPlaceholder.textContent = caption || uiCopy.imagePlaceholder;
