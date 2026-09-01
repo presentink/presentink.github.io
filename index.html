@@ -1919,10 +1919,23 @@
         document.body.style.overflow = 'hidden';
     }
 
+    // The images a phrase points at, in the order the phrase lists them. Opening one
+    // used to hand the lightbox every thumbnail on the page, so the arrows walked out of
+    // the phrase and on through the rest of the chapter — the reader met artwork for text
+    // they had not reached. A phrase is the unit here; an image no phrase points at is a
+    // group of one.
+    function groupFor(el) {
+        const hl = [...document.querySelectorAll('.hl[data-link]')]
+            .find(h => h.dataset.link.split(/\s+/).includes(el.id));
+        const ids = hl ? hl.dataset.link.split(/\s+/).filter(Boolean) : [el.id];
+        return ids.map(id => thumbIndex[id]).filter(Boolean);
+    }
+
     function openOverlay(el) {
-        updateAllThumbs();
-        overlayItems = allThumbs.map(createOverlayItem);
-        currentIndex = allThumbs.indexOf(el);
+        const group = groupFor(el);
+        allThumbs = group;
+        overlayItems = group.map(createOverlayItem);
+        currentIndex = group.indexOf(el);
         if (currentIndex === -1) return;
         showOverlay(el);
     }
@@ -1957,6 +1970,12 @@
     function updateOverlay() {
         const item = overlayItems[currentIndex];
         if (!item) return;
+        // Nothing to step through in a group of one.
+        const solo = overlayItems.length < 2;
+        document.querySelectorAll('.overlay-nav').forEach(b => {
+            b.hidden = solo;
+            b.setAttribute('aria-hidden', solo ? 'true' : 'false');
+        });
         const caption = item.caption;
         overlayCaption.textContent = caption;
 
@@ -2195,7 +2214,7 @@
 
     function startGalleryAutoRotate() {
         clearInterval(galleryAutoRotateTimer);
-        galleryAutoRotateTimer = setInterval(nextGallerySlide, 4000); // 4 seconds
+        galleryAutoRotateTimer = setInterval(nextGallerySlide, 3000); // 3 seconds
     }
 
     function stopGalleryAutoRotate() {
