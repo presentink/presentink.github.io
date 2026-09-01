@@ -1409,7 +1409,7 @@
     }
 
     function selectedWorkCaption(index) {
-        return formatArtworkCaption(selectedWorkMetadata(index), `${uiCopy.featuredArtwork} ${index}`);
+        return formatArtworkCaption(selectedWorkMetadata(index), '');
     }
 
     function escapeAttribute(value) {
@@ -1644,7 +1644,8 @@
         const copy = isChinesePage && chineseImageCopy[data.id]
             ? { ...data, ...chineseImageCopy[data.id] }
             : data;
-        const caption = formatArtworkCaption(chapterImageMetadata(copy.id), copy.caption);
+        const metadata = chapterImageMetadata(copy.id);
+        const caption = metadata ? formatArtworkCaption(metadata, '') : copy.caption;
         // Two sizes per artwork: the grid cell is at most ~220 CSS px, so it loads a
         // 600px thumbnail; the full 3000px file is fetched only when the lightbox opens.
         const fullSrc = copy.imageSrc ? assetPrefix + copy.imageSrc : '';

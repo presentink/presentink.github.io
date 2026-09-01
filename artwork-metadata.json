@@ -1,0 +1,2725 @@
+{
+  "_instructions": "请填写 title / workType / materials / dimensions / year。caption 可留空；如果填写 caption，它会优先作为点开图片后的完整说明。fallbackCaption 只用作品类型，不写描述性文字；没有作品类型时先留空。",
+  "selected": [
+    {
+      "index": 1,
+      "imageSrc": "selected_work/1.webp",
+      "fallbackCaption": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "145 x 102 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 2,
+      "imageSrc": "selected_work/2.webp",
+      "fallbackCaption": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "145 x 106 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 3,
+      "imageSrc": "selected_work/3.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "70 x 70 cm x 3",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 4,
+      "imageSrc": "selected_work/4.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "70 x 70 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 5,
+      "imageSrc": "selected_work/5.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "70 x 70 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 6,
+      "imageSrc": "selected_work/6.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "70 x 70 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 7,
+      "imageSrc": "selected_work/7.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "41 x 41 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 8,
+      "imageSrc": "selected_work/8.webp",
+      "fallbackCaption": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "materials": {
+        "en": "ink and acrylic on Xuan paper",
+        "zh": "宣纸、墨、丙烯"
+      },
+      "dimensions": "73 x 73 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 9,
+      "imageSrc": "selected_work/9.webp",
+      "fallbackCaption": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "materials": {
+        "en": "ink and acrylic on Xuan paper",
+        "zh": "宣纸、墨、丙烯"
+      },
+      "dimensions": "73 x 73 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 10,
+      "imageSrc": "selected_work/10.webp",
+      "fallbackCaption": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "materials": {
+        "en": "ink and acrylic on Xuan paper",
+        "zh": "宣纸、墨、丙烯"
+      },
+      "dimensions": "71 x 71 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 11,
+      "imageSrc": "selected_work/11.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Work",
+        "zh": "书法作品"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Work",
+        "zh": "书法作品"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "100 x 183 cm",
+      "year": "2017",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 12,
+      "imageSrc": "selected_work/12.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 13,
+      "imageSrc": "selected_work/13.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 14,
+      "imageSrc": "selected_work/14.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 15,
+      "imageSrc": "selected_work/15.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 16,
+      "imageSrc": "selected_work/16.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 17,
+      "imageSrc": "selected_work/17.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 18,
+      "imageSrc": "selected_work/18.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 19,
+      "imageSrc": "selected_work/19.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 20,
+      "imageSrc": "selected_work/20.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 21,
+      "imageSrc": "selected_work/21.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 22,
+      "imageSrc": "selected_work/22.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 23,
+      "imageSrc": "selected_work/23.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 24,
+      "imageSrc": "selected_work/24.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 25,
+      "imageSrc": "selected_work/25.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 26,
+      "imageSrc": "selected_work/26.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 27,
+      "imageSrc": "selected_work/27.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 28,
+      "imageSrc": "selected_work/28.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 29,
+      "imageSrc": "selected_work/29.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 30,
+      "imageSrc": "selected_work/30.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 31,
+      "imageSrc": "selected_work/31.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 32,
+      "imageSrc": "selected_work/32.webp",
+      "fallbackCaption": {
+        "en": "",
+        "zh": ""
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "",
+        "zh": ""
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "",
+      "year": "",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    }
+  ],
+  "chapters": {
+    "1": [
+      {
+        "id": "img_1_1",
+        "imageSrc": "c1/1_model_books.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_1_2",
+        "imageSrc": "c1/2_chinese_painting.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "2": [
+      {
+        "id": "img_2_1",
+        "imageSrc": "c2/1_book.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_2a",
+        "imageSrc": "c2/2a_inoue_writing.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_2b",
+        "imageSrc": "c2/2b_inoue_work.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_3",
+        "imageSrc": "c2/3_brushes.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_4a",
+        "imageSrc": "c2/4a_spinderi.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_4b",
+        "imageSrc": "c2/4b_studio.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_5a",
+        "imageSrc": "c2/5a_early_attemps.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_5b",
+        "imageSrc": "c2/5b_early_attemps.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_6",
+        "imageSrc": "c2/6_wangdongling.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_7",
+        "imageSrc": "c2/7_cursive.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_8a",
+        "imageSrc": "c2/8a_early_calligraphy.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_2_8b",
+        "imageSrc": "c2/8b_early_calligraphy.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "3": [
+      {
+        "id": "img_3_1",
+        "imageSrc": "c3/1_drawing_lines.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_3_2",
+        "imageSrc": "c3/2_shapes.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_3_3a",
+        "imageSrc": "c3/3a_details.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_3_3b",
+        "imageSrc": "c3/3b_details.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_3_4a",
+        "imageSrc": "c3/4a_form.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_3_4b",
+        "imageSrc": "c3/4b_form.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "4": [
+      {
+        "id": "img_4_1a",
+        "imageSrc": "c4/1a_selected_works.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_4_1b",
+        "imageSrc": "c4/1b_selected_works.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_4_1c",
+        "imageSrc": "c4/1c_selected_works.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "5": [
+      {
+        "id": "img_5_1a",
+        "imageSrc": "c5/1a_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1b",
+        "imageSrc": "c5/1b_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1c",
+        "imageSrc": "c5/1c_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1d",
+        "imageSrc": "c5/1d_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1e",
+        "imageSrc": "c5/1e_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1f",
+        "imageSrc": "c5/1f_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1g",
+        "imageSrc": "c5/1g_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_1h",
+        "imageSrc": "c5/1h_workshop_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_2",
+        "imageSrc": "c5/2_discarded_line_works.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_3a",
+        "imageSrc": "c5/3a_first_line_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_3b",
+        "imageSrc": "c5/3b_first_line_collages.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_4a",
+        "imageSrc": "c5/4a_line_collage_series.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_4b",
+        "imageSrc": "c5/4b_line_collage_series.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_4c",
+        "imageSrc": "c5/4c_line_collage_series.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_4d",
+        "imageSrc": "c5/4d_line_collage_series.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_5_4e",
+        "imageSrc": "c5/4e_line_collage_series.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "6": [
+      {
+        "id": "img_6_1a",
+        "imageSrc": "c6/1a_calligraphy_fragments.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_1b",
+        "imageSrc": "c6/1b_calligraphy_fragments.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_2",
+        "imageSrc": "c6/2_wang_duo_scroll.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_3a",
+        "imageSrc": "c6/3a_wang_xizhi_seventeen_letters.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_4a",
+        "imageSrc": "c6/4a_assembling_fragments.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_4b",
+        "imageSrc": "c6/4b_assembling_fragments.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_5a",
+        "imageSrc": "c6/5a_line_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_5b",
+        "imageSrc": "c6/5b_line_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_6a",
+        "imageSrc": "c6/6a_ink_wash_material.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_6b",
+        "imageSrc": "c6/6b_ink_wash_material.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_6_7",
+        "imageSrc": "c6/7_biduanyilian.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ],
+    "7": [
+      {
+        "id": "img_7_1a",
+        "imageSrc": "c7/1a_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1b",
+        "imageSrc": "c7/1b_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1c",
+        "imageSrc": "c7/1c_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1d",
+        "imageSrc": "c7/1d_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1e",
+        "imageSrc": "c7/1e_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1f",
+        "imageSrc": "c7/1f_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1g",
+        "imageSrc": "c7/1g_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1h",
+        "imageSrc": "c7/1h_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1i",
+        "imageSrc": "c7/1i_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1j",
+        "imageSrc": "c7/1j_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1k",
+        "imageSrc": "c7/1k_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1l",
+        "imageSrc": "c7/1l_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1m",
+        "imageSrc": "c7/1m_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1n",
+        "imageSrc": "c7/1n_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1o",
+        "imageSrc": "c7/1o_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1p",
+        "imageSrc": "c7/1p_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_1q",
+        "imageSrc": "c7/1q_calligraphy_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_6a",
+        "imageSrc": "c7/2a_canvas_acrylic_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_6b",
+        "imageSrc": "c7/2b_canvas_acrylic_collage.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_3a",
+        "imageSrc": "c7/3a.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_3b",
+        "imageSrc": "c7/3b.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      },
+      {
+        "id": "img_7_3c",
+        "imageSrc": "c7/3c.webp",
+        "fallbackCaption": {
+          "en": "",
+          "zh": ""
+        },
+        "title": {
+          "en": "",
+          "zh": ""
+        },
+        "workType": {
+          "en": "",
+          "zh": ""
+        },
+        "materials": {
+          "en": "",
+          "zh": ""
+        },
+        "dimensions": "",
+        "year": "",
+        "caption": {
+          "en": "",
+          "zh": ""
+        }
+      }
+    ]
+  }
+}
