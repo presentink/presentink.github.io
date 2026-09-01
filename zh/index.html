@@ -750,6 +750,15 @@
 
         /* One shape for all three. They were 34, 40 and 44px depending on the button and
            the breakpoint; the right-hand pair share an edge so they line up. */
+        /* A single-image group keeps its arrows in place but greyed right down: they
+           stay put so the three controls do not shuffle between one artwork and the
+           next, while reading clearly as unavailable. */
+        .overlay-nav:disabled {
+            opacity: 0.18;
+            cursor: default;
+            pointer-events: none;
+        }
+
         .overlay-close,
         .overlay-nav {
             width: 44px;
@@ -2029,11 +2038,12 @@
     function updateOverlay() {
         const item = overlayItems[currentIndex];
         if (!item) return;
-        // Nothing to step through in a group of one.
+        // Nothing to step through in a group of one: the arrows stay where they are and
+        // fade back, rather than vanishing and shifting the controls around.
         const solo = overlayItems.length < 2;
         document.querySelectorAll('.overlay-nav').forEach(b => {
-            b.hidden = solo;
-            b.setAttribute('aria-hidden', solo ? 'true' : 'false');
+            b.disabled = solo;
+            b.setAttribute('aria-disabled', solo ? 'true' : 'false');
         });
         const caption = item.caption;
         overlayCaption.textContent = caption;
