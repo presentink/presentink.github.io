@@ -1838,6 +1838,13 @@
             if (el.dataset.clickWired || !el.querySelector('img')) return;
             el.dataset.clickWired = '1';
             el.addEventListener('click', () => openOverlay(el));
+            // Start the full image on hover, so the click opens something already there.
+            // pointerenter covers mouse and pen; touch has no hover, but touchstart still
+            // lands well before the click that follows it.
+            const warm = () => prefetchFull(el.dataset.full);
+            el.addEventListener('pointerenter', warm);
+            el.addEventListener('touchstart', warm, { passive: true });
+            el.addEventListener('focus', warm);
             el.addEventListener('keydown', e => {
                 if (e.key !== 'Enter' && e.key !== ' ') return;
                 e.preventDefault();
@@ -1872,9 +1879,31 @@
         };
     }
 
+    // A full artwork is 0.2-0.9 MB, so opening one cold costs half a second or more.
+    // Rather than pull all 92 MB of them down in the background, fetch just the ones the
+    // reader is about to want: the one under the cursor, and the neighbours of whatever
+    // is already open so the arrow keys never wait. Each URL is fetched once.
+    const prefetched = new Set();
+    function prefetchFull(src) {
+        if (!src || prefetched.has(src)) return;
+        prefetched.add(src);
+        const img = new Image();
+        if ('fetchPriority' in img) img.fetchPriority = 'low';
+        img.decoding = 'async';
+        img.src = src;
+    }
+
+    function prefetchOverlayNeighbours() {
+        if (overlayItems.length < 2) return;
+        const n = overlayItems.length;
+        [(currentIndex + 1) % n, (currentIndex - 1 + n) % n]
+            .forEach(i => overlayItems[i] && prefetchFull(overlayItems[i].src));
+    }
+
     function showOverlay(trigger) {
         overlayReturnFocus = trigger || document.activeElement;
         updateOverlay();
+        prefetchOverlayNeighbours();
         overlay.style.display = 'flex';
         requestAnimationFrame(() => {
             overlay.classList.add('visible');
@@ -1915,6 +1944,7 @@
         if (overlayItems.length < 2) return;
         currentIndex = (currentIndex + dir + overlayItems.length) % overlayItems.length;
         updateOverlay();
+        prefetchOverlayNeighbours();
     }
 
     function updateOverlay() {
@@ -1981,71 +2011,43 @@
     const galleryDotsContainer = document.getElementById('gallery-dots-container');
 
     // Dynamic image loading function
-    async function loadFeaturedArtwork() {
+    // Discovery, not download, was what made the carousel slow to appear: probing 32
+    // artworks one at a time cost 62 round trips in sequence, 4.0s of the 4.3s before the
+    // first slide showed. Index 1 is probed on its own so it can be rendered at once, and
+    // the rest go out in parallel batches behind it.
+    async function loadFeaturedArtwork(onFirst) {
         const extensions = ['webp', 'jpg', 'jpeg', 'png', 'gif', 'WEBP', 'JPG', 'JPEG', 'PNG', 'GIF'];
-        const loadedImages = [];
-        
-        
-        // Simple sequential numbering: 1.jpg, 2.png, etc.
-        for (let i = 1; i <= 60; i++) {
-            let found = false;
-            
-            // Try each extension for this number
+        const BATCH = 12, MAX = 60;
+
+        const probeOne = async (i) => {
             for (const ext of extensions) {
-                if (found) break; // Skip other extensions once found
-                
-                const imagePath = `${assetPrefix}selected_work/${i}.${ext}`;
-                
-                try {
-                    const exists = await testImage(imagePath);
-                    if (exists) {
-                        loadedImages.push({
-                            src: imagePath,
-                            alt: `${uiCopy.featuredArtwork} ${i}`,
-                            index: i
-                        });
-                        found = true;
-                        
-                        // Add small delay between successful loads to prevent overwhelming mobile browsers
-                        if (window.innerWidth <= 600) {
-                            await new Promise(resolve => setTimeout(resolve, 100));
-                        }
-                    }
-                } catch (error) {
+                const src = `${assetPrefix}selected_work/${i}.${ext}`;
+                if (await testImage(src)) {
+                    return { src: src, alt: `${uiCopy.featuredArtwork} ${i}`, index: i };
                 }
             }
-            
-            if (!found) {
-                // Stop if we've tried many consecutive numbers without success
-                if (i > 3 && loadedImages.length === 0) {
-                    break;
-                }
-                // Stop if we've hit 3 consecutive misses after finding some images
-                if (loadedImages.length > 0) {
-                    let consecutiveMisses = 0;
-                    for (let j = i; j >= Math.max(1, i - 2); j--) {
-                        const hasImage = loadedImages.some(img => img.src.includes(`${j}.`));
-                        if (!hasImage) {
-                            consecutiveMisses++;
-                        } else {
-                            break;
-                        }
-                    }
-                    if (consecutiveMisses >= 3) {
-                        break;
-                    }
-                }
-            }
+            return null;
+        };
+
+        const loadedImages = [];
+        const first = await probeOne(1);
+        if (first) {
+            loadedImages.push(first);
+            if (onFirst) onFirst(first);          // paint slide 1 now, keep looking
         }
 
-        
-        // Sort by index to ensure proper order
+        for (let start = 2; start <= MAX; start += BATCH) {
+            const batch = [];
+            for (let i = start; i < start + BATCH && i <= MAX; i++) batch.push(probeOne(i));
+            const found = (await Promise.all(batch)).filter(Boolean);
+            loadedImages.push(...found);
+            if (!found.length) break;             // a whole batch missing: past the end
+        }
+
         loadedImages.sort((a, b) => a.index - b.index);
-        
         return loadedImages;
     }
 
-    // Improved image testing with better error handling
     // Probe with HEAD: it asks the server whether the file exists and stops there.
     // The previous version created `new Image()` and set src, which downloads the whole
     // file just to find out — measured at 49.5 MB of needless traffic on the first
@@ -2128,8 +2130,12 @@
     // phone needs about 1035px: the 1200px copy covers it at a fifth of the bytes, while
     // a 2x desktop needs 2432px and still gets the full file.
     function galleryVariant(fullSrc) {
-        const slide = gallerySlides[0];
-        const cssWidth = slide ? slide.getBoundingClientRect().width : window.innerWidth;
+        // Measure the container, not a slide: every .gallery-slide except .active is
+        // display:none and reports a width of 0, so reading one of those made every
+        // navigation after the first pick the small copy — including on retina, where
+        // it is visibly soft.
+        const box = gallerySlidesContainer || (gallerySlides[0] && gallerySlides[0].parentElement);
+        const cssWidth = (box && box.getBoundingClientRect().width) || window.innerWidth;
         const needed = cssWidth * (window.devicePixelRatio || 1);
         if (needed > 1300) return fullSrc;                       // no upscaling past this
         return fullSrc.replace(/([^/]+)$/, 'w1200/$1');
@@ -2199,10 +2205,16 @@
         }
         
         galleryInitialized = true;
-        
-        // Load images dynamically
-        const images = await loadFeaturedArtwork();
-        
+
+        // Render the first artwork the moment it is found, then replace the carousel with
+        // the complete set once discovery finishes. The first slide's URL does not change,
+        // so the browser serves it from cache and nothing visibly reloads.
+        let painted = false;
+        const images = await loadFeaturedArtwork(first => {
+            generateGallery([first]);
+            if (gallerySlides.length) { showGallerySlide(0); painted = true; }
+        });
+
         generateGallery(images);
         
         if (gallerySlides.length > 0) {
