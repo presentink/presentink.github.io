@@ -1085,8 +1085,8 @@
 
 <!-- ===== HERO ===== -->
 <div class="hero" id="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
-        <!-- Replace src with your video file path -->
+    <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.webp">
+        <!-- The poster paints the hero immediately; the video streams in behind it. -->
         <source src="hero-video.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
@@ -1362,6 +1362,64 @@
         imagePlaceholder: 'Image Placeholder'
     };
 
+    let artworkMetadata = { selected: [], chapters: {} };
+    const artworkMetadataPromise = fetch(`${assetPrefix}artwork-metadata.json`)
+        .then(response => response.ok ? response.json() : null)
+        .then(data => {
+            if (data) artworkMetadata = data;
+            return artworkMetadata;
+        })
+        .catch(() => artworkMetadata);
+
+    function localizedMetadataValue(value) {
+        if (!value) return '';
+        if (typeof value === 'string') return value.trim();
+        const primary = isChinesePage ? value.zh : value.en;
+        const secondary = isChinesePage ? value.en : value.zh;
+        return String(primary || secondary || '').trim();
+    }
+
+    function formatArtworkCaption(entry, fallback) {
+        if (!entry) return fallback || '';
+        const customCaption = localizedMetadataValue(entry.caption);
+        if (customCaption) return customCaption;
+
+        const parts = [
+            localizedMetadataValue(entry.title),
+            localizedMetadataValue(entry.workType),
+            localizedMetadataValue(entry.materials),
+            entry.dimensions,
+            entry.year
+        ].map(value => String(value || '').trim()).filter(Boolean);
+
+        if (parts.length) return parts.join(isChinesePage ? '，' : ', ');
+        return localizedMetadataValue(entry.fallbackCaption) || fallback || '';
+    }
+
+    function selectedWorkMetadata(index) {
+        return (artworkMetadata.selected || []).find(item => Number(item.index) === Number(index));
+    }
+
+    function chapterImageMetadata(id) {
+        for (const entries of Object.values(artworkMetadata.chapters || {})) {
+            const found = (entries || []).find(item => item.id === id);
+            if (found) return found;
+        }
+        return null;
+    }
+
+    function selectedWorkCaption(index) {
+        return formatArtworkCaption(selectedWorkMetadata(index), `${uiCopy.featuredArtwork} ${index}`);
+    }
+
+    function escapeAttribute(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
     const chapterReadingTimes = {
         chapter1: 2,
         chapter2: 4,
@@ -1586,20 +1644,21 @@
         const copy = isChinesePage && chineseImageCopy[data.id]
             ? { ...data, ...chineseImageCopy[data.id] }
             : data;
+        const caption = formatArtworkCaption(chapterImageMetadata(copy.id), copy.caption);
         // Two sizes per artwork: the grid cell is at most ~220 CSS px, so it loads a
         // 600px thumbnail; the full 3000px file is fetched only when the lightbox opens.
         const fullSrc = copy.imageSrc ? assetPrefix + copy.imageSrc : '';
         const imageSrc = fullSrc ? fullSrc.replace(/([^/]+)$/, 'thumb/$1') : '';
         el.className = 'thumb';
         el.id = copy.id;
-        el.dataset.caption = copy.caption;
+        el.dataset.caption = caption;
         if (imageSrc) {
             el.dataset.full = fullSrc;
             el.setAttribute('role', 'button');
             el.tabIndex = 0;
-            el.setAttribute('aria-label', uiCopy.viewArtwork + copy.caption);
+            el.setAttribute('aria-label', uiCopy.viewArtwork + caption);
             el.innerHTML =
-                '<img src="' + imageSrc + '" alt="' + copy.caption + '" loading="lazy">' +
+                '<img src="' + imageSrc + '" alt="' + escapeAttribute(caption) + '" loading="lazy">' +
                 '<span class="thumb-label">' + copy.label + '</span>';
         } else {
             el.classList.add('placeholder-only');
@@ -2032,10 +2091,14 @@
     });
 
     // Initialize the chapter grids after the DOM is ready.
+    function initChapterImagesAfterMetadata() {
+        artworkMetadataPromise.then(initChapterImages, initChapterImages);
+    }
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initChapterImages);
+        document.addEventListener('DOMContentLoaded', initChapterImagesAfterMetadata);
     } else {
-        initChapterImages();
+        initChapterImagesAfterMetadata();
     }
 
     // ============ FEATURED GALLERY ============
@@ -2059,7 +2122,8 @@
             for (const ext of extensions) {
                 const src = `${assetPrefix}selected_work/${i}.${ext}`;
                 if (await testImage(src)) {
-                    return { src: src, alt: `${uiCopy.featuredArtwork} ${i}`, index: i };
+                    const caption = selectedWorkCaption(i);
+                    return { src: src, alt: caption, caption: caption, index: i };
                 }
             }
             return null;
@@ -2111,8 +2175,8 @@
         // first screen. Hold the URL in data-src and attach it only for the slide being
         // shown and its immediate neighbours.
         const slidesHTML = images.map((img, index) => 
-            `<div class="gallery-slide${index === 0 ? ' active' : ''}" data-gallery-index="${img.index}">
-                <img data-src="${img.src}" data-full="${img.src}" alt="${img.alt}" />
+            `<div class="gallery-slide${index === 0 ? ' active' : ''}" data-gallery-index="${img.index}" data-caption="${escapeAttribute(img.caption)}">
+                <img data-src="${img.src}" data-full="${img.src}" alt="${escapeAttribute(img.alt)}" />
             </div>`
         ).join('');
         
@@ -2241,6 +2305,7 @@
         }
         
         galleryInitialized = true;
+        await artworkMetadataPromise;
 
         // Render the first artwork the moment it is found, then replace the carousel with
         // the complete set once discovery finishes. The first slide's URL does not change,
