@@ -249,15 +249,15 @@ remain deliberately deferred, as agreed. /
 
 ## 🟡 P2 — Content / UX · 内容与体验
 
-- [ ] **Add the missing artwork images / 补齐缺失的作品图.** These entries have no `imageSrc` and show
-  as placeholders — notably the collage chapters, the climax of the story.
-  以下配置项无 `imageSrc`,显示为占位框 —— 尤其是拼贴章节,正是叙事高潮:
-  - [ ] Ch.4 / 第四章: `img_4_1`
-  - [ ] Ch.5 / 第五章: `img_5_1`–`img_5_4`（转折点 the turning point）
-  - [ ] Ch.6 / 第六章: `img_6_1`–`img_6_6`
-  - [ ] Ch.7 / 第七章: `img_7_1`–`img_7_5`
-  - [ ] Re-test and refine keyword ↔ image highlighting once each real image is added.
-    补入每张真实图片后，重新测试并完善关键词↔图片高亮联动。
+- [x] **Add the missing artwork images / 补齐缺失的作品图.** Done 2026-08-31. Every configured
+  artwork now has a file — 72 across the seven chapters, no placeholders left anywhere. The
+  collage chapters, which were the emptiest and carry the climax of the story, gained c5 (8),
+  c6 (11) and c7 (22). / 已完成:七章共 72 张图,全部有对应文件,不再有任何占位框。拼贴章节
+  新增 c5 八张、c6 十一张、c7 二十二张。
+  - [x] Keyword ↔ image linking re-tested with the real images in place: the lightbox now stays
+    within the phrase it was opened from, and the grid fills to the next phrase and hides the
+    rest behind a "+N" badge. / 已用真实图片重测联动:浮层只在所在关键词组内浏览,网格填至下一个
+    关键词为止,多出的收进 "+N" 角标。
 - [ ] **Add an About section / 增加关于页面段落.** The Artist Statement now covers the practice;
   add a distinct about section only if a fuller biography is needed. /
   Artist Statement 已说明创作实践;若需要更完整履历,再增加独立的关于段落。
