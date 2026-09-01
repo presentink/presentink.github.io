@@ -1865,8 +1865,10 @@
         const img = el.querySelector('img');
         return {
             caption: el.dataset.caption || (img ? img.alt : ''),
-            // data-full is the 3000px file; the <img> in the cell is only a 600px thumb.
-            src: el.dataset.full || (img ? (img.currentSrc || img.src) : '')
+            // data-full is the full-size file — on a chapter thumbnail it sits on the
+            // cell, on a carousel slide on the <img> itself. Either way the lightbox
+            // gets the full image, never the thumbnail or the 1200px carousel copy.
+            src: el.dataset.full || (img && img.dataset.full) || (img ? (img.currentSrc || img.src) : '')
         };
     }
 
@@ -2072,7 +2074,7 @@
         // shown and its immediate neighbours.
         const slidesHTML = images.map((img, index) => 
             `<div class="gallery-slide${index === 0 ? ' active' : ''}" data-gallery-index="${img.index}">
-                <img data-src="${img.src}" alt="${img.alt}" />
+                <img data-src="${img.src}" data-full="${img.src}" alt="${img.alt}" />
             </div>`
         ).join('');
         
@@ -2118,15 +2120,29 @@
 
     // Attach src for the current slide and the one either side, so a click on prev/next
     // shows an image that is already there rather than starting a download.
+    //
+    // Which size to attach is decided here rather than with srcset, because srcset needs
+    // each candidate's true pixel width and the gallery discovers its files at runtime —
+    // several are only 888px wide, so a blanket "3000w" descriptor would be a lie. The
+    // carousel is 345 CSS px on a phone and 1216 at its widest, so a 3-times-density
+    // phone needs about 1035px: the 1200px copy covers it at a fifth of the bytes, while
+    // a 2x desktop needs 2432px and still gets the full file.
+    function galleryVariant(fullSrc) {
+        const slide = gallerySlides[0];
+        const cssWidth = slide ? slide.getBoundingClientRect().width : window.innerWidth;
+        const needed = cssWidth * (window.devicePixelRatio || 1);
+        if (needed > 1300) return fullSrc;                       // no upscaling past this
+        return fullSrc.replace(/([^/]+)$/, 'w1200/$1');
+    }
+
     function loadGallerySlides(index) {
         const n = gallerySlides.length;
         if (!n) return;
         [index, (index + 1) % n, (index - 1 + n) % n].forEach(i => {
             const img = gallerySlides[i] && gallerySlides[i].querySelector('img[data-src]');
-            if (img) { img.src = img.dataset.src; delete img.dataset.src; }
+            if (img) { img.src = galleryVariant(img.dataset.src); delete img.dataset.src; }
         });
     }
-
     function updateGalleryAspect(index) {
         const slide = gallerySlides[index];
         const image = slide && slide.querySelector('img');
