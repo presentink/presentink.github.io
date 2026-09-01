@@ -8,6 +8,28 @@ Legend / 图例: 🔴 high impact 高优先 · 🟠 code quality 代码质量 ·
 
 ---
 
+## Status / 进度 (2026-09-01)
+
+Chapters IV--VII now carry the artist's own work — the placeholder boxes are gone. Loading was the
+last thing standing between the site and a visitor: the carousel took 4.3 seconds to show anything,
+and almost none of that was downloading. It is 247ms now. /
+第 IV--VII 章已补齐艺术家本人的作品,占位框全部消失。加载是最后一道障碍:轮播原本要 4.3 秒才显示第一张,
+而其中几乎没有时间花在下载上;现在是 247ms。
+
+```
+                改前        改后
+first screen    49.5 MB     0.82 MB (phone) · 2.61 MB (retina desktop)
+carousel        4276 ms     247 ms
+open an image   ~500 ms     1 ms after hover
+repository      215 MB      103 MB
+```
+
+Still open, in rough order of what a visitor would notice: the 10 MB autoplaying hero video, a
+favicon, and the artwork metadata (title / year / medium). /
+仍待处理,按访客可感知程度排序:10MB 自动播放的首页视频、favicon、作品信息(标题/年份/材料)。
+
+---
+
 ## Status / 进度 (2026-08-23)
 
 The **text ↔ image layout rewrite is done and shipped** — see `REFACTOR_PLANS.md` for the write-up
@@ -61,7 +83,14 @@ in the current environment. /
 解析及 `git diff --check` 已通过。本地服务可在 8001 端口访问；2026-08-25 已由用户在真实手机视图中验证
 章节深链接不会回顶，Selected Works 灯箱可正常打开与翻页。Playwright 自动化验证仍可在后续补跑。
 
-### Media delivery plan / 媒体加载优化计划（2026-08-25）
+### Media delivery plan / 媒体加载优化计划（2026-08-25）— superseded / 已被取代
+
+> **Superseded by the 2026-09-01 pass below.** The figures here describe a set of about 55 MB of
+> sources; roughly sixty artworks were added afterwards and the sources grew to 215 MB, so the
+> caps and totals recorded in this section no longer describe what the site serves. Kept for the
+> reasoning behind the original choices. / **已被下方 2026-09-01 的处理取代。** 本节数字基于当时约
+> 55 MB 的源图；此后新增约六十张作品，源图增至 215 MB，故本节的尺寸上限与体积统计已不再反映线上情况。
+> 保留此节是为了记录当初的取舍依据。
 
 Goal: reduce transfer size without changing the artist's originals or making a visible quality trade-off.
 The current JPG/JPEG files and `hero-video.mp4` remain untouched as masters; the website will use
@@ -83,6 +112,42 @@ separate, high-quality web derivatives that can be replaced or rolled back indep
   图片副本共 12.17 MB，原 JPG/JPEG 共 55.02 MB。
 - [ ] Later: add responsive `srcset` variants only if the first high-quality web pass looks correct.
   / 后续：首轮高质量网页版本确认无误后，再考虑补充响应式 `srcset`。
+
+### Media delivery / 媒体加载（2026-09-01）
+
+A second pass, sized against what the page can actually display rather than against a round number.
+/ 第二轮处理，尺寸依据页面实际显示能力而非取整数字。
+
+- [x] **Two sizes per chapter artwork / 章节图两档尺寸.** A grid cell is at most ~220 CSS px, so it
+  loads a 600px thumbnail; the full file is fetched only when the lightbox opens. Thumbnails are
+  sized by their **short** edge — the cell is square and uses `object-fit: cover`, so sizing by the
+  long edge left a 1152x5084 scroll with a 136px-wide thumbnail. / 格子最多约 220 CSS px，故加载
+  600px 缩略图，完整版仅在打开浮层时下载。缩略图按**短边**定尺寸：格子是正方形且用 `object-fit: cover`，
+  按长边会让 1152x5084 的细长图只剩 136px 宽。
+- [x] **Sizing rules / 尺寸规则.** Long edge capped at 3000px (what a 16" retina display can show in
+  the lightbox); short edge held at 1200px minimum so a 2600x13533 scroll is not squeezed to 576px
+  wide; no resize at all unless it saves more than 15%, so 73 of 104 images keep their original
+  pixels. Quality 90 — PSNR 40.6-43.1 dB, and indistinguishable from the source at 2x magnification
+  on the ink edges, where ringing would show first. / 长边上限 3000px；短边保底 1200px；缩放不足 15%
+  则不缩，104 张中 73 张保持原始像素。质量 90，PSNR 40.6–43.1 dB，2 倍放大看墨迹边缘与原图无法区分。
+- [x] **A 1200px carousel copy / 轮播 1200px 副本.** The carousel is 345 CSS px on a phone, which at
+  3x asks for ~1035 device pixels against a 3000px file. Chosen in JS, not `srcset`, because srcset
+  needs each candidate's true pixel width and the gallery discovers its files at runtime — several
+  are only 888px wide. / 手机上轮播宽 345 CSS px，3 倍密度需约 1035 设备像素，却在下载 3000px 文件。
+  用 JS 判断而非 `srcset`，因为 srcset 需要每个候选的真实像素宽度，而轮播是运行时探测发现文件的。
+- [x] **EXIF orientation baked into the pixels / EXIF 方向烤进像素.** WebP drops the tag; three images
+  carried `Orientation=6` and would have rendered rotated 90 degrees. / WebP 不保留该标签，三张图带
+  `Orientation=6`，否则会转 90 度。
+
+```
+sources kept out of the repo   215 MB   edited_images/pre_webp/
+served                         103 MB   91.8 full + 6.3 thumbnails + 5.3 carousel
+first screen   phone 0.82 MB · desktop retina 2.61 MB
+whole page     phone 6.94 MB · desktop retina 8.93 MB
+```
+
+- [ ] `hero-video.mp4` is still the 10 MB master and still autoplays; a `poster` and a smaller
+  mobile path remain open. / 首页视频仍是 10MB 母版且自动播放；`poster` 与手机端更轻的方案仍待处理。
 
 ### Index audit / 主体审阅（2026-08-24）
 
@@ -121,21 +186,27 @@ remain deliberately deferred, as agreed. /
 
 ## 🔴 P0 — Biggest impact on real visitors / 对访客影响最大
 
-- [ ] **Compress images / 压缩图片.** Several images are 3–5 MB each (e.g. `c2/5a_early_attemps.jpg`
-  ~5.2 MB, `featured_artwork/1.jpg` ~3.9 MB); `c2/` alone is ~25 MB. Resize (long edge ~2000 px),
-  convert to **WebP**, target 200–400 KB each.
-  多张图片单张 3–5 MB(`c2/` 单文件夹约 25 MB)。缩放(长边约 2000px)、转 **WebP**,单张控制在 200–400 KB。
+- [x] **Compress images / 压缩图片.** Done 2026-09-01: 215 MB of sources become 103 MB served, and
+  the page transfers 0.82 MB on a phone. See the Media delivery section above for the sizing rules.
+  完成:源图 215MB → 实际传输 103MB,手机首屏 0.82MB。尺寸规则见上方媒体章节。
+  <!-- original note kept for context / 保留原始记录: -->
+  <!-- Several images are 3–5 MB each (e.g. `c2/5a_early_attemps.jpg`
+  ~5.2 MB, `featured_artwork/1.jpg` ~3.9 MB); `c2/` alone is ~25 MB. -->
 - [ ] **Optimize the hero video / 优化首页视频.** `hero-video.mp4` is ~10 MB and autoplays. Compress
   it, add a `poster`, and consider a static image (no autoplay video) on mobile.
   `hero-video.mp4` 约 10 MB 且自动播放。压缩、加 `poster` 海报图;手机端考虑用静态图代替自动播放视频。
 - [x] **Lazy-load offscreen images / 懒加载非首屏图片.** Every chapter thumbnail is now built with
   `loading="lazy"`. Verified: 7 images load on the first screen, all 20 after scrolling.
   章节缩略图现已全部带 `loading="lazy"`。实测:首屏加载 7 张,滚动后 20 张全部加载。
-- [ ] **Add SEO + social meta to `<head>` / 补充 SEO 与社交分享 meta.** Completed 2026-08-25 for
-  description, canonical URL, Open Graph, Twitter Card, and a more descriptive title. A favicon
-  remains open until a suitable artist-owned mark is available. /
-  2026-08-25 已补充 description、canonical URL、Open Graph、Twitter Card 与更准确的标题；favicon
-  待有合适的艺术家自有标识后再处理。
+- [x] **Add SEO + social meta to `<head>` / 补充 SEO 与社交分享 meta.** Completed 2026-08-25 for
+  description, canonical URL, Open Graph, Twitter Card, and a more descriptive title. Verified
+  present 2026-09-01. `og:image` points at `selected_work/og-cover.jpg`, a JPG kept deliberately
+  because some social platforms still do not read WebP. /
+  2026-08-25 已补充 description、canonical URL、Open Graph、Twitter Card 与更准确的标题；
+  2026-09-01 复查确认在位。`og:image` 指向 `selected_work/og-cover.jpg`,刻意保留 JPG,
+  因为部分社交平台仍不支持 WebP。
+- [ ] **Add a favicon / 增加站点图标.** Still open, waiting on a suitable artist-owned mark. /
+  仍待处理,等有合适的艺术家自有标识。
 
 ## 🟠 P1 — Code quality / technical debt · 代码质量与技术债
 
@@ -145,9 +216,18 @@ remain deliberately deferred, as agreed. /
   Blink, Gecko and WebKit by `tests/cross-browser.mjs`. See `REFACTOR_PLANS.md` §5.
   已于 2026-08-23 完成,但**不是**用纯 CSS —— 行与关键词的映射确实需要测量。539 行 → 159 行,
   强制布局读取 77 处 → 6 处,浏览器嗅探与 resize 整页刷新已移除,并由三引擎测试验证。
-- [ ] **Stop probing the network for featured images / 不要用网络探测发现精选图.**
-  `loadFeaturedArtwork()` requests many `featured_artwork/{n}.{ext}` combos. Use an explicit list.
-  改为像章节那样写明确的图片清单数组。
+- [x] **Stop the probing from costing anything / 让探测不再有代价.** Done 2026-09-01, though not by
+  writing an explicit list — the "drop a numbered file in the folder" workflow was worth keeping.
+  Two fixes instead: `testImage()` created `new Image()` and set `src`, downloading the whole file to
+  answer a yes/no question, and now sends `HEAD`; and the loop ran one index at a time, 62 round
+  trips in sequence. Index 1 is probed alone and rendered at once, the rest go out in parallel.
+  First slide visible went from 4276ms to 247ms at 60ms of latency per request.
+  已完成,但没有改成写死清单 —— 保留了"把编号文件丢进文件夹就能用"的工作方式。改了两处:`testImage()`
+  原本用 `new Image()` 试探,等于完整下载整图,现改为 `HEAD`;探测原本串行 62 次,现改为先单独探测第 1 张
+  并立即显示,其余并行。首图显示从 4276ms 降到 247ms。
+  <!-- original note / 原始记录: -->
+  <!--
+  `loadFeaturedArtwork()` requests many `selected_work/{n}.{ext}` combos. Use an explicit list. -->
 - [x] **Remove debug code before shipping / 上线前清理调试代码.**
   - [x] All 50 `console.*` statements removed / 50 处 `console.*` 全部移除。
   - [x] The "Debug Info" toggle, panel and its CSS removed / 调试按钮、面板及其 CSS 已移除。
@@ -156,8 +236,9 @@ remain deliberately deferred, as agreed. /
   GitHub-Pages-incompatible decoder and obfuscated markup with the direct public email link
   `mailto:presentink.studio@gmail.com`.
   已移除不兼容 GitHub Pages 的解码脚本与混淆邮箱,改为公开的直接邮箱链接。
-- [ ] **Split the single 1600-line `index.html` / 拆分单文件** into `index.html` + `style.css` + `main.js`.
-  (Was 2246 lines before the layout rewrite. / 布局重构前为 2246 行。)
+- [ ] **Split the single 2300-line `index.html` / 拆分单文件** into `index.html` + `style.css` + `main.js`.
+  (1604 after the layout rewrite; back to ~2300 as the artwork, the Chinese page support and
+  the loading logic were added. / 布局重构后为 1604 行;随作品、中文页支持与加载逻辑增加回到约 2300 行。)
 - [ ] **De-duplicate chapter copy / 正文去重.** Body text is in HTML *and* `text/Artistic narrative.md`.
   Pick one source of truth. / 正文同时存在于 HTML 与 md,确定唯一来源。
   - [x] Removed a paragraph that appeared **twice** at the start of ch.VII — two drafts of the same
@@ -194,6 +275,30 @@ remain deliberately deferred, as agreed. /
   章节缩略图现已全部带 `alt`(复用 `caption`)。
 - [ ] **Add a `poster` to the hero video / 给首页视频加 `poster`**; keep autoplay media muted/controllable.
 - [ ] **Mark up language / 标注语言** for mixed Chinese/English content (`lang` attributes).
+
+## 📌 Decisions worth remembering / 已定的取舍(别再重新讨论)
+
+Things that look like defects but are deliberate. / 看起来像缺陷,其实是有意为之。
+
+- **Historical and other artists' works are not colour-corrected / 古代与他人作品不做白平衡.**
+  Nine images sit far outside the site's ±8 colour range on purpose, because the warmth belongs to
+  the original object rather than to the photograph: `img_1_1` (Yan Zhenqing rubbing, +26),
+  `img_2_2b` (Inoue, +13), `img_2_6` (Wang Dongling, +30), `img_2_7` (Huaisu cursive, +66),
+  `img_6_2` (Wang Duo scroll, +72), `img_6_3a` (Wang Xizhi, +29), `img_6_7` (+49). Neutralising them
+  would make an aged rubbing look like fresh paper. / 这九张刻意留在色温范围之外,泛黄是原件本身的特征,
+  校正反而失真。
+- **The image grid may run a little past its text / 图栏可能略长于文字.** A phrase fills the rows
+  between itself and the next phrase; the first image of a phrase is placed even where there is no
+  room, so that every phrase shows something. That can push one row past the last. Everything beyond
+  what fits is reachable in the lightbox behind the "+N" badge. / 每个关键词填到下一个关键词之前为止;
+  为保证每个关键词至少显示一张,首图即使没位置也会放,因此可能多出一行。放不下的都在浮层里,由 "+N" 角标提示。
+- **The carousel discovers its files by probing, and that is kept on purpose / 轮播靠探测发现文件,
+  这是刻意保留的.** An explicit manifest would be faster still, but probing is what lets a numbered
+  file dropped into `selected_work/` appear without editing any code. The cost was removed rather
+  than the mechanism. / 写死清单会更快,但探测才使得"把编号文件丢进 `selected_work/` 就能用"成立。
+  去掉的是它的代价,不是机制本身。
+
+---
 
 ## ⚪ Backlog / nice-to-have · 待办与可选
 
