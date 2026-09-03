@@ -1226,8 +1226,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Process of making the line works",
+          "zh": "线条作品的创作过程"
         }
       },
       {
@@ -1252,8 +1252,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Straight lines and arcs in the line works",
+          "zh": "线条作品中的直线与弧线"
         }
       },
       {
@@ -1278,8 +1278,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Ink gradations in the line works",
+          "zh": "线条作品中的墨色渐变"
         }
       },
       {
@@ -1304,8 +1304,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Ink gradations in the line works",
+          "zh": "线条作品中的墨色渐变"
         }
       },
       {
@@ -1330,8 +1330,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Freer forms of line",
+          "zh": "更加自由的线条形态"
         }
       },
       {
@@ -1356,8 +1356,8 @@
         "dimensions": "",
         "year": "",
         "caption": {
-          "en": "",
-          "zh": ""
+          "en": "Freer forms of line",
+          "zh": "更加自由的线条形态"
         }
       }
     ],
@@ -1365,79 +1365,47 @@
       {
         "id": "img_4_1a",
         "imageSrc": "c4/1a_selected_works.webp",
-        "fallbackCaption": {
-          "en": "",
-          "zh": ""
-        },
-        "title": {
-          "en": "",
-          "zh": ""
-        },
         "workType": {
-          "en": "",
-          "zh": ""
+          "en": "Line Work",
+          "zh": "线条作品"
         },
         "materials": {
-          "en": "",
-          "zh": ""
+          "en": "ink on Xuan paper",
+          "zh": "宣纸、墨"
         },
-        "dimensions": "",
-        "year": "",
-        "caption": {
-          "en": "",
-          "zh": ""
+        "dimensions": "70 x 142 cm",
+        "year": "2018",
+        "fallbackCaption": {
+          "en": "Line Work",
+          "zh": "线条作品"
         }
       },
       {
         "id": "img_4_1b",
         "imageSrc": "c4/1b_selected_works.webp",
-        "fallbackCaption": {
-          "en": "",
-          "zh": ""
-        },
-        "title": {
-          "en": "",
-          "zh": ""
-        },
         "workType": {
-          "en": "",
-          "zh": ""
+          "en": "Line Work",
+          "zh": "线条作品"
         },
-        "materials": {
-          "en": "",
-          "zh": ""
-        },
-        "dimensions": "",
-        "year": "",
-        "caption": {
-          "en": "",
-          "zh": ""
+        "dimensions": "93 x 100 cm x 2",
+        "year": "2017",
+        "fallbackCaption": {
+          "en": "Line Work",
+          "zh": "线条作品"
         }
       },
       {
         "id": "img_4_1c",
         "imageSrc": "c4/1c_selected_works.webp",
-        "fallbackCaption": {
-          "en": "",
-          "zh": ""
-        },
-        "title": {
-          "en": "",
-          "zh": ""
-        },
         "workType": {
-          "en": "",
-          "zh": ""
+          "en": "Line Work",
+          "zh": "线条作品"
         },
-        "materials": {
-          "en": "",
-          "zh": ""
-        },
-        "dimensions": "",
-        "year": "",
-        "caption": {
-          "en": "",
-          "zh": ""
+        "dimensions": "183 x 100 cm x 2",
+        "year": "2017",
+        "fallbackCaption": {
+          "en": "Line Work",
+          "zh": "线条作品"
         }
       }
     ],
