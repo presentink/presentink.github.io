@@ -418,6 +418,32 @@
 
 
 
+        /* Artwork details for the slide on show, between the plate and the dots. The
+           string is the same one the lightbox prints, so the two can never disagree.
+           Reserving a line's height keeps the dots still as the carousel advances
+           through works whose metadata is not equally complete. */
+        .gallery-caption {
+            min-height: 1.15em;
+            margin: 1.4rem 0 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* Restarted per slide rather than transitioned, so rapid clicking cannot leave
+           the caption stranded mid-fade. */
+        .gallery-caption.is-entering {
+            animation: gallery-caption-in 0.4s ease both;
+        }
+
+        @keyframes gallery-caption-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
         .gallery-dots {
             display: flex;
             flex-wrap: wrap;
@@ -1015,6 +1041,12 @@
                 margin: 2rem 0.75rem 1rem;
             }
 
+            /* Desktop only, as asked. The details are still one tap away on a phone:
+               opening the artwork shows the same string in the lightbox. */
+            .gallery-caption {
+                display: none;
+            }
+
 
 
 
@@ -1131,6 +1163,8 @@
                 </div>
             </div>
             
+            <p class="gallery-caption" id="gallery-caption"></p>
+
             <div class="gallery-dots" id="gallery-dots-container">
                 <!-- Dots will be dynamically generated here -->
             </div>
@@ -2110,6 +2144,7 @@
     let gallerySlides = [];
     let galleryDots = [];
     const gallerySlidesContainer = document.getElementById('gallery-slides-container');
+    const galleryCaption = document.getElementById('gallery-caption');
     const galleryDotsContainer = document.getElementById('gallery-dots-container');
 
     // Dynamic image loading function
@@ -2221,6 +2256,18 @@
         galleryCurrentIndex = index;
         loadGallerySlides(index);
         updateGalleryAspect(index);
+        showGalleryCaption(index);
+    }
+
+    // The slide already carries the formatted details in data-caption — the same value
+    // handed to the lightbox — so reading it back keeps one source of truth.
+    function showGalleryCaption(index) {
+        if (!galleryCaption) return;
+        const slide = gallerySlides[index];
+        galleryCaption.textContent = slide ? (slide.dataset.caption || '') : '';
+        galleryCaption.classList.remove('is-entering');
+        void galleryCaption.offsetWidth;   // restart the animation
+        galleryCaption.classList.add('is-entering');
     }
 
     // Attach src for the current slide and the one either side, so a click on prev/next
