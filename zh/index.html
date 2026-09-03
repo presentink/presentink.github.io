@@ -406,9 +406,11 @@
             object-fit: contain;
         }
 
+        /* Artwork that does not already fill the 3:2 frame is inset so it reads as a
+           plate rather than a bleed: 90% of the height leaves 5% above and below. */
         .gallery-slide.gallery-slide-buffered img {
             width: 100%;
-            height: 80%;
+            height: 90%;
             object-fit: contain;
         }
 
