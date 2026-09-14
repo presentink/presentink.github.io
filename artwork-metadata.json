@@ -187,23 +187,23 @@
       "index": 8,
       "imageSrc": "selected_work/8.webp",
       "fallbackCaption": {
-        "en": "Line Calligraphy Collage",
-        "zh": "线条书法拼贴"
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
       },
       "title": {
         "en": "",
         "zh": ""
       },
       "workType": {
-        "en": "Line Calligraphy Collage",
-        "zh": "线条书法拼贴"
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
       },
       "materials": {
-        "en": "ink and acrylic on Xuan paper",
-        "zh": "宣纸、墨、丙烯"
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
       },
-      "dimensions": "73 x 73 cm",
-      "year": "2019",
+      "dimensions": "",
+      "year": "2020-2023",
       "caption": {
         "en": "",
         "zh": ""
@@ -212,6 +212,162 @@
     {
       "index": 9,
       "imageSrc": "selected_work/9.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 10,
+      "imageSrc": "selected_work/10.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 11,
+      "imageSrc": "selected_work/11.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 12,
+      "imageSrc": "selected_work/12.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 13,
+      "imageSrc": "selected_work/13.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 14,
+      "imageSrc": "selected_work/14.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 15,
+      "imageSrc": "selected_work/15.webp",
       "fallbackCaption": {
         "en": "Line Calligraphy Collage",
         "zh": "线条书法拼贴"
@@ -236,8 +392,34 @@
       }
     },
     {
-      "index": 10,
-      "imageSrc": "selected_work/10.webp",
+      "index": 16,
+      "imageSrc": "selected_work/16.webp",
+      "fallbackCaption": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "materials": {
+        "en": "ink and acrylic on Xuan paper",
+        "zh": "宣纸、墨、丙烯"
+      },
+      "dimensions": "73 x 73 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 17,
+      "imageSrc": "selected_work/17.webp",
       "fallbackCaption": {
         "en": "Line Collage",
         "zh": "线条拼贴"
@@ -262,8 +444,8 @@
       }
     },
     {
-      "index": 11,
-      "imageSrc": "selected_work/11.webp",
+      "index": 18,
+      "imageSrc": "selected_work/18.webp",
       "fallbackCaption": {
         "en": "Calligraphy Work",
         "zh": "书法作品"
@@ -288,8 +470,8 @@
       }
     },
     {
-      "index": 12,
-      "imageSrc": "selected_work/12.webp",
+      "index": 19,
+      "imageSrc": "selected_work/19.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -314,8 +496,8 @@
       }
     },
     {
-      "index": 13,
-      "imageSrc": "selected_work/13.webp",
+      "index": 20,
+      "imageSrc": "selected_work/20.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -340,8 +522,8 @@
       }
     },
     {
-      "index": 14,
-      "imageSrc": "selected_work/14.webp",
+      "index": 21,
+      "imageSrc": "selected_work/21.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -366,8 +548,8 @@
       }
     },
     {
-      "index": 15,
-      "imageSrc": "selected_work/15.webp",
+      "index": 22,
+      "imageSrc": "selected_work/22.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -392,8 +574,8 @@
       }
     },
     {
-      "index": 16,
-      "imageSrc": "selected_work/16.webp",
+      "index": 23,
+      "imageSrc": "selected_work/23.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -418,8 +600,8 @@
       }
     },
     {
-      "index": 17,
-      "imageSrc": "selected_work/17.webp",
+      "index": 24,
+      "imageSrc": "selected_work/24.webp",
       "fallbackCaption": {
         "en": "Ink Collage",
         "zh": "水墨拼贴"
@@ -444,8 +626,8 @@
       }
     },
     {
-      "index": 18,
-      "imageSrc": "selected_work/18.webp",
+      "index": 25,
+      "imageSrc": "selected_work/25.webp",
       "fallbackCaption": {
         "en": "Line Collage",
         "zh": "线条拼贴"
@@ -470,8 +652,8 @@
       }
     },
     {
-      "index": 19,
-      "imageSrc": "selected_work/19.webp",
+      "index": 26,
+      "imageSrc": "selected_work/26.webp",
       "fallbackCaption": {
         "en": "Line Collage",
         "zh": "线条拼贴"
@@ -496,8 +678,8 @@
       }
     },
     {
-      "index": 20,
-      "imageSrc": "selected_work/20.webp",
+      "index": 27,
+      "imageSrc": "selected_work/27.webp",
       "fallbackCaption": {
         "en": "Line Collage",
         "zh": "线条拼贴"
@@ -522,8 +704,8 @@
       }
     },
     {
-      "index": 21,
-      "imageSrc": "selected_work/21.webp",
+      "index": 28,
+      "imageSrc": "selected_work/28.webp",
       "fallbackCaption": {
         "en": "Color Collage",
         "zh": "色彩拼贴"
@@ -548,8 +730,8 @@
       }
     },
     {
-      "index": 22,
-      "imageSrc": "selected_work/22.webp",
+      "index": 29,
+      "imageSrc": "selected_work/29.webp",
       "fallbackCaption": {
         "en": "Color Collage",
         "zh": "色彩拼贴"
@@ -568,188 +750,6 @@
       },
       "dimensions": "18 x 24 cm",
       "year": "2024-2025",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 23,
-      "imageSrc": "selected_work/23.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 24,
-      "imageSrc": "selected_work/24.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 25,
-      "imageSrc": "selected_work/25.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 26,
-      "imageSrc": "selected_work/26.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 27,
-      "imageSrc": "selected_work/27.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 28,
-      "imageSrc": "selected_work/28.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 29,
-      "imageSrc": "selected_work/29.webp",
-      "fallbackCaption": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Calligraphy Collage",
-        "zh": "书法拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "",
-      "year": "2020-2023",
       "caption": {
         "en": "",
         "zh": ""

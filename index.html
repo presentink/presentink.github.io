@@ -2311,16 +2311,24 @@
 
         const applyFraming = () => {
             if (!image.naturalWidth || !image.naturalHeight) return;
-            const portraitFullHeightIndexes = new Set([16, 24, 26, 28]);
+            // Which works fill the frame is a question about their proportions, so it is
+            // asked of the image rather than of a hand-kept list of carousel positions:
+            // that list had to be re-edited every time an artwork was added, replaced or
+            // reordered, and forgetting left a portrait silently cropped to 90% with
+            // nothing to show it had gone wrong.
+            //
+            // 0.85 sits in the gap the collection actually leaves: the tallest works run
+            // 0.52 to 0.78, the next one up is 0.89 and reads as square.
+            const portraitFullHeightRatio = 0.85;
             const galleryAspectRatio = 3 / 2;
             const aspectTolerance = 0.035;
-            const artworkIndex = Number(slide.dataset.galleryIndex);
             const imageAspectRatio = image.naturalWidth / image.naturalHeight;
+            const isPortrait = imageAspectRatio < portraitFullHeightRatio;
             const isThreeTwo = Math.abs(imageAspectRatio - galleryAspectRatio) <= aspectTolerance;
 
             slide.classList.toggle(
                 'gallery-slide-buffered',
-                !portraitFullHeightIndexes.has(artworkIndex) && !isThreeTwo
+                !isPortrait && !isThreeTwo
             );
         };
 
