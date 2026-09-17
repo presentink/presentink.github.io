@@ -102,7 +102,7 @@ copy synchronization; it still preserves an old duplicate Ch. VII draft.
 
 ## 2026-08-24 content and navigation baseline
 
-- The Hero includes public links to Instagram, `Yufan_Wang_CV.pdf`, direct email,
+- The Hero includes public links to Instagram, `yufan_wang_cv.pdf`, direct email,
   and the design portfolio.
 - `text/Artist Statement.md` is the source copy for the Artist Statement section.
 - `The Full Journey` is an ordered index linking to every chapter. Its reading
