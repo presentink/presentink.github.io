@@ -151,6 +151,14 @@ Check both languages: `/` and `/zh/`. / 两种语言都要看:`/` 和 `/zh/`。
   (250.5, 248, 244.5). Read it before touching any raw capture.
   作品翻拍(宣纸拍摄与色彩还原)有独立手册,在仓库之外的 `~/Downloads/宣纸复制_处理手册.md`,
   与 `宣纸复制_处理脚本.py` 同目录。纸白目标为 (250.5, 248, 244.5)。动原始翻拍文件前先读它。
+- **The Chinese fonts are subsets of 954 characters, so new Chinese copy can break them.**
+  A character outside the subset renders in the browser's fallback face — `您` did exactly that
+  and had to become `你`. After editing Chinese text, check coverage against `fonts/*.woff2`
+  (fontTools: compare the page's CJK characters to `TTFont(f).getBestCmap()`), and either reword
+  or re-subset the fonts. All three faces carry the same code points.
+  **中文字体是 954 字的子集,改中文文案可能撑破它。** 子集外的字会退回浏览器兜底字体——`您`
+  就是这样,只好改成 `你`。改完中文后要核对 `fonts/*.woff2` 的覆盖(用 fontTools 把页面里的
+  CJK 字符与 `TTFont(f).getBestCmap()` 比对),要么换词,要么重新生成子集。三份字体码位相同。
 - Author name is **王聿凡 / Yufan Wang** (note: 聿, not 宇/宇凡).
   作者姓名为 **王聿凡 / Yufan Wang**(注意是"聿",不是"宇/宇凡")。
 - Contact email is `presentink.studio@gmail.com` (not the personal address).
