@@ -45,11 +45,13 @@ hero-video-web.mp4      # Smaller web encode / 体积更小的网页版
 hero-poster.webp        # Poster frame / 视频封面帧
 favicon.svg  favicon-32.png  apple-touch-icon.png
 c1/ … c7/               # Per-chapter image assets (ch.1–7) / 各章节配图(第 1–7 章)
-selected_work/          # Selected Work gallery / 精选作品,1.webp … 29.webp
+selected_work/          # Selected Work gallery / 精选作品,1.webp … 30.webp
   og-cover.jpg          #   Social share image / 社交分享图
   w1200/                #   Larger variants for the lightbox / 灯箱用大图
 fonts/                  # Self-hosted subset woff2 / 自托管子集字体
-edited_images/          # Working files for image edits / 修图工作文件(含原图,勿删)
+edited_images/          # Image-edit working files / 修图工作文件(勿删,见下方约定)
+  pre_webp/             #   The corrected frames the site was built from / 校正后、上站前的版本
+  selected_work_wb_originals/  # BEFORE white balance — visibly blue / 白平衡校正【前】,明显偏蓝
 prototypes/             # Old/experimental pages, not shipped / 旧版与试验页,不上线
 tests/cross-browser.mjs # Cross-browser smoke test / 跨浏览器冒烟测试
 text/                   # Source copy (not loaded at runtime) / 文案原稿(运行时不加载)
@@ -151,6 +153,19 @@ Check both languages: `/` and `/zh/`. / 两种语言都要看:`/` 和 `/zh/`。
   (250.5, 248, 244.5). Read it before touching any raw capture.
   作品翻拍(宣纸拍摄与色彩还原)有独立手册,在仓库之外的 `~/Downloads/宣纸复制_处理手册.md`,
   与 `宣纸复制_处理脚本.py` 同目录。纸白目标为 (250.5, 248, 244.5)。动原始翻拍文件前先读它。
+- **Gallery images: long side 3000, plus a 1200 copy in `w1200/`, webp `quality=88, method=6`.**
+  The files carry no colour profile, so a source tagged Display P3 or Adobe RGB must be
+  **converted** to sRGB, never just stripped — stripping oversaturates, which shows up first in
+  anything coloured. Replacing an image keeps its number, so the URL does not change and every
+  browser will serve its cached copy until a hard reload.
+  **画廊图片:长边 3000,另存一份 1200 到 `w1200/`,webp `quality=88, method=6`。**
+  文件不带色彩描述,所以 Display P3 或 Adobe RGB 的源必须**转换**成 sRGB,不能直接剥掉描述——
+  剥掉会过饱和,彩色部分最先露馅。替换图片会沿用原编号,URL 不变,浏览器一定给缓存,要硬刷新。
+- **`edited_images/selected_work_wb_originals/` is the set from BEFORE white balance**, despite
+  reading like the opposite: those frames are visibly blue (B around 240 against R around 216).
+  `edited_images/pre_webp/` holds the corrected versions the site was actually built from.
+  **`edited_images/selected_work_wb_originals/` 是白平衡校正【前】的片子**,名字容易读反——
+  那些图明显偏蓝(B 约 240,R 约 216)。校正后、真正用来上站的版本在 `edited_images/pre_webp/`。
 - **The Chinese fonts are subsets of 954 characters, so new Chinese copy can break them.**
   A character outside the subset renders in the browser's fallback face — `您` did exactly that
   and had to become `你`. After editing Chinese text, check coverage against `fonts/*.woff2`
