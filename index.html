@@ -2109,6 +2109,39 @@
         if (e.target === overlay) closeOverlay();
     });
 
+    // The <img> fills the whole band and letterboxes the picture inside itself with
+    // object-fit: scale-down, so the black margins beside the artwork belong to the image
+    // element — clicking them did nothing at all. Give them the arrows' job: left steps
+    // back, right steps forward. The split follows where the picture actually lands rather
+    // than the band's midpoint, so clicking the artwork itself never navigates.
+    const overlayMedia = overlay.querySelector('.overlay-media');
+
+    function overlayMarginDirection(clientX) {
+        if (overlayItems.length < 2) return 0;
+        const img = overlayPlaceholder.querySelector('img');
+        if (!img || !img.naturalWidth || !img.naturalHeight) return 0;
+        const box = img.getBoundingClientRect();
+        // scale-down is `contain` that also never enlarges past the source's own pixels.
+        const scale = Math.min(box.width / img.naturalWidth, box.height / img.naturalHeight, 1);
+        const gutter = (box.width - img.naturalWidth * scale) / 2;
+        if (gutter < 8) return 0;   // a picture filling the band leaves no margin to click
+        if (clientX < box.left + gutter) return -1;
+        if (clientX > box.right - gutter) return 1;
+        return 0;
+    }
+
+    overlayMedia.addEventListener('click', (e) => {
+        const dir = overlayMarginDirection(e.clientX);
+        if (dir) navOverlay(dir);
+    });
+
+    // Say which way a click will go, so the zones are discoverable at all.
+    overlayMedia.addEventListener('mousemove', (e) => {
+        const dir = overlayMarginDirection(e.clientX);
+        overlayMedia.style.cursor = dir === -1 ? 'w-resize' : dir === 1 ? 'e-resize' : '';
+    });
+    overlayMedia.addEventListener('mouseleave', () => { overlayMedia.style.cursor = ''; });
+
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (overlay.style.display !== 'flex') return;
