@@ -161,6 +161,16 @@ Check both languages: `/` and `/zh/`. / 两种语言都要看:`/` 和 `/zh/`。
   **画廊图片:长边 3000,另存一份 1200 到 `w1200/`,webp `quality=88, method=6`。**
   文件不带色彩描述,所以 Display P3 或 Adobe RGB 的源必须**转换**成 sRGB,不能直接剥掉描述——
   剥掉会过饱和,彩色部分最先露馅。替换图片会沿用原编号,URL 不变,浏览器一定给缓存,要硬刷新。
+- **`edited_images/selected_work_full/` holds the full-size source for every gallery image**,
+  named by gallery number, with `来源清单.md` beside it recording where each one came from.
+  They were scattered across shoot folders, exhibition applications and desktop copies under
+  names that said nothing about the work, so finding one meant a disk-wide image-fingerprint
+  search. Like the rest of `edited_images/`, it is gitignored — it never ships, and committing
+  it would publish full-resolution artwork and put ~200MB in the history permanently.
+  **`edited_images/selected_work_full/` 放着每张画廊图的全尺寸原片**,按画廊编号命名,
+  旁边的 `来源清单.md` 记录各自出处。原片散落在拍摄、投展、桌面副本等处,文件名与作品无关,
+  找一张要全盘做图像指纹比对。和 `edited_images/` 其余部分一样被 gitignore——不上线,
+  提交它等于公开全分辨率作品,还会把约 200MB 永久写进 git 历史。
 - **`edited_images/selected_work_wb_originals/` is the set from BEFORE white balance**, despite
   reading like the opposite: those frames are visibly blue (B around 240 against R around 216).
   `edited_images/pre_webp/` holds the corrected versions the site was actually built from.
