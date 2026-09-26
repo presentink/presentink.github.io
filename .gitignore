@@ -68,3 +68,8 @@ edited_images/
 
 # Unreferenced and larger than the hero-video.mp4 actually in use
 hero-video-web.mp4
+
+# Local guardrail scripts: the PreToolUse hook that keeps Bash inside the
+# project, and its self-test. Machine-specific, and the copy that actually
+# runs lives in the user's Claude config directory, not here.
+.claude/hooks/
