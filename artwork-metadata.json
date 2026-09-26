@@ -369,23 +369,23 @@
       "index": 15,
       "imageSrc": "selected_work/15.webp",
       "fallbackCaption": {
-        "en": "Line Calligraphy Collage",
-        "zh": "线条书法拼贴"
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
       },
       "title": {
         "en": "",
         "zh": ""
       },
       "workType": {
-        "en": "Line Calligraphy Collage",
-        "zh": "线条书法拼贴"
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
       },
       "materials": {
-        "en": "ink and acrylic on Xuan paper",
-        "zh": "宣纸、墨、丙烯"
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
       },
-      "dimensions": "73 x 73 cm",
-      "year": "2019",
+      "dimensions": "133 x 97 cm",
+      "year": "2020-2023",
       "caption": {
         "en": "",
         "zh": ""
@@ -394,6 +394,32 @@
     {
       "index": 16,
       "imageSrc": "selected_work/16.webp",
+      "fallbackCaption": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Calligraphy Collage",
+        "zh": "书法拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "124 x 93 cm",
+      "year": "2020-2023",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 17,
+      "imageSrc": "selected_work/17.webp",
       "fallbackCaption": {
         "en": "Line Calligraphy Collage",
         "zh": "线条书法拼贴"
@@ -418,8 +444,34 @@
       }
     },
     {
-      "index": 17,
-      "imageSrc": "selected_work/17.webp",
+      "index": 18,
+      "imageSrc": "selected_work/18.webp",
+      "fallbackCaption": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Calligraphy Collage",
+        "zh": "线条书法拼贴"
+      },
+      "materials": {
+        "en": "ink and acrylic on Xuan paper",
+        "zh": "宣纸、墨、丙烯"
+      },
+      "dimensions": "73 x 73 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 19,
+      "imageSrc": "selected_work/19.webp",
       "fallbackCaption": {
         "en": "Line Collage",
         "zh": "线条拼贴"
@@ -444,8 +496,8 @@
       }
     },
     {
-      "index": 18,
-      "imageSrc": "selected_work/18.webp",
+      "index": 20,
+      "imageSrc": "selected_work/20.webp",
       "fallbackCaption": {
         "en": "Calligraphy Work",
         "zh": "书法作品"
@@ -463,58 +515,6 @@
         "zh": "宣纸、墨"
       },
       "dimensions": "100 x 183 cm",
-      "year": "2017",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 19,
-      "imageSrc": "selected_work/19.webp",
-      "fallbackCaption": {
-        "en": "Line Work",
-        "zh": "线条作品"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Line Work",
-        "zh": "线条作品"
-      },
-      "materials": {
-        "en": "",
-        "zh": ""
-      },
-      "dimensions": "70 x 143 cm x 2",
-      "year": "2017",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 20,
-      "imageSrc": "selected_work/20.webp",
-      "fallbackCaption": {
-        "en": "Line Work",
-        "zh": "线条作品"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Line Work",
-        "zh": "线条作品"
-      },
-      "materials": {
-        "en": "",
-        "zh": ""
-      },
-      "dimensions": "183 x 100 cm x 2",
       "year": "2017",
       "caption": {
         "en": "",
@@ -540,7 +540,7 @@
         "en": "",
         "zh": ""
       },
-      "dimensions": "93 x 100 cm",
+      "dimensions": "70 x 143 cm x 2",
       "year": "2017",
       "caption": {
         "en": "",
@@ -566,7 +566,7 @@
         "en": "",
         "zh": ""
       },
-      "dimensions": "93 x 100 cm",
+      "dimensions": "183 x 100 cm x 2",
       "year": "2017",
       "caption": {
         "en": "",
@@ -576,6 +576,58 @@
     {
       "index": 23,
       "imageSrc": "selected_work/23.webp",
+      "fallbackCaption": {
+        "en": "Line Work",
+        "zh": "线条作品"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Work",
+        "zh": "线条作品"
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "93 x 100 cm",
+      "year": "2017",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 24,
+      "imageSrc": "selected_work/24.webp",
+      "fallbackCaption": {
+        "en": "Line Work",
+        "zh": "线条作品"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Work",
+        "zh": "线条作品"
+      },
+      "materials": {
+        "en": "",
+        "zh": ""
+      },
+      "dimensions": "93 x 100 cm",
+      "year": "2017",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 25,
+      "imageSrc": "selected_work/25.webp",
       "fallbackCaption": {
         "en": "Line Work",
         "zh": "线条作品"
@@ -600,8 +652,8 @@
       }
     },
     {
-      "index": 24,
-      "imageSrc": "selected_work/24.webp",
+      "index": 26,
+      "imageSrc": "selected_work/26.webp",
       "fallbackCaption": {
         "en": "Ink Collage",
         "zh": "水墨拼贴"
@@ -626,8 +678,8 @@
       }
     },
     {
-      "index": 25,
-      "imageSrc": "selected_work/25.webp",
+      "index": 27,
+      "imageSrc": "selected_work/27.webp",
       "fallbackCaption": {
         "en": "Ink Collage",
         "zh": "水墨拼贴"
@@ -646,58 +698,6 @@
       },
       "dimensions": "88 x 72 cm",
       "year": "2021",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 26,
-      "imageSrc": "selected_work/26.webp",
-      "fallbackCaption": {
-        "en": "Line Collage",
-        "zh": "线条拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Line Collage",
-        "zh": "线条拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "150 x 110 cm",
-      "year": "2019",
-      "caption": {
-        "en": "",
-        "zh": ""
-      }
-    },
-    {
-      "index": 27,
-      "imageSrc": "selected_work/27.webp",
-      "fallbackCaption": {
-        "en": "Line Collage",
-        "zh": "线条拼贴"
-      },
-      "title": {
-        "en": "",
-        "zh": ""
-      },
-      "workType": {
-        "en": "Line Collage",
-        "zh": "线条拼贴"
-      },
-      "materials": {
-        "en": "ink on Xuan paper",
-        "zh": "宣纸、墨"
-      },
-      "dimensions": "150 x 110 cm",
-      "year": "2019",
       "caption": {
         "en": "",
         "zh": ""
@@ -733,6 +733,58 @@
       "index": 29,
       "imageSrc": "selected_work/29.webp",
       "fallbackCaption": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "150 x 110 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 30,
+      "imageSrc": "selected_work/30.webp",
+      "fallbackCaption": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "title": {
+        "en": "",
+        "zh": ""
+      },
+      "workType": {
+        "en": "Line Collage",
+        "zh": "线条拼贴"
+      },
+      "materials": {
+        "en": "ink on Xuan paper",
+        "zh": "宣纸、墨"
+      },
+      "dimensions": "150 x 110 cm",
+      "year": "2019",
+      "caption": {
+        "en": "",
+        "zh": ""
+      }
+    },
+    {
+      "index": 31,
+      "imageSrc": "selected_work/31.webp",
+      "fallbackCaption": {
         "en": "Color Collage",
         "zh": "色彩拼贴"
       },
@@ -756,8 +808,8 @@
       }
     },
     {
-      "index": 30,
-      "imageSrc": "selected_work/30.webp",
+      "index": 32,
+      "imageSrc": "selected_work/32.webp",
       "fallbackCaption": {
         "en": "Color Collage",
         "zh": "色彩拼贴"
