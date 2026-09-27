@@ -2106,6 +2106,7 @@
 
     // Close on background click
     overlay.addEventListener('click', (e) => {
+        if (swiped) { swiped = false; return; }   // a swipe must not read as a dismiss
         if (e.target === overlay) closeOverlay();
     });
 
@@ -2131,6 +2132,7 @@
     }
 
     overlayMedia.addEventListener('click', (e) => {
+        if (swiped) { swiped = false; return; }   // the swipe already moved us
         const dir = overlayMarginDirection(e.clientX);
         if (dir) navOverlay(dir);
     });
@@ -2141,6 +2143,35 @@
         overlayMedia.style.cursor = dir === -1 ? 'w-resize' : dir === 1 ? 'e-resize' : '';
     });
     overlayMedia.addEventListener('mouseleave', () => { overlayMedia.style.cursor = ''; });
+
+    // A phone cannot reach those margin zones. A portrait screen fits the artwork
+    // to the width, so the black ends up above and below it and the side gutters
+    // measure 0px — 9px on the tallest piece in the set. Swiping works whatever
+    // shape the artwork is; the zones stay for landscape, and for tall work on
+    // desktop, where there is margin to aim at.
+    let touchStart = null, swiped = false;
+
+    overlay.addEventListener('touchstart', (e) => {
+        swiped = false;
+        touchStart = e.touches.length === 1
+            ? { x: e.touches[0].clientX, y: e.touches[0].clientY }
+            : null;                            // a pinch is not a page turn
+    }, { passive: true });
+
+    overlay.addEventListener('touchend', (e) => {
+        const from = touchStart;
+        touchStart = null;
+        if (!from || overlayItems.length < 2) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - from.x, dy = t.clientY - from.y;
+        // Far enough, and clearly more sideways than not, so a scroll or a
+        // slightly smudged tap is never mistaken for a swipe.
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        swiped = true;
+        navOverlay(dx < 0 ? 1 : -1);           // drag left to go forward
+    }, { passive: true });
+
+    overlay.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
